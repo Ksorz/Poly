@@ -1,1 +1,2 @@
-Visual studio community edition
+- Visual studio community edition
+- Экстремальное программирование
