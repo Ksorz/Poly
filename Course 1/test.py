@@ -1,9 +1,17 @@
-A = 2
-B = 3
-tmp = None
+import random
 
-for i in range(int(input('Enter number of iterations: '))):
-    tmp = B
-    B = A + B
-    A = tmp
-print(A, B)
+N = 11
+for i in range(3):
+    
+
+
+
+
+
+
+
+
+
+
+
+random.randint(1, 2)
