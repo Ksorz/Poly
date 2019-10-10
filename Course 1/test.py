@@ -28,3 +28,6 @@ print('y % 2 = ' + str(y % 2) + '\n')
 y = y // 2
 print('y = ' + str(y))
 print('y % 2 = ' + str(y % 2))
+
+
+1 % 2
