@@ -16,7 +16,6 @@ import random
 result = {}
 
 def candys(N):
-
     for i in range(3):
         if random.randint(0, 1) == 0:
             N *= 2
@@ -25,14 +24,13 @@ def candys(N):
     return N
 
 for i in range(10000):
-    var = candys(11)
+    var = candys(5)
     if var in result:
         result[var] += 1
     else:
         result[var] = 1
 
-
 result_keys = list(result.keys())
 result_keys.sort()
 for i in result_keys:
-    print(i, '-', result[i])
+    print(i, '->', result[i])
