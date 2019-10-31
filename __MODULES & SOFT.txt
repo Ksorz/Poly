@@ -6,4 +6,4 @@ pip install pyowm https://pypi.org/project/pyowm/ # OpenWeatherMap API
 pip install beautifulsoup4 https://pypi.org/project/beautifulsoup4/ # HTML parser
 
 --- SOFT ---
-Databse Browser for SQLite https://sqlitebrowser.org/
+Database Browser for SQLite https://sqlitebrowser.org/
