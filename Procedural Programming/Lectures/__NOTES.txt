@@ -1,6 +1,7 @@
-О блок-схемах:                                 https://dl.spbstu.ru/mod/videolecture/view.php?id=37530
 Правила оформления ответов:                    https://dl.spbstu.ru/mod/page/view.php?id=30303
+О блок-схемах:                                 https://dl.spbstu.ru/mod/videolecture/view.php?id=37530
 Руководство по языку C#:                       https://docs.microsoft.com/ru-ru/dotnet/csharp/index
+О типах данных в C#:                           https://dl.spbstu.ru/mod/videolecture/view.php?id=39207
 -----------------------------------------
 Свойства алгоритма:
     • Дискретность (прерывность, раздельность):
