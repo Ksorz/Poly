@@ -1,3 +1,7 @@
+О блок-схемах:                                 https://dl.spbstu.ru/mod/videolecture/view.php?id=37530
+Правила оформления ответов:                    https://dl.spbstu.ru/mod/page/view.php?id=30303
+Руководство по языку C#:                       https://docs.microsoft.com/ru-ru/dotnet/csharp/index
+-----------------------------------------
 Свойства алгоритма:
     • Дискретность (прерывность, раздельность):
       Алгоритм представлен как пронумерованный список
