@@ -1,6 +1,0 @@
-C:\Users\Det\Documents\GitHub\Poly\Cs\Code\Test\bin\Debug\Test.exe.config
-C:\Users\Det\Documents\GitHub\Poly\Cs\Code\Test\bin\Debug\Test.exe
-C:\Users\Det\Documents\GitHub\Poly\Cs\Code\Test\bin\Debug\Test.pdb
-C:\Users\Det\Documents\GitHub\Poly\Cs\Code\Test\obj\Debug\Test.csprojAssemblyReference.cache
-C:\Users\Det\Documents\GitHub\Poly\Cs\Code\Test\obj\Debug\Test.exe
-C:\Users\Det\Documents\GitHub\Poly\Cs\Code\Test\obj\Debug\Test.pdb
