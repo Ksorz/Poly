@@ -16,3 +16,6 @@ https://stepik.org/course/401/promo
 https://www.youtube.com/watch?v=AZG0j0pNY-4&feature=emb_logo
 Учимся обучать нейронные сети, за 30 минут от теории до практики. (Video)
 https://www.youtube.com/watch?v=HA-F6cZPvrg
+Нейронные сети: практическое применение (+Video) (Реализация, виды, применени  е)
+https://habr.com/ru/post/322392/
+--------------------------------------------------------------------------------
