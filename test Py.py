@@ -1,2 +1,6 @@
-18 % 3
-13 % 3
+X = False
+Y = False
+Z = False
+
+R = (X == Y ^ X == Z)
+print(R)

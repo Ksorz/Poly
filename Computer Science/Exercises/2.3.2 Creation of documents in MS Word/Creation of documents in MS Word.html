@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+
+<html dir="ltr" lang="ru" xml:lang="ru">
+
+<head>
+	<title>Задание</title>
+	<link rel="shortcut icon" href="https://dl.spbstu.ru/theme/image.php/polytech5/theme/1574779413/favicon" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="moodle, Задание" />
+	<link rel="stylesheet" type="text/css" href="https://dl.spbstu.ru/theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple-min.css" />
+	<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=TXvCU2lG9ZIEGDgn7HMdLW8JNSZ3vMw65VOBXV-JAuAMVYfWHZZXE0ECEvukoxfx4_rLzQtouBGQk2QSTOiA_NSFNUBn3mmEXLybB_cVUxU"
+	 charset="UTF-8"></script>
+	<script id="firstthemesheet" type="text/css">
+		/** Required in order to fix style inclusion problems in IE with YUI **/
+	</script>
+	<link rel="stylesheet" type="text/css" href="https://dl.spbstu.ru/theme/styles.php/polytech5/1574779413_1535467747/all" />
+	<script type="text/javascript">
+		//<![CDATA[
+		var M = {};
+		M.yui = {};
+		M.pageloadstarttime = new Date();
+		M.cfg = {
+			"wwwroot": "https:\/\/dl.spbstu.ru",
+			"sesskey": "xlpjRKF97w",
+			"themerev": "1574779413",
+			"slasharguments": 1,
+			"theme": "polytech5",
+			"iconsystemmodule": "core\/icon_system_fontawesome",
+			"jsrev": "1574779413",
+			"admin": "admin",
+			"svgicons": true,
+			"usertimezone": "\u0415\u0432\u0440\u043e\u043f\u0430\/\u041c\u043e\u0441\u043a\u0432\u0430",
+			"contextid": 27040
+		};
+		var yui1ConfigFn = function(me) {
+			if (/-skin|reset|fonts|grids|base/.test(me.name)) {
+				me.type = 'css';
+				me.path = me.path.replace(/\.js/, '.css');
+				me.path = me.path.replace(/\/yui2-skin/, '/assets/skins/sam/yui2-skin')
+			}
+		};
+		var yui2ConfigFn = function(me) {
+			var parts = me.name.replace(/^moodle-/, '').split('-'),
+				component = parts.shift(),
+				module = parts[0],
+				min = '-min';
+			if (/-(skin|core)$/.test(me.name)) {
+				parts.pop();
+				me.type = 'css';
+				min = ''
+			}
+			if (module) {
+				var filename = parts.join('-');
+				me.path = component + '/' + module + '/' + filename + min + '.' + me.type
+			} else {
+				me.path = component + '/' + component + '.' + me.type
+			}
+		};
+		YUI_config = {
+			"debug": false,
+			"base": "https:\/\/dl.spbstu.ru\/lib\/yuilib\/3.17.2\/",
+			"comboBase": "https:\/\/dl.spbstu.ru\/theme\/yui_combo.php?",
+			"combine": true,
+			"filter": null,
+			"insertBefore": "firstthemesheet",
+			"groups": {
+				"yui2": {
+					"base": "https:\/\/dl.spbstu.ru\/lib\/yuilib\/2in3\/2.9.0\/build\/",
+					"comboBase": "https:\/\/dl.spbstu.ru\/theme\/yui_combo.php?",
+					"combine": true,
+					"ext": false,
+					"root": "2in3\/2.9.0\/build\/",
+					"patterns": {
+						"yui2-": {
+							"group": "yui2",
+							"configFn": yui1ConfigFn
+						}
+					}
+				},
+				"moodle": {
+					"name": "moodle",
+					"base": "https:\/\/dl.spbstu.ru\/theme\/yui_combo.php?m\/1574779413\/",
+					"combine": true,
+					"comboBase": "https:\/\/dl.spbstu.ru\/theme\/yui_combo.php?",
+					"ext": false,
+					"root": "m\/1574779413\/",
+					"patterns": {
+						"moodle-": {
+							"group": "moodle",
+							"configFn": yui2ConfigFn
+						}
+					},
+					"filter": null,
+					"modules": {
+						"moodle-core-chooserdialogue": {
+							"requires": ["base", "panel", "moodle-core-notification"]
+						},
+						"moodle-core-dragdrop": {
+							"requires": ["base", "node", "io", "dom", "dd", "event-key", "event-focus", "moodle-core-notification"]
+						},
+						"moodle-core-lockscroll": {
+							"requires": ["plugin", "base-build"]
+						},
+						"moodle-core-maintenancemodetimer": {
+							"requires": ["base", "node"]
+						},
+						"moodle-core-actionmenu": {
+							"requires": ["base", "event", "node-event-simulate"]
+						},
+						"moodle-core-checknet": {
+							"requires": ["base-base", "moodle-core-notification-alert", "io-base"]
+						},
+						"moodle-core-handlebars": {
+							"condition": {
+								"trigger": "handlebars",
+								"when": "after"
+							}
+						},
+						"moodle-core-notification": {
+							"requires": ["moodle-core-notification-dialogue", "moodle-core-notification-alert", "moodle-core-notification-confirm", "moodle-core-notification-exception", "moodle-core-notification-ajaxexception"]
+						},
+						"moodle-core-notification-dialogue": {
+							"requires": ["base", "node", "panel", "escape", "event-key", "dd-plugin", "moodle-core-widget-focusafterclose", "moodle-core-lockscroll"]
+						},
+						"moodle-core-notification-alert": {
+							"requires": ["moodle-core-notification-dialogue"]
+						},
+						"moodle-core-notification-confirm": {
+							"requires": ["moodle-core-notification-dialogue"]
+						},
+						"moodle-core-notification-exception": {
+							"requires": ["moodle-core-notification-dialogue"]
+						},
+						"moodle-core-notification-ajaxexception": {
+							"requires": ["moodle-core-notification-dialogue"]
+						},
+						"moodle-core-popuphelp": {
+							"requires": ["moodle-core-tooltip"]
+						},
+						"moodle-core-languninstallconfirm": {
+							"requires": ["base", "node", "moodle-core-notification-confirm", "moodle-core-notification-alert"]
+						},
+						"moodle-core-formchangechecker": {
+							"requires": ["base", "event-focus", "moodle-core-event"]
+						},
+						"moodle-core-tooltip": {
+							"requires": ["base", "node", "io-base", "moodle-core-notification-dialogue", "json-parse", "widget-position", "widget-position-align", "event-outside", "cache-base"]
+						},
+						"moodle-core-blocks": {
+							"requires": ["base", "node", "io", "dom", "dd", "dd-scroll", "moodle-core-dragdrop", "moodle-core-notification"]
+						},
+						"moodle-core-event": {
+							"requires": ["event-custom"]
+						},
+						"moodle-core-dock": {
+							"requires": ["base", "node", "event-custom", "event-mouseenter", "event-resize", "escape", "moodle-core-dock-loader", "moodle-core-event"]
+						},
+						"moodle-core-dock-loader": {
+							"requires": ["escape"]
+						},
+						"moodle-core_availability-form": {
+							"requires": ["base", "node", "event", "event-delegate", "panel", "moodle-core-notification-dialogue", "json"]
+						},
+						"moodle-backup-confirmcancel": {
+							"requires": ["node", "node-event-simulate", "moodle-core-notification-confirm"]
+						},
+						"moodle-backup-backupselectall": {
+							"requires": ["node", "event", "node-event-simulate", "anim"]
+						},
+						"moodle-course-dragdrop": {
+							"requires": ["base", "node", "io", "dom", "dd", "dd-scroll", "moodle-core-dragdrop", "moodle-core-notification", "moodle-course-coursebase", "moodle-course-util"]
+						},
+						"moodle-course-categoryexpander": {
+							"requires": ["node", "event-key"]
+						},
+						"moodle-course-management": {
+							"requires": ["base", "node", "io-base", "moodle-core-notification-exception", "json-parse", "dd-constrain", "dd-proxy", "dd-drop", "dd-delegate", "node-event-delegate"]
+						},
+						"moodle-course-util": {
+							"requires": ["node"],
+							"use": ["moodle-course-util-base"],
+							"submodules": {
+								"moodle-course-util-base": {},
+								"moodle-course-util-section": {
+									"requires": ["node", "moodle-course-util-base"]
+								},
+								"moodle-course-util-cm": {
+									"requires": ["node", "moodle-course-util-base"]
+								}
+							}
+						},
+						"moodle-course-modchooser": {
+							"requires": ["moodle-core-chooserdialogue", "moodle-course-coursebase"]
+						},
+						"moodle-course-formatchooser": {
+							"requires": ["base", "node", "node-event-simulate"]
+						},
+						"moodle-form-shortforms": {
+							"requires": ["node", "base", "selector-css3", "moodle-core-event"]
+						},
+						"moodle-form-passwordunmask": {
+							"requires": []
+						},
+						"moodle-form-showadvanced": {
+							"requires": ["node", "base", "selector-css3"]
+						},
+						"moodle-form-dateselector": {
+							"requires": ["base", "node", "overlay", "calendar"]
+						},
+						"moodle-question-searchform": {
+							"requires": ["base", "node"]
+						},
+						"moodle-question-chooser": {
+							"requires": ["moodle-core-chooserdialogue"]
+						},
+						"moodle-question-preview": {
+							"requires": ["base", "dom", "event-delegate", "event-key", "core_question_engine"]
+						},
+						"moodle-question-qbankmanager": {
+							"requires": ["node", "selector-css3"]
+						},
+						"moodle-availability_completion-form": {
+							"requires": ["base", "node", "event", "moodle-core_availability-form"]
+						},
+						"moodle-availability_date-form": {
+							"requires": ["base", "node", "event", "io", "moodle-core_availability-form"]
+						},
+						"moodle-availability_grade-form": {
+							"requires": ["base", "node", "event", "moodle-core_availability-form"]
+						},
+						"moodle-availability_group-form": {
+							"requires": ["base", "node", "event", "moodle-core_availability-form"]
+						},
+						"moodle-availability_grouping-form": {
+							"requires": ["base", "node", "event", "moodle-core_availability-form"]
+						},
+						"moodle-availability_profile-form": {
+							"requires": ["base", "node", "event", "moodle-core_availability-form"]
+						},
+						"moodle-qtype_ddimageortext-form": {
+							"requires": ["moodle-qtype_ddimageortext-dd", "form_filepicker"]
+						},
+						"moodle-qtype_ddimageortext-dd": {
+							"requires": ["node", "dd", "dd-drop", "dd-constrain"]
+						},
+						"moodle-qtype_ddmarker-form": {
+							"requires": ["moodle-qtype_ddmarker-dd", "form_filepicker", "graphics", "escape"]
+						},
+						"moodle-qtype_ddmarker-dd": {
+							"requires": ["node", "event-resize", "dd", "dd-drop", "dd-constrain", "graphics"]
+						},
+						"moodle-qtype_ddwtos-dd": {
+							"requires": ["node", "dd", "dd-drop", "dd-constrain"]
+						},
+						"moodle-mod_assign-history": {
+							"requires": ["node", "transition"]
+						},
+						"moodle-mod_attendance-groupfilter": {
+							"requires": ["base", "node"]
+						},
+						"moodle-mod_bigbluebuttonbn-imports": {
+							"requires": ["base", "node"]
+						},
+						"moodle-mod_bigbluebuttonbn-broker": {
+							"requires": ["base", "node", "datasource-get", "datasource-jsonschema", "datasource-polling", "moodle-core-notification"]
+						},
+						"moodle-mod_bigbluebuttonbn-recordings": {
+							"requires": ["base", "node", "datasource-get", "datasource-jsonschema", "datasource-polling", "moodle-core-notification"]
+						},
+						"moodle-mod_bigbluebuttonbn-modform": {
+							"requires": ["base", "node"]
+						},
+						"moodle-mod_bigbluebuttonbn-rooms": {
+							"requires": ["base", "node", "datasource-get", "datasource-jsonschema", "datasource-polling", "moodle-core-notification"]
+						},
+						"moodle-mod_forum-subscriptiontoggle": {
+							"requires": ["base-base", "io-base"]
+						},
+						"moodle-mod_quiz-dragdrop": {
+							"requires": ["base", "node", "io", "dom", "dd", "dd-scroll", "moodle-core-dragdrop", "moodle-core-notification", "moodle-mod_quiz-quizbase", "moodle-mod_quiz-util-base", "moodle-mod_quiz-util-page",
+								"moodle-mod_quiz-util-slot", "moodle-course-util"
+							]
+						},
+						"moodle-mod_quiz-questionchooser": {
+							"requires": ["moodle-core-chooserdialogue", "moodle-mod_quiz-util", "querystring-parse"]
+						},
+						"moodle-mod_quiz-autosave": {
+							"requires": ["base", "node", "event", "event-valuechange", "node-event-delegate", "io-form"]
+						},
+						"moodle-mod_quiz-quizbase": {
+							"requires": ["base", "node"]
+						},
+						"moodle-mod_quiz-util": {
+							"requires": ["node", "moodle-core-actionmenu"],
+							"use": ["moodle-mod_quiz-util-base"],
+							"submodules": {
+								"moodle-mod_quiz-util-base": {},
+								"moodle-mod_quiz-util-slot": {
+									"requires": ["node", "moodle-mod_quiz-util-base"]
+								},
+								"moodle-mod_quiz-util-page": {
+									"requires": ["node", "moodle-mod_quiz-util-base"]
+								}
+							}
+						},
+						"moodle-mod_quiz-toolboxes": {
+							"requires": ["base", "node", "event", "event-key", "io", "moodle-mod_quiz-quizbase", "moodle-mod_quiz-util-slot", "moodle-core-notification-ajaxexception"]
+						},
+						"moodle-mod_quiz-repaginate": {
+							"requires": ["base", "event", "node", "io", "moodle-core-notification-dialogue"]
+						},
+						"moodle-mod_quiz-modform": {
+							"requires": ["base", "node", "event"]
+						},
+						"moodle-message_airnotifier-toolboxes": {
+							"requires": ["base", "node", "io"]
+						},
+						"moodle-filter_glossary-autolinker": {
+							"requires": ["base", "node", "io-base", "json-parse", "event-delegate", "overlay", "moodle-core-event", "moodle-core-notification-alert", "moodle-core-notification-exception", "moodle-core-notification-ajaxexception"]
+						},
+						"moodle-filter_mathjaxloader-loader": {
+							"requires": ["moodle-core-event"]
+						},
+						"moodle-editor_atto-rangy": {
+							"requires": []
+						},
+						"moodle-editor_atto-editor": {
+							"requires": ["node", "transition", "io", "overlay", "escape", "event", "event-simulate", "event-custom", "node-event-html5", "node-event-simulate", "yui-throttle", "moodle-core-notification-dialogue",
+								"moodle-core-notification-confirm", "moodle-editor_atto-rangy", "handlebars", "timers", "querystring-stringify"
+							]
+						},
+						"moodle-editor_atto-plugin": {
+							"requires": ["node", "base", "escape", "event", "event-outside", "handlebars", "event-custom", "timers", "moodle-editor_atto-menu"]
+						},
+						"moodle-editor_atto-menu": {
+							"requires": ["moodle-core-notification-dialogue", "node", "event", "event-custom"]
+						},
+						"moodle-report_eventlist-eventfilter": {
+							"requires": ["base", "event", "node", "node-event-delegate", "datatable", "autocomplete", "autocomplete-filters"]
+						},
+						"moodle-report_loglive-fetchlogs": {
+							"requires": ["base", "event", "node", "io", "node-event-delegate"]
+						},
+						"moodle-gradereport_grader-gradereporttable": {
+							"requires": ["base", "node", "event", "handlebars", "overlay", "event-hover"]
+						},
+						"moodle-gradereport_history-userselector": {
+							"requires": ["escape", "event-delegate", "event-key", "handlebars", "io-base", "json-parse", "moodle-core-notification-dialogue"]
+						},
+						"moodle-tool_capability-search": {
+							"requires": ["base", "node"]
+						},
+						"moodle-tool_lp-dragdrop-reorder": {
+							"requires": ["moodle-core-dragdrop"]
+						},
+						"moodle-tool_monitor-dropdown": {
+							"requires": ["base", "event", "node"]
+						},
+						"moodle-assignfeedback_editpdf-editor": {
+							"requires": ["base", "event", "node", "io", "graphics", "json", "event-move", "event-resize", "transition", "querystring-stringify-simple", "moodle-core-notification-dialog", "moodle-core-notification-alert",
+								"moodle-core-notification-exception", "moodle-core-notification-ajaxexception"
+							]
+						},
+						"moodle-atto_accessibilitychecker-button": {
+							"requires": ["color-base", "moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_accessibilityhelper-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_align-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_bold-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_charmap-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_clear-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_collapse-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_emoticon-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_equation-button": {
+							"requires": ["moodle-editor_atto-plugin", "moodle-core-event", "io", "event-valuechange", "tabview", "array-extras"]
+						},
+						"moodle-atto_html-button": {
+							"requires": ["moodle-editor_atto-plugin", "event-valuechange"]
+						},
+						"moodle-atto_image-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_indent-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_italic-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_link-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_managefiles-usedfiles": {
+							"requires": ["node", "escape"]
+						},
+						"moodle-atto_managefiles-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_media-button": {
+							"requires": ["moodle-editor_atto-plugin", "moodle-form-shortforms"]
+						},
+						"moodle-atto_noautolink-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_orderedlist-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_recordrtc-button": {
+							"requires": ["moodle-editor_atto-plugin", "moodle-atto_recordrtc-recording"]
+						},
+						"moodle-atto_recordrtc-recording": {
+							"requires": ["moodle-atto_recordrtc-button"]
+						},
+						"moodle-atto_rtl-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_strike-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_subscript-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_superscript-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_table-button": {
+							"requires": ["moodle-editor_atto-plugin", "moodle-editor_atto-menu", "event", "event-valuechange"]
+						},
+						"moodle-atto_title-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_underline-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_undo-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						},
+						"moodle-atto_unorderedlist-button": {
+							"requires": ["moodle-editor_atto-plugin"]
+						}
+					}
+				},
+				"gallery": {
+					"name": "gallery",
+					"base": "https:\/\/dl.spbstu.ru\/lib\/yuilib\/gallery\/",
+					"combine": true,
+					"comboBase": "https:\/\/dl.spbstu.ru\/theme\/yui_combo.php?",
+					"ext": false,
+					"root": "gallery\/1574779413\/",
+					"patterns": {
+						"gallery-": {
+							"group": "gallery"
+						}
+					}
+				}
+			},
+			"modules": {
+				"core_filepicker": {
+					"name": "core_filepicker",
+					"fullpath": "https:\/\/dl.spbstu.ru\/lib\/javascript.php\/1574779413\/repository\/filepicker.js",
+					"requires": ["base", "node", "node-event-simulate", "json", "async-queue", "io-base", "io-upload-iframe", "io-form", "yui2-treeview", "panel", "cookie", "datatable", "datatable-sort", "resize-plugin", "dd-plugin", "escape",
+						"moodle-core_filepicker", "moodle-core-notification-dialogue"
+					]
+				},
+				"core_comment": {
+					"name": "core_comment",
+					"fullpath": "https:\/\/dl.spbstu.ru\/lib\/javascript.php\/1574779413\/comment\/comment.js",
+					"requires": ["base", "io-base", "node", "json", "yui2-animation", "overlay", "escape"]
+				},
+				"mathjax": {
+					"name": "mathjax",
+					"fullpath": "https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/mathjax\/2.7.2\/MathJax.js?delayStartupUntil=configured"
+				}
+			}
+		};
+		M.yui.loader = {
+			modules: {}
+		};
+
+		//]]>
+	</script>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body id="page-mod-assign-view" class="format-topics  path-mod path-mod-assign safari dir-ltr lang-ru yui-skin-sam yui3-skin-sam dl-spbstu-ru pagelayout-incourse course-253 context-27040 cmid-25056 category-17 drawer-open-left">
+
+	<div id="page-wrapper">
+
+		<div>
+			<a class="sr-only sr-only-focusable" href="#maincontent">Перейти к основному содержанию</a>
+		</div>
+		<script type="text/javascript" src="https://dl.spbstu.ru/theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple-min.js"></script>
+		<script type="text/javascript" src="https://dl.spbstu.ru/lib/javascript.php/1574779413/lib/javascript-static.js"></script>
+		<script type="text/javascript">
+			//<![CDATA[
+			document.body.className += ' jsenabled';
+			//]]>
+		</script>
+
+
+
+		<nav class="fixed-top navbar navbar-light bg-white navbar-expand moodle-has-zindex">
+
+			<div data-region="drawer-toggle" class="d-inline-block mr-3">
+				<button aria-expanded="true" aria-controls="nav-drawer" type="button" class="btn nav-link float-sm-left mr-1 btn-secondary" data-action="toggle-drawer" data-side="left" data-preference="drawer-open-nav"><i
+					 class="icon fa fa-bars fa-fw " aria-hidden="true" aria-label=""></i><span class="sr-only">Боковая панель</span></button>
+			</div>
+
+			<a href="https://dl.spbstu.ru" class="navbar-brand has-logo
+                    ">
+				<span class="logo d-none d-sm-inline">
+					<img src="https://dl.spbstu.ru/pluginfile.php/1/core_admin/logocompact/0x70/1574779413/logo_iknt.png" alt="СДО ИКНТ">
+				</span>
+				<span class="site-name d-none d-md-inline">СДО ИКНТ</span>
+			</a>
+
+			<ul class="navbar-nav d-none d-md-flex">
+				<!-- custom_menu -->
+				<li class="dropdown nav-item">
+					<a class="dropdown-toggle nav-link" id="drop-down-5dde671b28e215dde671b27e804" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+						Русский ‎(ru)‎
+					</a>
+					<div class="dropdown-menu" aria-labelledby="drop-down-5dde671b28e215dde671b27e804">
+						<a class="dropdown-item" href="https://dl.spbstu.ru/mod/assign/view.php?id=25056&amp;rownum=0&amp;useridlistid=5dde671b0c7cd228811055&amp;action&amp;lang=ru" title="Русский ‎(ru)‎">Русский ‎(ru)‎</a>
+						<a class="dropdown-item" href="https://dl.spbstu.ru/mod/assign/view.php?id=25056&amp;rownum=0&amp;useridlistid=5dde671b0c7cd228811055&amp;action&amp;lang=en" title="English ‎(en)‎">English ‎(en)‎</a>
+					</div>
+				</li>
+				<!-- page_heading_menu -->
+
+			</ul>
+			<ul class="nav navbar-nav ml-auto">
+				<div class="d-none d-lg-block">
+
+				</div>
+				<!-- navbar_plugin_output -->
+				<li class="nav-item">
+					<div class="popover-region collapsed popover-region-messages" id="nav-message-popover-container" data-userid="12272" data-region="popover-region">
+						<div class="popover-region-toggle nav-link" data-region="popover-region-toggle" aria-role="button" aria-controls="popover-region-container-5dde671b298e25dde671b27e805" aria-haspopup="true"
+						 aria-label="Показать окно без новых сообщений" tabindex="0">
+							<i class="icon fa fa-comment fa-fw " aria-hidden="true" title="Переключить меню сообщений" aria-label="Переключить меню сообщений"></i>
+							<div class="count-container hidden" data-region="count-container">0</div>
+
+						</div>
+						<div id="popover-region-container-5dde671b298e25dde671b27e805" class="popover-region-container" data-region="popover-region-container" aria-expanded="false" aria-hidden="true" aria-label="Окно уведомления" role="region">
+							<div class="popover-region-header-container">
+								<h3 class="popover-region-header-text" data-region="popover-region-header-text">Сообщения</h3>
+								<div class="popover-region-header-actions" data-region="popover-region-header-actions">
+									<div class="newmessage-link">
+										<a href="https://dl.spbstu.ru/message/index.php?contactsfirst=1">Новое сообщение
+										</a>
+									</div>
+									<a class="mark-all-read-button" href="#" role="button" title="Пометить все прочитанным" data-action="mark-all-read">
+										<span class="normal-icon"><i class="icon fa fa-check fa-fw " aria-hidden="true" title="Пометить все прочитанным" aria-label="Пометить все прочитанным"></i></span>
+										<span class="loading-icon"><i class="icon fa fa-circle-o-notch fa-spin fa-fw " aria-hidden="true" title="Загрузка" aria-label="Загрузка"></i></span>
+									</a>
+									<a href="https://dl.spbstu.ru/message/edit.php?id=12272" title="Настройки сообщений">
+										<i class="icon fa fa-cog fa-fw " aria-hidden="true" title="Настройки сообщений" aria-label="Настройки сообщений"></i>
+									</a>
+								</div>
+							</div>
+							<div class="popover-region-content-container" data-region="popover-region-content-container">
+								<div class="popover-region-content" data-region="popover-region-content">
+									<div class="messages" data-region="messages" role="log" aria-busy="false" aria-atomic="false" aria-relevant="additions"></div>
+									<div class="empty-message" data-region="empty-message" tabindex="0">Нет сообщений</div>
+
+								</div>
+								<span class="loading-icon"><i class="icon fa fa-circle-o-notch fa-spin fa-fw " aria-hidden="true" title="Загрузка" aria-label="Загрузка"></i></span>
+							</div>
+							<a class="see-all-link" href="https://dl.spbstu.ru/message/index.php">
+								<div class="popover-region-footer-container">
+									<div class="popover-region-seeall-text">Смотреть все</div>
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="popover-region collapsed popover-region-notifications" id="nav-notification-popover-container" data-userid="12272" data-region="popover-region">
+						<div class="popover-region-toggle nav-link" data-region="popover-region-toggle" aria-role="button" aria-controls="popover-region-container-5dde671b2c4b35dde671b27e806" aria-haspopup="true"
+						 aria-label="Показать окно без новых уведомлений" tabindex="0">
+							<i class="icon fa fa-bell fa-fw " aria-hidden="true" title="Переключить меню уведомлений" aria-label="Переключить меню уведомлений"></i>
+							<div class="count-container hidden" data-region="count-container">0</div>
+
+						</div>
+						<div id="popover-region-container-5dde671b2c4b35dde671b27e806" class="popover-region-container" data-region="popover-region-container" aria-expanded="false" aria-hidden="true" aria-label="Окно уведомления" role="region">
+							<div class="popover-region-header-container">
+								<h3 class="popover-region-header-text" data-region="popover-region-header-text">Уведомления</h3>
+								<div class="popover-region-header-actions" data-region="popover-region-header-actions"> <a class="mark-all-read-button" href="#" title="Пометить все прочитанным" data-action="mark-all-read" role="button">
+										<span class="normal-icon"><i class="icon fa fa-check fa-fw " aria-hidden="true" title="Пометить все прочитанным" aria-label="Пометить все прочитанным"></i></span>
+										<span class="loading-icon"><i class="icon fa fa-circle-o-notch fa-spin fa-fw " aria-hidden="true" title="Загрузка" aria-label="Загрузка"></i></span>
+									</a>
+									<a href="https://dl.spbstu.ru/message/notificationpreferences.php?userid=12272" title="Настройка уведомлений">
+										<i class="icon fa fa-cog fa-fw " aria-hidden="true" title="Настройка уведомлений" aria-label="Настройка уведомлений"></i>
+									</a>
+								</div>
+							</div>
+							<div class="popover-region-content-container" data-region="popover-region-content-container">
+								<div class="popover-region-content" data-region="popover-region-content">
+									<div class="all-notifications" data-region="all-notifications" role="log" aria-busy="false" aria-atomic="false" aria-relevant="additions"></div>
+									<div class="empty-message" tabindex="0" data-region="empty-message">Уведомлений нет</div>
+
+								</div>
+								<span class="loading-icon"><i class="icon fa fa-circle-o-notch fa-spin fa-fw " aria-hidden="true" title="Загрузка" aria-label="Загрузка"></i></span>
+							</div>
+							<a class="see-all-link" href="https://dl.spbstu.ru/message/output/popup/notifications.php">
+								<div class="popover-region-footer-container">
+									<div class="popover-region-seeall-text">Смотреть все</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</li>
+				<!-- user_menu -->
+				<li class="nav-item d-flex align-items-center">
+					<div class="usermenu">
+						<div class="action-menu moodle-actionmenu nowrap-items d-inline" id="action-menu-1" data-enhance="moodle-core-actionmenu">
+
+							<div class="menubar d-flex " id="action-menu-1-menubar" role="menubar">
+
+
+
+
+								<div class="action-menu-trigger">
+									<div class="dropdown">
+										<a href="#" class=" dropdown-toggle" id="dropdown-1" title="" role="menuitem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+											<span class="userbutton"><span class="usertext mr-1">Леснов Андрей Юрьевич</span><span class="avatars"><span class="avatar current"><img
+														 src="https://dl.spbstu.ru/theme/image.php/polytech5/core/1574779413/u/f2" alt="Изображение пользователя Леснов Андрей Юрьевич" title="Изображение пользователя Леснов Андрей Юрьевич"
+														 class="userpicture defaultuserpic" width="35" height="35" role="presentation" /></span></span></span>
+
+											<b class="caret"></b>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right menu  align-tr-br" id="action-menu-1-menu" data-rel="menu-content" aria-labelledby="action-menu-toggle-1" role="menu" data-align="tr-br">
+											<a href="https://dl.spbstu.ru/my/" class="dropdown-item menu-action" role="menuitem" data-title="mymoodle,admin" aria-labelledby="actionmenuaction-1">
+												<i class="icon fa fa-tachometer fa-fw " aria-hidden="true" title="Личный кабинет" aria-label="Личный кабинет"></i>
+												<span class="menu-action-text" id="actionmenuaction-1">
+													Личный кабинет
+												</span>
+											</a>
+											<div class="dropdown-divider"></div>
+											<a href="https://dl.spbstu.ru/user/profile.php?id=12272" class="dropdown-item menu-action" role="menuitem" data-title="profile,moodle" aria-labelledby="actionmenuaction-2">
+												<i class="icon fa fa-user fa-fw " aria-hidden="true" title="О пользователе" aria-label="О пользователе"></i>
+												<span class="menu-action-text" id="actionmenuaction-2">
+													О пользователе
+												</span>
+											</a>
+											<a href="https://dl.spbstu.ru/grade/report/overview/index.php" class="dropdown-item menu-action" role="menuitem" data-title="grades,grades" aria-labelledby="actionmenuaction-3">
+												<i class="icon fa fa-table fa-fw " aria-hidden="true" title="Оценки" aria-label="Оценки"></i>
+												<span class="menu-action-text" id="actionmenuaction-3">
+													Оценки
+												</span>
+											</a>
+											<a href="https://dl.spbstu.ru/message/index.php" class="dropdown-item menu-action" role="menuitem" data-title="messages,message" aria-labelledby="actionmenuaction-4">
+												<i class="icon fa fa-comment fa-fw " aria-hidden="true" title="Сообщения" aria-label="Сообщения"></i>
+												<span class="menu-action-text" id="actionmenuaction-4">
+													Сообщения
+												</span>
+											</a>
+											<a href="https://dl.spbstu.ru/user/preferences.php" class="dropdown-item menu-action" role="menuitem" data-title="preferences,moodle" aria-labelledby="actionmenuaction-5">
+												<i class="icon fa fa-wrench fa-fw " aria-hidden="true" title="Настройки" aria-label="Настройки"></i>
+												<span class="menu-action-text" id="actionmenuaction-5">
+													Настройки
+												</span>
+											</a>
+											<div class="dropdown-divider"></div>
+											<a href="https://dl.spbstu.ru/login/logout.php?sesskey=xlpjRKF97w" class="dropdown-item menu-action" role="menuitem" data-title="logout,moodle" aria-labelledby="actionmenuaction-6">
+												<i class="icon fa fa-sign-out fa-fw " aria-hidden="true" title="Выход" aria-label="Выход"></i>
+												<span class="menu-action-text" id="actionmenuaction-6">
+													Выход
+												</span>
+											</a>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+				</li>
+			</ul>
+			<!-- search_box -->
+		</nav>
+
+
+		<div id="page" class="container-fluid">
+			<header id="page-header" class="row">
+				<div class="col-12 pt-3 pb-3">
+					<div class="card">
+						<div class="card-body">
+							<div class="d-flex">
+								<div class="mr-auto">
+									<div class="page-context-header">
+										<div class="page-header-headings">
+											<h1>Информатика (заочники)</h1>
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<div class="d-flex flex-wrap">
+								<div id="page-navbar">
+									<nav role="navigation">
+										<ol class="breadcrumb">
+											<li class="breadcrumb-item"><a href="https://dl.spbstu.ru/my/">Личный кабинет</a></li>
+											<li class="breadcrumb-item">Мои курсы</li>
+											<li class="breadcrumb-item"><a href="https://dl.spbstu.ru/course/view.php?id=253" title="Информатика (заочники)">ИКНТ/КИТ/Информатика_З</a></li>
+											<li class="breadcrumb-item">12 ноября - 19 ноября</li>
+											<li class="breadcrumb-item"><a href="https://dl.spbstu.ru/mod/assign/view.php?id=25056" title="Задание">Задание "Создание документов в MS Word - 2"</a></li>
+										</ol>
+									</nav>
+								</div>
+								<div class="ml-auto d-flex">
+
+								</div>
+								<div id="course-header">
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+
+			<div id="page-content" class="row">
+				<div id="region-main-box" class="col-12">
+					<section id="region-main">
+						<div class="card">
+							<div class="card-body">
+								<span class="notifications" id="user-notifications"></span>
+								<div role="main"><span id="maincontent"></span>
+									<h2>Задание "Создание документов в MS Word - 2"</h2>
+									<div id="intro" class="box generalbox boxaligncenter py-3">
+										<div class="no-overflow">
+											<p> </p>
+											<ol>
+												<li>Откройте файл <a
+													 href="https://dl.spbstu.ru/pluginfile.php/27040/mod_assign/intro/%D0%9D%D0%B5%D0%B2%D0%B5%D1%80%D0%B1%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%20%D0%A1%D0%BF%D0%BE%D1%81%D0%BE%D0%B1%20%D0%9E%D0%B1%D1%89%D0%B5%D0%BD%D0%B8%D1%8F.docx"
+													 target="_blank"><b>Невербальный способ общения.</b><b>docx</b><b> </b></a>(часть курсового проекта).</li>
+												<li>Измените поля для страниц документа:<ol>
+														<li>левое - 3 см,</li>
+														<li>правое - 1,5 см,</li>
+														<li>нижнее 2 см,</li>
+														<li>верхнее - 2 см</li>
+													</ol>
+												</li>
+												<li>Осуществите проверку правописания (Рецензирование \ Правописание).</li>
+												<li>Некоторые заголовки первого и второго уровня уже оформлены стилями <b>Заголовок 1</b> и <b>Заголовок 2</b>. Примените данные стили к остальным заголовкам (на данный момент они выделены красным и
+													зеленым цветами).</li>
+												<li>Измените стили заголовков:<ol>
+														<li><b>Заголовок 1</b>: цвет - любой, шрифт - Calibri, кегль - 18пт, выравнивание - по центру, интервал перед абзацем - 30пт.</li>
+														<li><b>Заголовок 2:</b> цвет - любой (на тон светлее Заголовка 1), шрифт - Calibri, кегль - 14пт, выравнивание - по центру.</li>
+													</ol>
+												</li>
+												<li>Для перемещения по документу перейдите в режим <b>Область навигации</b> (Вид \ Область навигации).</li>
+												<li>Каждый Заголовок первого уровня (Ладони, Жесты рук и кистей и т.д.) переместите на следующую страницу в качестве нового раздела (Разметка страницы \ Разрывы \ Следующая страница).</li>
+												<li>В тексте под заголовками «Другие известные жесты и движения» и «Сигналы глаз» рисунки не имеют названий. Вставьте названия для четырех рисунков в приведенной последовательности начиная с первого
+													(Ссылки \ Вставить название):<ol>
+														<li>«Любитель сидеть верхом на стуле»</li>
+														<li>«Готов к действиям»</li>
+														<li>«Готовность закончить встречу или разговор: руки на коленях»</li>
+														<li>«Использование ручки для контролирования взгляда собеседника».</li>
+													</ol>
+												</li>
+												<li>Примените сжатие ко всем рисункам одновременно (96 пикселей на дюйм).</li>
+												<li>Вставьте сноски (положение - внизу страницы, формат номера - 1,2,3) с помощью команды Ссылки \ Вставить сноску:<ol>
+														<li>К первому абзацу «Что в сердце варится, на лице не утаится» с текстом «<i>Русская народная пословица»</i></li>
+														<li>К четвертому абзацу «Интуиция - чутье...» с текстом «<i>Выдержка из словаря Ожегова С.И.»</i></li>
+														<li>К фамилии «Ниренбергом» с текстом «<i>Вместе с Калеро является автором книги «Как читать человека словно книгу. Язык тела»</i></li>
+													</ol>
+												</li>
+												<li>В разделе под заголовком «Защитный барьер, сформированный с помощью ног» найдите текст, шрифт которого имеет оранжевый цвет. Для данных абзацев создайте пользовательский нумерованный список -
+													<b>Стадия 1, Стадия 2 и т.д.</b>:</li>
+											</ol>
+											<p>                       <img width="542" height="192" alt="Пользовательский список" src="https://dl.spbstu.ru/pluginfile.php/27040/mod_assign/intro/%D0%A1%D1%82%D0%B0%D0%B4%D0%B8%D1%8F.png" /></p>
+											<p>12.  В начале документа создайте новый раздел документа. В новом разделе вставьте <b>Оглавление</b> (Ссылки \ Оглавление \ Оглавление).</p>
+											<p>13.  Перейдите в конец документа и создайте новый раздел. В новом разделе вставьте  <b>Список терминов</b>. Этапы создания списка терминов:</p>
+											<ol>
+												<ol>
+													<li>Выделите текст, для которого создается термин</li>
+													<li>Вкладка Ссылки \ Пометить элемент (Alt+Shift+X)</li>
+													<li>Настроить необходимые параметры</li>
+												</ol>
+											</ol>
+											<p style="padding-left: 180px;"><img width="320" height="353" alt="Указатель" src="https://dl.spbstu.ru/pluginfile.php/27040/mod_assign/intro/%D0%A3%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D0%B5%D0%BB%D1%8C.png" />
+											</p>
+											<p style="padding-left: 60px;">4. Кнопка Пометить</p>
+											<p style="padding-left: 60px;">5. Проделать шаги a-d для всех терминов</p>
+											<p style="padding-left: 60px;">6. Когда все элементы в тексте будут помечены, создайте список терминов: Ссылка \ Предметный указатель.</p>
+											<p><img width="600" height="383" alt="Предметный указатель"
+												 src="https://dl.spbstu.ru/pluginfile.php/27040/mod_assign/intro/%D0%9F%D1%80%D0%B5%D0%B4%D0%BC%D0%B5%D1%82%D0%BD%D1%8B%D0%B9%20%D1%83%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D0%B5%D0%BB%D1%8C.png" /></p>
+											<p>14. Создайте новый раздел в конце документа и вставьте <b>Список рисунков</b> (Ссылки \ Список иллюстраций).</p>
+											<p>15.  Создайте новый раздел в конце документа и вставьте <a
+												 href="https://dl.spbstu.ru/pluginfile.php/27040/mod_assign/intro/%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA%20%D0%BB%D0%B8%D1%82%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B.docx" target="_blank"><b>Список
+														литературы</b></a>.</p>
+											<p style="padding-left: 30px;">Задайте для перечня литературы нумерованный список. В формате абзаца поменяйте <strong>Выступ</strong> первой строки на <strong>Отступ</strong><i> </i></p>
+											<p>16.  Создайте <b>Титульную страницу</b> для курсового проекта (<a href="https://dl-iknt.spbstu.ru/mod/resource/view.php?id=25057">см Образец</a>). <i></i></p>
+											<p>17.  Создайте <b>Верхний колонтитул</b> (см. образец):</p>
+											<p><img width="618" height="115" alt="Колонтитул" src="https://dl.spbstu.ru/pluginfile.php/27040/mod_assign/intro/%D0%9A%D0%BE%D0%BB%D0%BE%D0%BD%D1%82%D0%B8%D1%82%D1%83%D0%BB.png" /></p>
+											<p>Для вставки названия текущего раздела в колонтитул:</p>
+											<p>Конструктор \ Вставка \ Экспресс-блоки \ Поле...<br />Выбрать поле <b>StyleRef</b>. В колонке <b>Свойства поля</b> укажите Имя стиля <b>Заголовок 1</b></p>
+											<p><em>Обратите внимание, что титульная страница не должна содержать колонтитулы, страницы «Содержание», «Список терминов», «Список иллюстраций» и «<a class="autolink" title="Список литературы"
+													 href="https://dl.spbstu.ru/mod/data/view.php?id=24983">Список Литературы</a>» содержат только нижнюю границу и номер страницы.</em><em></em></p>
+											<p>18.  На заключительном этапе <b>пометьте документ как окончательный</b> (Файл \ Сведения \ Защитить документ \ Пометить как окончательный).</p>
+											<p>19.  Сохраните документ под названием <b>Курсовой проект Ваша Фамилия.</b><b>docx</b>.<em></em></p>
+											<p> </p>
+										</div>
+									</div>
+									<div class="submissionstatustable">
+										<h3>Состояние ответа</h3>
+										<div class="box boxaligncenter submissionsummarytable py-3">
+											<table class="generaltable">
+												<tbody>
+													<tr class="">
+														<td class="cell c0" style="">Состояние ответа на задание</td>
+														<td class="submissionstatussubmitted cell c1 lastcol" style="">Ответы для оценки</td>
+													</tr>
+													<tr class="">
+														<td class="cell c0" style="">Состояние оценивания</td>
+														<td class="submissionnotgraded cell c1 lastcol" style="">Не оценено</td>
+													</tr>
+													<tr class="">
+														<td class="cell c0" style="">Последний срок сдачи</td>
+														<td class="cell c1 lastcol" style="">Вторник, 12 Ноябрь 2019, 09:55</td>
+													</tr>
+													<tr class="">
+														<td class="cell c0" style="">Оставшееся время</td>
+														<td class="earlysubmission cell c1 lastcol" style="">Задание представлено заранее - 7 час. 34 мин.</td>
+													</tr>
+													<tr class="">
+														<td class="cell c0" style="">Последнее изменение</td>
+														<td class="cell c1 lastcol" style="">Вторник, 12 Ноябрь 2019, 02:20</td>
+													</tr>
+													<tr class="">
+														<td class="cell c0" style="">Ответ в виде файла</td>
+														<td class="cell c1 lastcol" style="">
+															<div class="box boxaligncenter plugincontentsummary summary_assignsubmission_file_47501 py-3">
+																<div id="assign_files_tree5dde671b27e8016">
+																	<ul>
+																		<li yuiConfig='{"type":"html"}'>
+																			<div><img class="icon icon" alt="Курсовой проект Леснов.docx" title="Курсовой проект Леснов.docx"
+																				 src="https://dl.spbstu.ru/theme/image.php/polytech5/core/1574779413/f/document" /> <a target="_blank"
+																				 href="https://dl.spbstu.ru/pluginfile.php/27040/assignsubmission_file/submission_files/47501/%D0%9A%D1%83%D1%80%D1%81%D0%BE%D0%B2%D0%BE%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%D0%9B%D0%B5%D1%81%D0%BD%D0%BE%D0%B2.docx?forcedownload=1">Курсовой
+																					проект Леснов.docx</a> </div>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+													</tr>
+													<tr class="lastrow">
+														<td class="cell c0" style="">Комментарии к ответу</td>
+														<td class="cell c1 lastcol" style="">
+															<div class="box boxaligncenter plugincontentsummary summary_assignsubmission_comments_47501 py-3">
+																<div class="commentscontainer">
+																	<div style="display:none" id="cmt-tmpl">
+																		<div class="comment-message">
+																			<div class="comment-message-meta m-r-3"><span class="picture">___picture___</span><span class="user">___name___</span> - <span class="time">___time___</span></div>
+																			<div class="text">___content___</div>
+																		</div>
+																	</div>
+																	<div class="mdl-left"><a class="showcommentsnonjs"
+																		 href="https://dl.spbstu.ru/mod/assign/view.php?id=25056&amp;rownum=0&amp;useridlistid=5dde671b0c7cd228811055&amp;action&amp;nonjscomment=1&amp;comment_itemid=47501&amp;comment_context=27040&amp;comment_component=assignsubmission_comments&amp;comment_area=submission_comments">Отобразить
+																			комментарии</a><a class="comment-link" id="comment-link-5dde671b68be5" href="#" role="button" aria-expanded="false"><i class="icon fa fa-plus-square fa-fw "
+																			 aria-hidden="true" title="Комментарии" aria-label="Комментарии"></i><span id="comment-link-text-5dde671b68be5">Комментарии (0)</span></a>
+																		<div id="comment-ctrl-5dde671b68be5" class="comment-ctrl">
+																			<ul id="comment-list-5dde671b68be5" class="comment-list">
+																				<li class="first"></li>
+																			</ul>
+																			<div id="comment-pagination-5dde671b68be5" class="comment-pagination"></div>
+																			<div class="comment-area">
+																				<div class="db"><textarea name="content" rows="2" id="dlg-content-5dde671b68be5" aria-label="Добавить комментарий..." cols="20"></textarea></div>
+																				<div class="fd" id="comment-action-5dde671b68be5"><a id="comment-action-post-5dde671b68be5" href="#">Сохранить комментарий</a><span> | </span><a
+																					 id="comment-action-cancel-5dde671b68be5" href="#">Отмена</a></div>
+																			</div>
+																			<div class="clearer"></div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div class="m-t-2 m-b-1">
+									<div class="row">
+										<div class="col-md-4">
+											<div class="pull-left">
+												<a href="https://dl.spbstu.ru/mod/assign/view.php?id=25055&forceview=1" id="prev-activity-link" class="" classes="btn btn-link" title="Задание &quot;Создание документов в MS Word - 1&quot;">&#x25C4;
+													Задание "Создание документов в MS Word - 1"</a>
+
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="mdl-align">
+												<div class="urlselect">
+													<form method="post" action="https://dl.spbstu.ru/course/jumpto.php" class="form-inline" id="url_select_f5dde671b27e8015">
+														<input type="hidden" name="sesskey" value="xlpjRKF97w">
+														<label for="jump-to-activity" class="sr-only">
+															Перейти на...
+														</label>
+														<select id="jump-to-activity" id="jump-to-activity" class="custom-select urlselect" name="jump">
+															<option value="" selected>Перейти на...</option>
+															<option value="/mod/forum/view.php?id=24976&amp;forceview=1">Новостной форум</option>
+															<option value="/mod/forum/view.php?id=24977&amp;forceview=1">Вопросы-ответы по курсу</option>
+															<option value="/mod/page/view.php?id=24978&amp;forceview=1">Как работать с материалами курса?</option>
+															<option value="/mod/resource/view.php?id=24980&amp;forceview=1">Рабочая программа учебной дисциплины</option>
+															<option value="/mod/data/view.php?id=24983&amp;forceview=1">Список литературы</option>
+															<option value="/mod/page/view.php?id=24987&amp;forceview=1">Правила проведения экзамена</option>
+															<option value="/mod/page/view.php?id=24988&amp;forceview=1">Примеры практических заданий</option>
+															<option value="/mod/page/view.php?id=24989&amp;forceview=1">Тематика теориетических вопросов</option>
+															<option value="/mod/glossary/view.php?id=24994&amp;forceview=1">Основные термины и определения</option>
+															<option value="/mod/resource/view.php?id=39800&amp;forceview=1">Положение о проведении текущего контроля и промежуточной аттестации обучающихся (Приказ № 1346 от 24.11.2015)</option>
+															<option value="/mod/resource/view.php?id=39801&amp;forceview=1">Положение по содержанию, организации выполнения и защиты курсовых проектов и курсовых работ</option>
+															<option value="/mod/resource/view.php?id=24997&amp;forceview=1">Слайды к лекции 1. Информатика и информация. Компьютер как средство реализации IT. Абстрактные вычислительные машины.</option>
+															<option value="/mod/lesson/view.php?id=24998&amp;forceview=1">Информатика и информация</option>
+															<option value="/mod/url/view.php?id=25000&amp;forceview=1">История развития вычислительной техники (Википедия)</option>
+															<option value="/mod/lesson/view.php?id=25001&amp;forceview=1">Абстрактные вычислительные машины</option>
+															<option value="/mod/page/view.php?id=39809&amp;forceview=1">Работа с информационными ресурсами СПбПУ</option>
+															<option value="/mod/quiz/view.php?id=25005&amp;forceview=1">Входной тест</option>
+															<option value="/mod/assign/view.php?id=25007&amp;forceview=1">ЗАДАНИЕ: Тематический поиск в сети Internet</option>
+															<option value="/mod/assign/view.php?id=25008&amp;forceview=1">Задание &quot;Программа для машины Поста&quot; (дополнительное)</option>
+															<option value="/mod/resource/view.php?id=25011&amp;forceview=1">Слайды к лекции 2. Компьютер как единство аппаратного и программного обеспечения</option>
+															<option value="/mod/resource/view.php?id=25015&amp;forceview=1">Устройства внешней памяти</option>
+															<option value="/mod/resource/view.php?id=25016&amp;forceview=1">Файловые системы: организация, сравнение</option>
+															<option value="/mod/resource/view.php?id=25017&amp;forceview=1">Операционные системы</option>
+															<option value="/mod/resource/view.php?id=25018&amp;forceview=1">Архиваторы</option>
+															<option value="/mod/resource/view.php?id=25019&amp;forceview=1">Антивирусные программы</option>
+															<option value="/mod/quiz/view.php?id=25021&amp;forceview=1">ТЕСТ по терминологии</option>
+															<option value="/mod/resource/view.php?id=25025&amp;forceview=1">Слайды к лекции 3. Информация и данные</option>
+															<option value="/mod/resource/view.php?id=25027&amp;forceview=1">Задачи для самостоятельного разбора</option>
+															<option value="/mod/resource/view.php?id=25029&amp;forceview=1">Ответы к задачам для самостоятельного разбора</option>
+															<option value="/mod/assign/view.php?id=25028&amp;forceview=1">ЗАДАНИЕ &quot;Измерение информации&quot;</option>
+															<option value="/mod/lesson/view.php?id=25034&amp;forceview=1">Формула Хартли и формула Шеннона - практическое применение</option>
+															<option value="/mod/lesson/view.php?id=25035&amp;forceview=1">Как &quot;взять&quot; логарифм на кулькуляторе</option>
+															<option value="/mod/resource/view.php?id=25036&amp;forceview=1">Программы, работающие с информацией в различных формах</option>
+															<option value="/mod/resource/view.php?id=25037&amp;forceview=1">Измерение информации</option>
+															<option value="/mod/assign/view.php?id=25039&amp;forceview=1">Задание &quot;Сколько информации в букве?&quot; (дополнительное)</option>
+															<option value="/mod/quiz/view.php?id=36930&amp;forceview=1">Тест &quot;Измерение информации&quot; (не обязательно, но желательно - до проверочной)</option>
+															<option value="/mod/resource/view.php?id=25041&amp;forceview=1">Слайды к лекции 4. Графическая информация и программы для работы с ней</option>
+															<option value="/mod/assign/view.php?id=25043&amp;forceview=1">ЗАДАНИЕ &quot;Работа с графической информацией&quot;</option>
+															<option value="/mod/resource/view.php?id=25045&amp;forceview=1">Форматы графических файлов</option>
+															<option value="/mod/resource/view.php?id=25046&amp;forceview=1">Диаграммы - визуализация чисел</option>
+															<option value="/mod/resource/view.php?id=25047&amp;forceview=1">Представление алгоритма в виде блок-схемы</option>
+															<option value="/mod/resource/view.php?id=25048&amp;forceview=1">Построение блок-схем алгоритмов средствами MS Visio</option>
+															<option value="/mod/assign/view.php?id=25050&amp;forceview=1">ЗАДАНИЕ &quot;Построение блок-схемы в MS Visio&quot; (дополнительно)</option>
+															<option value="/mod/assign/view.php?id=25051&amp;forceview=1">Задание &quot;Дерево целей&quot; (дополнительное)</option>
+															<option value="/mod/resource/view.php?id=25053&amp;forceview=1">Слайды к лекции 5. Текстовая информация, инструменты для её компьютерной обработки</option>
+															<option value="/mod/assign/view.php?id=25055&amp;forceview=1">Задание &quot;Создание документов в MS Word - 1&quot;</option>
+															<option value="/mod/resource/view.php?id=25057&amp;forceview=1">Образец оформления титульного листа</option>
+															<option value="/mod/url/view.php?id=39870&amp;forceview=1">Учебный курс по Word 2010 на Intuit.ru</option>
+															<option value="/mod/resource/view.php?id=25060&amp;forceview=1">Рекомендации по композиции и оформлению научно-технического текста</option>
+															<option value="/mod/assign/view.php?id=25062&amp;forceview=1">Задание: Рецензирование текста (дополнительное)</option>
+															<option value="/mod/assign/view.php?id=25063&amp;forceview=1">Задание &quot;Слияние документов&quot; (дополнительное)</option>
+															<option value="/mod/assign/view.php?id=25064&amp;forceview=1">Задание &quot;Корректировка и форматирование текста&quot; (дополнительное)</option>
+															<option value="/mod/resource/view.php?id=25068&amp;forceview=1">Слайды к лекции 6. Числовая информация, компьютерные вычисления</option>
+															<option value="/mod/resource/view.php?id=25070&amp;forceview=1">Из школьного курса информатики</option>
+															<option value="/mod/url/view.php?id=25071&amp;forceview=1">Представление чисел</option>
+															<option value="/mod/url/view.php?id=25072&amp;forceview=1">Что нужно знать об арифметике с плавающей точкой</option>
+															<option value="/mod/quiz/view.php?id=25074&amp;forceview=1">ТЕСТ &quot;Представление чисел и компьютерные вычисления&quot;</option>
+															<option value="/mod/resource/view.php?id=25077&amp;forceview=1">Слайды к лекции 7. Понятие &quot;модель&quot;. Математическое моделирование.</option>
+															<option value="/mod/assign/view.php?id=25086&amp;forceview=1">ЗАДАНИЕ: формулы в документе MS Word.</option>
+															<option value="/mod/assign/view.php?id=25079&amp;forceview=1">Задание: Математические модели и их реализация (допоплнительное)</option>
+															<option value="/mod/lesson/view.php?id=25083&amp;forceview=1">Микролекция о видах моделей</option>
+															<option value="/mod/lesson/view.php?id=25084&amp;forceview=1">Математические модели: проба пера.</option>
+															<option value="/mod/assign/view.php?id=25087&amp;forceview=1">Задание &quot;Технологический процесс&quot; (дополнительное)</option>
+															<option value="/mod/resource/view.php?id=25089&amp;forceview=1">Слайды к лекции 8. Создание математических моделей с помощью электронных таблиц</option>
+															<option value="/mod/assign/view.php?id=25091&amp;forceview=1">ЗАДАНИЕ: Построение расчётных таблиц</option>
+															<option value="/mod/resource/view.php?id=25093&amp;forceview=1">Решение оптимизационных задач в MS Excel</option>
+															<option value="/mod/url/view.php?id=25094&amp;forceview=1">Курс по MS Excel 2010 на intuit.ru</option>
+															<option value="/mod/assign/view.php?id=25096&amp;forceview=1">Задание: Решение оптимизационных задач (дополнительное).</option>
+															<option value="/mod/resource/view.php?id=37750&amp;forceview=1">Темы курсовых работ - 2019</option>
+															<option value="/mod/assign/view.php?id=25181&amp;forceview=1">Задание: обзор источников информации к курсовой работе.</option>
+															<option value="/mod/assign/view.php?id=25182&amp;forceview=1">Задание: развёрнутый план курсовой работы.</option>
+															<option value="/mod/assign/view.php?id=25183&amp;forceview=1">Задание: текст курсовой работы</option>
+															<option value="/mod/assign/view.php?id=25184&amp;forceview=1">Задание: Презентация к защите курсовой работы</option>
+															<option value="/mod/page/view.php?id=25187&amp;forceview=1">Оформление списка использованных источников</option>
+															<option value="/mod/page/view.php?id=25188&amp;forceview=1">Порядок работы над курсовой работой</option>
+															<option value="/mod/lesson/view.php?id=25189&amp;forceview=1">Оформление курсовой работы</option>
+															<option value="/mod/resource/view.php?id=39982&amp;forceview=1">Пример презентации с защиты курсовой работы</option>
+															<option value="/mod/resource/view.php?id=44155&amp;forceview=1">Ещё пример презентации с защиты курсовой</option>
+															<option value="/mod/resource/view.php?id=39981&amp;forceview=1">Пример презентации с защиты дипломной работы</option>
+														</select>
+														<noscript>
+															<input type="submit" class="btn btn-secondary" value="Применить">
+														</noscript>
+													</form>
+												</div>
+
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="pull-right">
+												<a href="https://dl.spbstu.ru/mod/resource/view.php?id=25057&forceview=1" id="next-activity-link" class="" classes="btn btn-link" title="Образец оформления титульного листа">Образец оформления
+													титульного листа &#x25BA;</a>
+
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+		<div id="nav-drawer" data-region="drawer" class="d-print-none moodle-has-zindex " aria-hidden="false" tabindex="-1">
+			<nav class="list-group">
+				<a class="list-group-item list-group-item-action " href="https://dl.spbstu.ru/course/view.php?id=253" data-key="coursehome" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="60" data-nodetype="0" data-collapse="0"
+				 data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0">
+					<div class="m-l-0">
+						<div class="media">
+							<span class="media-left">
+								<i class="icon fa fa-graduation-cap fa-fw " aria-hidden="true" aria-label=""></i>
+							</span>
+							<span class="media-body ">ИКНТ/КИТ/Информатика_З</span>
+						</div>
+					</div>
+				</a>
+				<a class="list-group-item list-group-item-action " href="https://dl.spbstu.ru/user/index.php?id=253" data-key="participants" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="90" data-nodetype="1" data-collapse="0"
+				 data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="253">
+					<div class="m-l-0">
+						<div class="media">
+							<span class="media-left">
+								<i class="icon fa fa-users fa-fw " aria-hidden="true" aria-label=""></i>
+							</span>
+							<span class="media-body ">Участники</span>
+						</div>
+					</div>
+				</a>
+				<a class="list-group-item list-group-item-action " href="https://dl.spbstu.ru/badges/view.php?type=2&amp;id=253" data-key="badgesview" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="70" data-nodetype="0"
+				 data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="253">
+					<div class="m-l-0">
+						<div class="media">
+							<span class="media-left">
+								<i class="icon fa fa-shield fa-fw " aria-hidden="true" aria-label=""></i>
+							</span>
+							<span class="media-body ">Значки</span>
+						</div>
+					</div>
+				</a>
+				<a class="list-group-item list-group-item-action " href="https://dl.spbstu.ru/admin/tool/lp/coursecompetencies.php?courseid=253" data-key="competencies" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="70"
+				 data-nodetype="0" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="253">
+					<div class="m-l-0">
+						<div class="media">
+							<span class="media-left">
+								<i class="icon fa fa-check-square-o fa-fw " aria-hidden="true" aria-label=""></i>
+							</span>
+							<span class="media-body ">Компетенции</span>
+						</div>
+					</div>
+				</a>
+				<a class="list-group-item list-group-item-action " href="https://dl.spbstu.ru/grade/report/index.php?id=253" data-key="grades" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="70" data-nodetype="0"
+				 data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="253">
+					<div class="m-l-0">
+						<div class="media">
+							<span class="media-left">
+								<i class="icon fa fa-table fa-fw " aria-hidden="true" aria-label=""></i>
+							</span>
+							<span class="media-body ">Оценки</span>
+						</div>
+					</div>
+				</a>
+			</nav>
+			<nav class="list-group m-t-1">
+				<a class="list-group-item list-group-item-action " href="https://dl.spbstu.ru/my/" data-key="myhome" data-isexpandable="0" data-indent="0" data-showdivider="1" data-type="1" data-nodetype="1" data-collapse="0" data-forceopen="1"
+				 data-isactive="0" data-hidden="0" data-preceedwithhr="0">
+					<div class="m-l-0">
+						<div class="media">
+							<span class="media-left">
+								<i class="icon fa fa-tachometer fa-fw " aria-hidden="true" aria-label=""></i>
+							</span>
+							<span class="media-body ">Личный кабинет</span>
+						</div>
+					</div>
+				</a>
+				<a class="list-group-item list-group-item-action " href="https://dl.spbstu.ru/?redirect=0" data-key="home" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="70" data-nodetype="0" data-collapse="0"
+				 data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="myhome">
+					<div class="m-l-0">
+						<div class="media">
+							<span class="media-left">
+								<i class="icon fa fa-home fa-fw " aria-hidden="true" aria-label=""></i>
+							</span>
+							<span class="media-body ">Домашняя страница</span>
+						</div>
+					</div>
+				</a>
+				<a class="list-group-item list-group-item-action " href="https://dl.spbstu.ru/calendar/view.php?view=month&amp;course=253" data-key="calendar" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="60" data-nodetype="0"
+				 data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="1">
+					<div class="m-l-0">
+						<div class="media">
+							<span class="media-left">
+								<i class="icon fa fa-calendar fa-fw " aria-hidden="true" aria-label=""></i>
+							</span>
+							<span class="media-body ">Календарь</span>
+						</div>
+					</div>
+				</a>
+				<a class="list-group-item list-group-item-action " href="https://dl.spbstu.ru/user/files.php" data-key="privatefiles" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="70" data-nodetype="0" data-collapse="0"
+				 data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="1">
+					<div class="m-l-0">
+						<div class="media">
+							<span class="media-left">
+								<i class="icon fa fa-file-o fa-fw " aria-hidden="true" aria-label=""></i>
+							</span>
+							<span class="media-body ">Личные файлы</span>
+						</div>
+					</div>
+				</a>
+				<div class="list-group-item" data-key="mycourses" data-isexpandable="1" data-indent="0" data-showdivider="0" data-type="0" data-nodetype="1" data-collapse="0" data-forceopen="1" data-isactive="0" data-hidden="0" data-preceedwithhr="0"
+				 data-parent-key="myhome">
+					<div class="m-l-0">
+						<div class="media">
+							<span class="media-left">
+								<i class="icon fa fa-graduation-cap fa-fw " aria-hidden="true" aria-label=""></i>
+							</span>
+							<span class="media-body">Мои курсы</span>
+						</div>
+					</div>
+				</div>
+				<a class="list-group-item list-group-item-action " href="https://dl.spbstu.ru/course/view.php?id=307" data-key="307" data-isexpandable="1" data-indent="1" data-showdivider="0" data-type="20" data-nodetype="1" data-collapse="0"
+				 data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="mycourses">
+					<div class="m-l-1">
+						<div class="media">
+							<span class="media-left">
+								<i class="icon fa fa-graduation-cap fa-fw " aria-hidden="true" aria-label=""></i>
+							</span>
+							<span class="media-body ">ИКНТ:КИТ/КИТ_УО</span>
+						</div>
+					</div>
+				</a>
+				<a class="list-group-item list-group-item-action " href="https://dl.spbstu.ru/course/view.php?id=253" data-key="253" data-isexpandable="1" data-indent="1" data-showdivider="0" data-type="20" data-nodetype="1" data-collapse="0"
+				 data-forceopen="1" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="mycourses">
+					<div class="m-l-1">
+						<div class="media">
+							<span class="media-left">
+								<i class="icon fa fa-graduation-cap fa-fw " aria-hidden="true" aria-label=""></i>
+							</span>
+							<span class="media-body ">ИКНТ/КИТ/Информатика_З</span>
+						</div>
+					</div>
+				</a>
+				<a class="list-group-item list-group-item-action " href="https://dl.spbstu.ru/course/view.php?id=311" data-key="311" data-isexpandable="1" data-indent="1" data-showdivider="0" data-type="20" data-nodetype="1" data-collapse="0"
+				 data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="mycourses">
+					<div class="m-l-1">
+						<div class="media">
+							<span class="media-left">
+								<i class="icon fa fa-graduation-cap fa-fw " aria-hidden="true" aria-label=""></i>
+							</span>
+							<span class="media-body ">ИКНТ:КИТ/ПРГС_З</span>
+						</div>
+					</div>
+				</a>
+			</nav>
+		</div>
+	</div>
+
+
+
+
+	<footer id="page-footer" class="p-y-1">
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="box">
+							<a href="http://www.spbstu.ru/" target="_blank">
+								<img alt="" src="https://dl-iamm.spbstu.ru/theme/polytech5/pix/poly-logo.svg">
+							</a>
+							<a href="http://open.spbstu.ru/" target="_blank">
+								<img alt="" src="https://dl-iamm.spbstu.ru/theme/polytech5/pix/logo-open.svg">
+							</a>
+						</div>
+						<span>Портал дистанционных образовательных технологий СПБПУ Петра Великого</span>
+						<span><a href="http://www.spbstu.ru/upload/personal_data_policy.pdf" target="_blank">Политика конфиденциальности</a></span>
+
+					</div>
+					<div class="col-md-4 ">
+						<div class="footer-heading">Контакты:</div>
+						<ul class="support-contact">
+							<li><i class="fa fa-fw fa-map-marker"></i> <a href="https://goo.gl/maps/LGjt2hBHsbq">195251, Санкт-Петербург, ул. Политехническая, дом 29, Научно-исследовательский корпус</a></li>
+							<li><i class="fa fa-fw fa-phone"></i><a href="tel:+7 (812) 290-95-07">+7 (812) 290-95-07</a></li>
+							<li><i class="fa fa-fw fa-envelope"></i><a href="mail:dl@spbstu.ru">dl@spbstu.ru</a></li>
+						</ul>
+					</div>
+					<div class="col-md-4">
+						<div class="footer-heading">Мы в социальных ресурсах</div>
+						<div class="moodle-socials"><a href="https://vk.com/pgpuspb" target="_blank"><i class="fa fa-vk"></i></a>
+							<a href="https://plus.google.com/u/0/+SpbstuRu" target="_blank"><i class="fa fa-google-plus"></i></a> <a href="https://twitter.com/pgpuspb" target="_blank"><i class="fa fa-twitter"></i></a>
+							<a href="https://instagram.com/pgpuspb/" target="_blank"><i class="fa fa-instagram"></i></a> <a href="http://www.youtube.com/user/SPBMEDIACENTRE" target="_blank"><i class="fa fa-youtube-play"></i></a>
+						</div>
+
+					</div>
+
+					<a href="https://download.moodle.org/mobile?version=2018051701.08&amp;lang=ru&amp;iosappid=633359593&amp;androidappid=com.moodle.moodlemobile">Скачать мобильное приложение</a>
+
+				</div>
+	</footer>
+	<script type="text/javascript">
+		//<![CDATA[
+		var require = {
+			baseUrl: 'https://dl.spbstu.ru/lib/requirejs.php/1574779413/',
+			// We only support AMD modules with an explicit define() statement.
+			enforceDefine: true,
+			skipDataMain: true,
+			waitSeconds: 0,
+
+			paths: {
+				jquery: 'https://dl.spbstu.ru/lib/javascript.php/1574779413/lib/jquery/jquery-3.2.1.min',
+				jqueryui: 'https://dl.spbstu.ru/lib/javascript.php/1574779413/lib/jquery/ui-1.12.1/jquery-ui.min',
+				jqueryprivate: 'https://dl.spbstu.ru/lib/javascript.php/1574779413/lib/requirejs/jquery-private'
+			},
+
+			// Custom jquery config map.
+			map: {
+				// '*' means all modules will get 'jqueryprivate'
+				// for their 'jquery' dependency.
+				'*': {
+					jquery: 'jqueryprivate'
+				},
+				// Stub module for 'process'. This is a workaround for a bug in MathJax (see MDL-60458).
+				'*': {
+					process: 'core/first'
+				},
+
+				// 'jquery-private' wants the real jQuery module
+				// though. If this line was not here, there would
+				// be an unresolvable cyclic dependency.
+				jqueryprivate: {
+					jquery: 'jquery'
+				}
+			}
+		};
+
+		//]]>
+	</script>
+	<script type="text/javascript" src="https://dl.spbstu.ru/lib/javascript.php/1574779413/lib/requirejs/require.min.js"></script>
+	<script type="text/javascript">
+		//<![CDATA[
+		require(['core/first'], function() {
+			;
+			require(["media_videojs/loader"], function(loader) {
+				loader.setUp(function(videojs) {
+					videojs.options.flash.swf = "https://dl.spbstu.ru/media/player/videojs/videojs/video-js.swf";
+					videojs.addLanguage("ru", {
+						"Play": "Воспроизвести",
+						"Pause": "Приостановить",
+						"Current Time": "Текущее время",
+						"Duration Time": "Продолжительность",
+						"Remaining Time": "Оставшееся время",
+						"Stream Type": "Тип потока",
+						"LIVE": "ОНЛАЙН",
+						"Loaded": "Загрузка",
+						"Progress": "Прогресс",
+						"Fullscreen": "Полноэкранный режим",
+						"Non-Fullscreen": "Неполноэкранный режим",
+						"Mute": "Без звука",
+						"Unmute": "Со звуком",
+						"Playback Rate": "Скорость воспроизведения",
+						"Subtitles": "Субтитры",
+						"subtitles off": "Субтитры выкл.",
+						"Captions": "Подписи",
+						"captions off": "Подписи выкл.",
+						"Chapters": "Главы",
+						"Close Modal Dialog": "Закрыть модальное окно",
+						"Descriptions": "Описания",
+						"descriptions off": "описания выкл.",
+						"Audio Track": "Звуковая дорожка",
+						"You aborted the media playback": "Вы прервали воспроизведение видео",
+						"A network error caused the media download to fail part-way.": "Ошибка сети вызвала сбой во время загрузки видео.",
+						"The media could not be loaded, either because the server or network failed or because the format is not supported.": "Невозможно загрузить видео из-за сетевого или серверного сбоя либо формат не поддерживается.",
+						"The media playback was aborted due to a corruption problem or because the media used features your browser did not support.": "Воспроизведение видео было приостановлено из-за повреждения либо в связи с тем, что видео использует функции, неподдерживаемые вашим браузером.",
+						"No compatible source was found for this media.": "Совместимые источники для этого видео отсутствуют.",
+						"The media is encrypted and we do not have the keys to decrypt it.": "Видео в зашифрованном виде, и у нас нет ключей для расшифровки.",
+						"Play Video": "Воспроизвести видео",
+						"Close": "Закрыть",
+						"Modal Window": "Модальное окно",
+						"This is a modal window": "Это модальное окно.",
+						"This modal can be closed by pressing the Escape key or activating the close button.": "Модальное окно можно закрыть нажав Esc или кнопку закрытия окна.",
+						", opens captions settings dialog": ", откроется диалог настройки подписей",
+						", opens subtitles settings dialog": ", откроется диалог настройки субтитров",
+						", opens descriptions settings dialog": ", откроется диалог настройки описаний",
+						", selected": ", выбрано"
+					});
+
+				});
+			});;
+
+			function legacy_activity_onclick_handler_1(e) {
+				e.halt();
+				window.open('https://dl.spbstu.ru/mod/url/view.php?id=39870&redirect=1', '', 'width=620,height=450,toolbar=no,location=no,menubar=no,copyhistory=no,status=no,directories=no,scrollbars=yes,resizable=yes');
+				return false;
+			};
+
+			function legacy_activity_onclick_handler_2(e) {
+				e.halt();
+				window.open('https://dl.spbstu.ru/mod/resource/view.php?id=25060&redirect=1', '', 'width=620,height=450,toolbar=no,location=no,menubar=no,copyhistory=no,status=no,directories=no,scrollbars=yes,resizable=yes');
+				return false;
+			};
+
+			function legacy_activity_onclick_handler_3(e) {
+				e.halt();
+				window.open('https://dl.spbstu.ru/mod/resource/view.php?id=25065&redirect=1', '', 'width=620,height=450,toolbar=no,location=no,menubar=no,copyhistory=no,status=no,directories=no,scrollbars=yes,resizable=yes');
+				return false;
+			};
+
+			function legacy_activity_onclick_handler_4(e) {
+				e.halt();
+				window.open('https://dl.spbstu.ru/mod/resource/view.php?id=25066&redirect=1', '', 'width=620,height=450,toolbar=no,location=no,menubar=no,copyhistory=no,status=no,directories=no,scrollbars=yes,resizable=yes');
+				return false;
+			};
+
+			require(['jquery'], function($) {
+				$('#single_select5dde671b27e803').change(function() {
+					var ignore = $(this).find(':selected').attr('data-ignore');
+					if (typeof ignore === typeof undefined) {
+						$('#single_select_f5dde671b27e802').submit();
+					}
+				});
+			});;
+
+			require(['jquery', 'message_popup/message_popover_controller'], function($, controller) {
+				var container = $('#nav-message-popover-container');
+				var controller = new controller(container);
+				controller.registerEventListeners();
+				controller.registerListNavigationEventListeners();
+			});;
+
+			require(['jquery', 'message_popup/notification_popover_controller'], function($, controller) {
+				var container = $('#nav-notification-popover-container');
+				var controller = new controller(container);
+				controller.registerEventListeners();
+				controller.registerListNavigationEventListeners();
+			});;
+
+			require(['jquery'], function($) {
+				$('#jump-to-activity').change(function() {
+					$('#url_select_f5dde671b27e8015').submit();
+				});
+			});;
+
+			require(['theme_polytech5/loader']);
+			require(['theme_polytech5/drawer'], function(mod) {
+				mod.init();
+			});;
+			require(["core/notification"], function(amd) {
+				amd.init(27040, []);
+			});;
+			require(["core/log"], function(amd) {
+				amd.setConfig({
+					"level": "warn"
+				});
+			});
+		});
+		//]]>
+	</script>
+	<script type="text/javascript">
+		//<![CDATA[
+		M.yui.add_module({
+			"mod_assign": {
+				"name": "mod_assign",
+				"fullpath": "https:\/\/dl.spbstu.ru\/lib\/javascript.php\/1574779413\/mod\/assign\/module.js",
+				"requires": []
+			},
+			"core_comment": {
+				"name": "core_comment",
+				"fullpath": "https:\/\/dl.spbstu.ru\/lib\/javascript.php\/1574779413\/comment\/comment.js",
+				"requires": ["base", "io-base", "node", "json", "yui2-animation", "overlay", "escape"]
+			}
+		});
+
+		//]]>
+	</script>
+	<script type="text/javascript" src="https://dl.spbstu.ru/theme/javascript.php/polytech5/1574779413/footer"></script>
+	<script type="text/javascript">
+		//<![CDATA[
+		M.str = {
+			"moodle": {
+				"lastmodified": "\u041f\u043e\u0441\u043b\u0435\u0434\u043d\u0435\u0435 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u0435",
+				"name": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435",
+				"error": "\u041e\u0448\u0438\u0431\u043a\u0430",
+				"info": "\u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f",
+				"yes": "\u0414\u0430",
+				"no": "\u041d\u0435\u0442",
+				"cancel": "\u041e\u0442\u043c\u0435\u043d\u0430",
+				"addcomment": "\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439...",
+				"comments": "\u041a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0438",
+				"commentscount": "\u041a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0438 ({$a})",
+				"commentsrequirelogin": "\u0414\u043b\u044f \u043f\u0440\u043e\u0441\u043c\u043e\u0442\u0440\u0430 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0435\u0432 \u043d\u0435\u043e\u0431\u0445\u043e\u0434\u0438\u043c\u043e \u0432\u043e\u0439\u0442\u0438 \u0432 \u0441\u0438\u0441\u0442\u0435\u043c\u0443.",
+				"deletecommentbyon": "\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439, \u0440\u0430\u0437\u043c\u0435\u0449\u0435\u043d\u043d\u044b\u0439 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0435\u043c {$a->user} \u0432 {$a->time}",
+				"confirm": "\u041f\u043e\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044c",
+				"areyousure": "\u0412\u044b \u0443\u0432\u0435\u0440\u0435\u043d\u044b?",
+				"closebuttontitle": "\u0417\u0430\u043a\u0440\u044b\u0442\u044c",
+				"unknownerror": "\u041d\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043d\u0430\u044f \u043e\u0448\u0438\u0431\u043a\u0430"
+			},
+			"repository": {
+				"type": "\u0422\u0438\u043f",
+				"size": "\u0420\u0430\u0437\u043c\u0435\u0440:",
+				"invalidjson": "\u041d\u0435\u0432\u0435\u0440\u043d\u0430\u044f \u0441\u0442\u0440\u043e\u043a\u0430 JSON",
+				"nofilesattached": "\u041d\u0435 \u043f\u0440\u0438\u043a\u0440\u0435\u043f\u043b\u0435\u043d \u043d\u0438 \u043e\u0434\u0438\u043d \u0444\u0430\u0439\u043b",
+				"filepicker": "\u0412\u044b\u0431\u043e\u0440 \u0444\u0430\u0439\u043b\u0430",
+				"logout": "\u0412\u044b\u0445\u043e\u0434",
+				"nofilesavailable": "\u041d\u0435\u0442 \u043d\u0438 \u043e\u0434\u043d\u043e\u0433\u043e \u0444\u0430\u0439\u043b\u0430",
+				"norepositoriesavailable": "\u041a \u0441\u043e\u0436\u0430\u043b\u0435\u043d\u0438\u044e, \u043d\u0438 \u043e\u0434\u043d\u043e \u0438\u0437 \u0412\u0430\u0448\u0438\u0445 \u0442\u0435\u043a\u0443\u0449\u0438\u0445 \u0445\u0440\u0430\u043d\u0438\u043b\u0438\u0449 \u0444\u0430\u0439\u043b\u043e\u0432 \u043d\u0435 \u043c\u043e\u0436\u0435\u0442 \u0432\u0435\u0440\u043d\u0443\u0442\u044c \u0444\u0430\u0439\u043b\u044b \u0432 \u0437\u0430\u043f\u0440\u0430\u0448\u0438\u0432\u0430\u0435\u043c\u043e\u043c \u0444\u043e\u0440\u043c\u0430\u0442\u0435.",
+				"fileexistsdialogheader": "\u0424\u0430\u0439\u043b \u0441\u043e\u0437\u0434\u0430\u043d",
+				"fileexistsdialog_editor": "\u0424\u0430\u0439\u043b \u0441 \u044d\u0442\u0438\u043c \u0438\u043c\u0435\u043d\u0435\u043c \u0443\u0436\u0435 \u0431\u044b\u043b \u043f\u0440\u0438\u043a\u0440\u0435\u043f\u043b\u0435\u043d \u043a \u0440\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u0443\u0435\u043c\u043e\u043c\u0443 \u0442\u0435\u043a\u0441\u0442\u0443",
+				"fileexistsdialog_filemanager": "\u0424\u0430\u0439\u043b \u0441 \u044d\u0442\u0438\u043c \u0438\u043c\u0435\u043d\u0435\u043c \u0443\u0436\u0435 \u0431\u044b\u043b \u043f\u0440\u0438\u043a\u0440\u0435\u043f\u043b\u0435\u043d",
+				"renameto": "\u041f\u0435\u0440\u0435\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u0442\u044c \u0432 \u00ab{$a}\u00bb",
+				"referencesexist": "\u0415\u0441\u0442\u044c \u043f\u0441\u0435\u0432\u0434\u043e\u043d\u0438\u043c\u044b\/\u044f\u0440\u043b\u044b\u043a\u0438 \u0444\u0430\u0439\u043b\u043e\u0432 ({$a}), \u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u044e\u0442 \u044d\u0442\u043e\u0442 \u0444\u0430\u0439\u043b \u0432 \u043a\u0430\u0447\u0435\u0441\u0442\u0432\u0435 \u0438\u0441\u0442\u043e\u0447\u043d\u0438\u043a\u0430",
+				"select": "\u0412\u044b\u0431\u0440\u0430\u0442\u044c"
+			},
+			"admin": {
+				"confirmdeletecomments": "\u0412\u044b \u0443\u0432\u0435\u0440\u0435\u043d\u044b \u0432 \u0442\u043e\u043c, \u0447\u0442\u043e \u0441\u043e\u0431\u0438\u0440\u0430\u0435\u0442\u0435\u0441\u044c \u0443\u0434\u0430\u043b\u0438\u0442\u044c \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0438?",
+				"confirmation": "\u041f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u0435"
+			}
+		};
+		//]]>
+	</script>
+	<script type="text/javascript">
+		//<![CDATA[
+		(function() {
+			Y.use("moodle-filter_mathjaxloader-loader", function() {
+				M.filter_mathjaxloader.configure({
+					"mathjaxconfig": "\nMathJax.Hub.Config({\n    config: [\"Accessible.js\", \"Safe.js\"],\n    errorSettings: { message: [\"!\"] },\n    skipStartupTypeset: true,\n    messageStyle: \"none\"\n});\n",
+					"lang": "ru"
+				});
+			});
+			M.util.help_popups.setup(Y);
+			M.util.js_pending('random5dde671b27e8017');
+			Y.use('mod_assign', function(Y) {
+				M.mod_assign.init_tree(Y, true, "assign_files_tree5dde671b27e8016");
+				M.util.js_complete('random5dde671b27e8017');
+			});
+			M.util.js_pending('random5dde671b27e8018');
+			Y.on('domready', function() {
+				M.util.js_pending('random5dde671b27e8018');
+				Y.use('core_comment', function(Y) {
+					M.core_comment.init(Y, {
+						"client_id": "5dde671b68be5",
+						"commentarea": "submission_comments",
+						"itemid": "47501",
+						"page": 0,
+						"courseid": "253",
+						"contextid": 27040,
+						"component": "assignsubmission_comments",
+						"notoggle": false,
+						"autostart": false
+					});
+					M.util.js_complete('random5dde671b27e8018');
+				});
+				M.util.js_complete('random5dde671b27e8018');
+			});
+			M.util.js_pending('random5dde671b27e8019');
+			Y.on('domready', function() {
+				M.util.js_complete("init");
+				M.util.js_complete('random5dde671b27e8019');
+			});
+		})();
+		//]]>
+	</script>
+
+	<!--
+<footer id="page-footer" class="p-y-1">
+<div class="footer-bottom">
+        <div class="container">
+                <div class="row"><div class="col-md-4">
+<div class="box">
+<a href="http://www.spbstu.ru/" target="_blank">
+<img alt="" src="https://dl-iamm.spbstu.ru/theme/polytech5/pix/poly-logo.svg">
+</a>
+<a href="http://open.spbstu.ru/" target="_blank">
+<img alt="" src="https://dl-iamm.spbstu.ru/theme/polytech5/pix/logo-open.svg">
+</a>
+</div>
+ <span>Портал дистанционных образовательных технологий СПБПУ Петра Великого</span>
+<span><a href="http://www.spbstu.ru/upload/personal_data_policy.pdf" target="_blank">Политика конфиденциальности</a></span>
+
+</div>
+        <div class="col-md-4 "><div class="footer-heading">Контакты:</div><ul class="support-contact">
+        <li><i class="fa fa-fw fa-map-marker"></i> <a href="https://goo.gl/maps/LGjt2hBHsbq">195251, Санкт-Петербург, ул. Политехническая, дом 29, Научно-исследовательский корпус</a></li>
+        <li><i class="fa fa-fw fa-phone"></i><a href="tel:+7 (812) 290-95-07">+7 (812) 290-95-07</a></li>
+        <li><i class="fa fa-fw fa-envelope"></i><a href="mail:dl@spbstu.ru">dl@spbstu.ru</a></li></ul>
+        </div>
+        <div class="col-md-4"><div class="footer-heading">Мы в социальных ресурсах</div><div class="moodle-socials"><a href="https://vk.com/pgpuspb" target="_blank"><i class="fa fa-vk"></i></a>
+<a href="https://plus.google.com/u/0/+SpbstuRu" target="_blank"><i class="fa fa-google-plus"></i></a> <a href="https://twitter.com/pgpuspb" target="_blank"><i class="fa fa-twitter"></i></a>
+<a href="https://instagram.com/pgpuspb/" target="_blank"><i class="fa fa-instagram"></i></a> <a href="http://www.youtube.com/user/SPBMEDIACENTRE" target="_blank"><i class="fa fa-youtube-play"></i></a>
+        </div>
+
+</div>
+</footer>
+
+-->
+</body>
+
+</html>
