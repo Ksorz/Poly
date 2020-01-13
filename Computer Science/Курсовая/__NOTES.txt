@@ -56,3 +56,13 @@ https://habr.com/ru/company/mailru/blog/333862/
 
 "Управление знаниями" ИИ, Машинное обучение итд *****
 https://sites.google.com/site/upravlenieznaniami/inzeneria-znanij/bazy-znanij
+
+Магистерская ИНС
+http://elib.spbstu.ru/dl/2/v18-3372.pdf/download/v18-3372.pdf
+Как работает нейронная сеть: алгоритмы, обучение, функции активации и потери
+подробно про глубину и ширину сети
+https://neurohive.io/ru/osnovy-data-science/osnovy-nejronnyh-setej-algoritmy-obuchenie-funkcii-aktivacii-i-poteri/
+Бум нейросетей: Кто делает нейронные сети, зачем они нужны и сколько денег могут приносить
+https://vc.ru/future/16843-neural-networks
+Краткий обзор популярных нейронных сетей (архитектуры)
+https://habr.com/ru/post/83781/
