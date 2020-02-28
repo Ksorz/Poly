@@ -1,0 +1,9 @@
+<!-- 13.2 eXtensible Markup Language (XML) -->
+<a>
+  <b w="5">X</b> <!-- w Attribute 5 ("double quotes only"); X - text node /a/b -->
+  <c>
+    <d>Y</d> <!-- Y - text node /a/c/d -->
+    <e>Z</e> <!-- Z - text node /a/c/e -->
+  </c>
+</a>
+<!-- https://www.w3schools.com/xml/schema_intro.asp - XSD / XML Schema -->
