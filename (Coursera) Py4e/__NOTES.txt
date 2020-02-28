@@ -1,0 +1,54 @@
+--- Object-oriented programming (OOP) ---
+-----------------------------------------
+--- Terminology ---
+
+CLASS -- a template (shape of an OBJECT)
+Defines the abstract characteristics of a thing (object), including the thing's characteristics (its attributes, fields or properties) and the thing's behaviors (the things it can do, or methods, operations or features). One might say that a class is a blueprint or factory that describes the nature of something. For example, the class Dog would consist of traits shared by all dogs, such as breed and fur color (characteristics), and the ability to bark and sit (behaviors).
+CLASS'es - str, int, list, dict, float, soup etc.
+
+METHOD (or Message) -- A defined capability of a CLASS ( dir(object) - capabilities of object )
+An object's abilities. In language, methods are verbs. Lassie, being a Dog, has the ability to bark. so bark() is one of Lassie's methods. She may have other methods as well, for example sit() or eat(). Within the program, using a method usually affects only one particular object; all Dogs can bark, but you need only one particular Dog to do the barking.
+METHODs are these things that are functions built into OBJECT's. Method is a part of defining a class, it's also part of the object. And that is things like string.upper(), string.startswith(), string.find(), those are all METHODs in the string CLASS. But they also are part of every string OBJECT.
+
+ATTRIBUTE (or field) -- a bit of data (variable) within a CLASS
+
+OBJECT (or Instance) -- A particular instance of a CLASS (A real OBJECT, not the shape of the OBJECT)
+One can have an instance of a class or a particular object. The instance is the actual object crated at runtime (Lassie object is an instance of the Dog class). The set of values of the attributes of a particular object is called its state. The object consists of state and the behavior that's defined in the object's class.
+OBJECT's - str, int, list, dict, float, soup etc.
+An OBJECT is a bit of self-contained code and data
+A key aspect of the OBJECT approach is to break the problem into smaller understandable parts.
+From outside looking in (OBJECT), you ignore the detail. From inside looking out, you ignore the outer detail
+-----------------------------------------
+--- Object Lifecycle ---
+
+• Objects are created, used and discharged
+• We have special blocks of code (methods) that get called
+  • At the moment of creation (CONSTRUCTOR) *used a lot
+  • At the moment of destruction (destructor) *seldom used
+In OOP, a CONSTRUCTOR in a class is a special block of statements called when an object is created
+
+--- INHERITANCE (or subclasses) ---
+
+• When we make a new class - we can reuse an existing class and inherit all the capabilities of an existing class and then add our own little bit to make our new class (parent and child)
+• Another term of store and reuse
+================================================================================
+
+• ASCII - American Standard Code for Information Interchange ( ord('w') )
+
+• HTTP - The HyperText Transfer Protocol is an application protocol for distributed, collaborative, hypermedia information systems
+
+• HTML - HyperText Markup Language is the standard markup language for documents designed to be displayed in a web browser. It can be assisted by technologies such as Cascading Style Sheets and scripting languages such as JavaScript
+
+• UTF-8 - Unicode Transformation Format 1-4 bytes (UTF-8 is recommended practice for encoding data to be exchanged between systems)
+
+• XML - eXtensible Markup Language is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable
+
+• JSON - JavaScript Object Notation is an open-standard file format that uses human-readable text to transmit data objects consisting of attribute–value pairs and array data types
+
+• SQL - Structured Query Language is a domain-specific language used in programming and designed for managing data held in a relational database management system, or for stream processing in a relational data stream management system
+
+• Relational databases - is model data by storing rows and columns in tables. The power of the relational database lies in its ability to efficiently retrieve data from those tables and in particular where there are multiple tables and the relationships between those tables involved in the query.
+    • Database - contain many tables
+    • Relation (or table) - contains tuples and attributes
+    • Tuple (or row) - a set of fields that generally represents an "object" like a person or a music track
+    • Attribute (also column or field) - one of possibly many elements of data corresponding to the object represented by the row
