@@ -17,10 +17,12 @@ namespace ConsoleApp
          * Многоугольник является равносторонним треугольником и имеет толщину линии больше Width (входной аргумент).
          */
 
+        public Polygon z;
         public static Random rnd = new Random(); // Рандом всегда пригодится
 
         public struct Polygon
         {
+            
             public List<double> X; // Координаты по оси X
             public List<double> Y; // Координаты по оси Y
             public int width;      // Толщина линий
