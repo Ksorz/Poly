@@ -4,79 +4,141 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Runtime;
+using System.Runtime.InteropServices;
 
 namespace ConsoleApp
 {
     class Program
     {
-        /* Задание: Ханойская башня
+        /* Задание: Разбор арифметических выражений
          * 
-         * Реализуйте проект, который в автоматическом режиме решает известную головоломку Ханойские башни.
-         * (http://ru.wikipedia.org/wiki/%D0%A5%D0%B0%D0%BD%D0%BE%D0%B9%D1%81%D0%BA%D0%B0%D1%8F_%D0%B1%D0%B0%D1%88%D0%BD%D1%8F)
+         * Вариант 1
          * 
-         * При реализации разработать рекурсивную подпрограмму, у которой предлагаются такие аргументы:
-         * public static void Move(Башня_Откуда, Башня_Куда, Башня_Временная, Количество_Перекладываемых_Дисков)
-         * Подумайте, каким образом эффективно и удобно запрограммировать три башни (спицы) с кольцами разного диаметра на них.
-         * 
-         * С примером работающей программы можно познакомится скачав архив по https://dl.spbstu.ru/pluginfile.php/70757/mod_assign/intro/Hanoi.zip */
+         * Разработать программу, которая принимает строку - арифметическое выражение и вычисляет его результат по алгоритму Рутисхаузера. 
+         * Требования к выражению аналогичны описанным в уроке.
+         * При чтении символов и их анализе помещайте их в список. Элементом списка будет структура со значением очередного символа и его весом.
+         * При реализации программы разработайте в отдельном классе функции, реализующие работу списка. Реализация списка должна быть с 
+         * использованием массива и курсоров. */
 
-        public static int count = 0;  // Подсчет шагов
-        public static int[] r1;       // 
-        public static int[] r2;       // 1, 2, 3 башни 
-        public static int[] r3;       //
-        static void Main(string[] args)
+        // + = 1;; - = 2;; * = 3;; / = 4;; ( = 9;; ) = 0;;
+
+        public struct Expression
         {
-            Console.WriteLine("Введите количество колец");
-            int rings = Convert.ToInt32(Console.ReadLine());
+            public List<string> expFragments;
+            public List<int> weigths;
 
-            Create(rings, out r1, out r2, out r3);
-            Move(r1, r2, r3, rings);    
-        }
-
-        // Рекурсивный алгоритм, решающий задачу
-        public static void Move(int[] TowerFrom, int[] TowerTo, int[] TowerTemp, int amount)
-        {
-            if (amount > 0)
+            public Expression(string exp)
             {
-                Move(TowerFrom, TowerTemp, TowerTo, amount - 1);
-                
-                SwapRing(ref TowerFrom, ref TowerTo);
+                expFragments = new List<string>();
 
-                Move(TowerTemp, TowerTo, TowerFrom, amount - 1);
-            }
-        }
-        // Функция, "перекладывающая" верхнее кольцо с одной башни на другую
-        static void SwapRing(ref int[] from, ref int[] to)
-        {
-            for(int i = 0; i < from.Length; i++)
-            {
-                if (from[i] != 0)
+                for (int i = 0; i < exp.Length; i++)
                 {
-                    for (int j = 0; j < to.Length; j++)
+                    if (char.IsDigit(exp[i]) || exp[i] == ',') 
                     {
-                        if (to[j] != 0) { to[j - 1] = from[i]; break; }
-                        if (j + 1 == to.Length) { to[j] = from[i]; break; }
+                        expFragments.Add(WhatIsThisDigit(exp.Substring(i), ref i)); 
                     }
-                    from[i] = 0;
-                    break;
+                    else { expFragments.Add(exp[i].ToString()); }                    
+                }
+
+                weigths = new List<int>();
+                int level = 0;
+
+                for (int i = 0; i < expFragments.Count; i++)
+                {
+                    if (expFragments[i] == "(") level++;
+                    
+                    weigths.Add(level);
+
+                    if (char.IsDigit(expFragments[i][0])) weigths[i]++;
+
+                    if (expFragments[i] == ")") { level--; }
                 }
             }
-            count++;
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("\n\nШаг {0}\n", count);
-            Console.ResetColor();
-            Print(r1, r2, r3);
+            public double Calc(Expression exp)
+            {
+                double result = 0;
+                
+                
+                while (exp.expFragments.Count > 1)
+                {
+                    Console.WriteLine(exp.expFragments.Count + "  == expCount beginning");
+                    int max = exp.weigths.Max();
+                    int index = exp.weigths.IndexOf(max);
+                    Console.WriteLine(index + " index beginning");
+                    if (exp.expFragments[index + 1] == "+")
+                    {
+                        result = Convert.ToDouble(exp.expFragments[index]) + Convert.ToDouble(exp.expFragments[index + 2]);
+                    }
+                    else if (exp.expFragments[index + 1] == "-")
+                    {
+                        result = Convert.ToDouble(exp.expFragments[index]) - Convert.ToDouble(exp.expFragments[index + 2]);
+                    }
+                    else if (exp.expFragments[index + 1] == "*")
+                    {
+                        result = Convert.ToDouble(exp.expFragments[index]) * Convert.ToDouble(exp.expFragments[index + 2]);
+                    }
+                    else
+                    {
+                        result = Convert.ToDouble(exp.expFragments[index]) / Convert.ToDouble(exp.expFragments[index + 2]);
+                    }
+
+                    Console.WriteLine();
+
+                    Console.WriteLine(exp.expFragments.Count + "  == expCount before");
+                    Console.WriteLine(index + "  == index before");
+
+
+                    for(int i = 0; i < 5; i++)
+                    {
+                        exp.expFragments.RemoveAt(index - 1);
+                        exp.weigths.RemoveAt(index - 1);
+                    }
+                    
+                    Console.WriteLine(exp.expFragments.Count + "  == expCount after");
+                    Console.WriteLine(index + "  == index after");
+                    Console.WriteLine();
+
+
+                    exp.expFragments.Insert(index - 1, Convert.ToString(result));
+                    exp.weigths.Insert(index - 1, max - 1);
+
+
+                }
+                return Convert.ToDouble(exp.expFragments[0]); 
+            }
         }
-        // Создание трех массивов (башен) определённого размера
-        static void Create(int rings, out int[] r1, out int[] r2, out int[] r3)
+
+        static string WhatIsThisDigit(string xxx, ref int j)
         {
-            r1 = new int[rings]; r2 = new int[rings]; r3 = new int[rings];
-            for (int i = 0; i < r1.Length; i++) r1[i] = i + 1;
+            string result = xxx[0].ToString();
+
+            for (int i = 1; i < xxx.Length - 1; i++, j++)
+            {
+                if (char.IsDigit(xxx[i]) || xxx[i] == ',') { result = result + xxx[i]; }
+                else { break; }
+            }
+            return result;
         }
-        // Вывод на экран трех массивов (башен)
-        static void Print(int[] r1, int[] r2, int[] r3)
+
+        static void Main(string[] args)
         {
-            for (int i = 0; i < r1.Length; i++) Console.WriteLine("{0}     {1}     {2}", r1[i], r2[i], r3[i]); 
+            string x = "((75*8)-(2+(7*(29,8/(64,1-2)))))";
+            Expression one = new Expression(x);
+
+            for(int i = 0; i < one.expFragments.Count; i++)
+            {
+                Console.Write(one.weigths[i] + "   ");
+                Console.WriteLine(one.expFragments[i]);
+            }
+
+            Console.WriteLine(one.Calc(one));
+
+            for (int i = 0; i < one.expFragments.Count; i++)
+            {
+                Console.Write(one.weigths[i] + "   ");
+                Console.WriteLine(one.expFragments[i]);
+            }
         }
     }
 }
