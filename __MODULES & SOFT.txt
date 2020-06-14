@@ -1,9 +1,0 @@
---- MODULES ---
-pip install pyTelegramBotAPI https://pypi.org/project/pyTelegramBotAPI/ # Telegram bot API
-pip install PyInstaller https://pypi.org/project/PyInstaller/ # Python compiler
-pip install colorama https://pypi.org/project/colorama/ # Console colors
-pip install pyowm https://pypi.org/project/pyowm/ # OpenWeatherMap API
-pip install beautifulsoup4 https://pypi.org/project/beautifulsoup4/ # HTML parser
-
---- SOFT ---
-Database Browser for SQLite https://sqlitebrowser.org/

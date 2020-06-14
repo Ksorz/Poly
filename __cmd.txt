@@ -1,6 +1,0 @@
-cd folder/file/path      -- move, open
-dir                      -- list of objects in the current folder
-cd..                     -- move to previous folder
-cls                      -- clears the terminal
-d:                       -- change disc
-CTRL + C                 -- interrupt

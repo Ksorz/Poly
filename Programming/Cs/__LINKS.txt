@@ -1,4 +1,0 @@
-Руководство и документация   https://msdn.microsoft.com/ru-ru/
-Учебник C#			         https://docs.microsoft.com/ru-ru/previous-versions/visualstudio/visual-studio-2008/zkxk2fwf(v=vs.90)?redirectedfrom=MSDN
-Обновления                   https://docs.microsoft.com/ru-ru/dotnet/csharp/whats-new/
-Типы данных                  https://docs.microsoft.com/ru-ru/previous-versions/visualstudio/visual-studio-2008/cs7y5x0x(v=vs.90)?redirectedfrom=MSDN

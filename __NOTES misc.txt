@@ -1,0 +1,55 @@
+--- CMD ---
+
+cd folder/file/path      -- move, open
+dir                      -- list of objects in the current folder
+cd..                     -- move to previous folder
+cls                      -- clears the terminal
+d:                       -- change disc
+CTRL + C                 -- interrupt
+
+--- ATOM ---
+
+Проверка в орфографии для файлов нового расширения: Ctrl + Shift + P, находясь в файле. Прописать Editor: Log Cursor Scope и выбрать этот пункт. Внизу справа будет уведомление с одним или несколькими пунктами текста. Один из них будет означать тип документа. Для LaTeX файлов этот тип определился как text.tex.latex. Копируем этот тип и закрываем уведомление. Потом идем в настройки spell-ckecker и в разделе Grammars дописываем наш тип файлов.
+
+Ctrl + S                 -- сохранить файл.
+Ctrl + Shift + P         -- открыть консоль Atom.
+Ctrl + Alt + C           -- выбор цвета с помощью плагина color-picker.
+Ctrl + Shift + T         -- открытие последней закрытой вкладки.
+Ctrl + Alt + O           -- добавляет список функций в файле для быстрого перехода между ними в плагине symbols-tree-view.
+F5                       -- сортировка.
+Ctrl + P                 -- поиск файла в проекте по имени.
+Ctrl + F                 -- поиск и замена.
+Shift + Ctrl + F         -- поиск по всем файлам проекта.
+Ctrl + Shift + D         -- продублировать строку.
+Ctrl + /                 -- закомментировать строки.
+Ctrl + J                 -- объединить строки в одну.
+Ctrl + Alt + F2          -- поставить метку около строчки.
+F2                       -- перемещение между метками строк.
+Ctrl + Space             -- вызов автодополнения.
+Ctrl + K + U             -- все буквы заглавными.
+Ctrl + K + L             -- все буквы маленькими.
+Ctrl + M                 -- перейти к соответствующей скобке (открывающейся/закрывающейся).
+Ctrl + Shift + M         -- превью markdown файла.
+Ctrl + Shift + :         -- вызов подсказок, как исправить слово.
+Ctrl + Alt + V           -- превью svg файлов.
+Ctrl + Alt + B           -- расставляем отступы в коде.
+Alt + Ctrl + I           -- вызов Developer Tools.
+Ctrl + Alt + O           -- открытие файлов, папок, их создание с помощью плагина advanced-open-file.
+Up и Alt + Down          -- можно редактировать несколько строк одновременно с помощью плагина multi-cursor.
+Alt + [ и Alt + ]        -- переключение между вкладками с помощью пакета tab-switcher.
+
+--- MODULES py ---
+
+pip install pyTelegramBotAPI https://pypi.org/project/pyTelegramBotAPI/ # Telegram bot API
+pip install PyInstaller https://pypi.org/project/PyInstaller/ # Python compiler
+pip install colorama https://pypi.org/project/colorama/ # Console colors
+pip install pyowm https://pypi.org/project/pyowm/ # OpenWeatherMap API
+pip install beautifulsoup4 https://pypi.org/project/beautifulsoup4/ # HTML parser
+
+--- SOFT ---
+
+Database Browser for SQLite https://sqlitebrowser.org/
+
+--- Misc ---
+
+(Excel) Как обрезать страницы excel, чтобы они не были бесконечными -- https://www.planetaexcel.ru/forum/?PAGE_NAME=read&FID=1&TID=46977
