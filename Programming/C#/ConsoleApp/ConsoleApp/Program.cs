@@ -3,64 +3,189 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
-namespace ConsoleApp
+
+namespace WorkWithStrings
 {
-    class Program
+    /* Задание: Индексированный поиск файлов
+     * 
+     * Задача: разработать приложение для более быстрого, индексированного поиска файлов по заданному пользователем имени.
+     * Индексирование и поиск выполнять в пределах указанной пользователем папки.
+     * 
+     * Цели:
+     * 
+     ** познакомиться с понятием хеширования,
+     ** закрепить знания по обработке исключительных ситуаций,
+     ** вспомнить рекурсию и работу с папками и файлами,
+     ** вспомнить работу со списками.
+     *
+     * Шаг 1. Скачайте архив, распакуйте. Ознакомьтесь с работой образца Demo.exe. программа сначала предлагает ввести имя папки,
+     * чтобы проиндексировать все файлы в этой папке и ее подпапках, а затем предлагает выполнить поиск по заданному имени файла, 
+     * используя при этом хеш-таблицу.
+     * 
+     * Шаг 2. Разработайте хеш-функцию для получения хеш-кода входной строки. Хеш-код предполагается - целое число в интервале
+     * от 0 до 255 (тип Byte).
+     * 
+     * Шаг 3. Разработайте функцию формирования хеш-таблицы со списками. Входной аргумент - имя стартовой папки. 
+     * Результат работы - массив arrRes[0-255], каждый элемент которого типа List<..>
+     * 
+     * Шаг 4. Разработайте подпрограмму Main, которая обеспечивает пользовательский интерфейс и логику работы, аналогичную примеру-образцу.
+     * 
+     * Обязательное условие: при реализации всех указанных выше подпрограмм все нештатные ситуации нужно обрабатывать оператором TRY CATCH:
+     * 
+     ** Отсутствие хеш-кода указанного файла в хеш-таблице
+     ** Ввод пользователем неверного значения или неверного имени папки
+     ** Ошибки доступа к элементам файловой системы */
+
+    public struct Filename
     {
-        /* Практика «Проценты»
-        В этой задаче вам нужно самостоятельно создать с нуля консольное приложение, которое рассчитывает банковские проценты.
+        public string FullName;
+        public string Name;
+        public Filename(string FullName, string Name)
+        {
+            this.FullName = FullName;
+            this.Name = Name;
+        }
+        public void Display()
+        {
+            Console.WriteLine(this.FullName);
+            Console.WriteLine(this.Name);
+        }
+    }
 
-        Пользователь должен ввести исходные данные с консоли — три числа через пробел: исходную сумму, процентную ставку (в процентах) 
-        и срок вклада в месяцах.
-
-        Программа должна вывести накопившуюся сумму на момент окончания вклада.
-
-        Вот порядок действий:
-
-        Создайте новый проект с типом Console Application.
-        В методе Main напишите ввод с помощью Console.ReadLine() и вывод с помощью Console.WriteLine().
-        Все вычисление вынесите во вспомогательный метод Calculate. Код этого метода и нужно сдать в этой задаче.
-        Детали:
-
-        В конце каждого месяца происходит капитализация — к сумме прибавляется накопившийся за месяц процент. Далее процент вычисляется 
-        от этой увеличенной суммы.
-        Процентная ставка — годовая (то есть в конце месяца сумма на счете увеличивается на одну двенадцатую ставки)
-        Считайте, что вклад открыт в первый день месяца, а срок вклада — это целое количество месяцев.
-        Код, решающий основную задачу нужно оформить в виде метода Calculate, принимающего строку, введенную пользователем. В этой задаче 
-        гарантируется, что ввод корректный.
-        Решите эту задачу без использования циклов!
-
-        Пример ввода
-        100.00 12 1
-        Этот ввод соответствует вкладу 100 рублей под 12% годовых на 1 месяц.
-
-        Пример вывода
-        101
-        Через месяц на 100 рублей добавится 1% (1/12 от годового процента), значит общая сумма будет 101. */
-
+    class List
+    {
         static void Main(string[] args)
         {
-            string userInput = Console.ReadLine(); // Сумма процент срок
-
-            Console.WriteLine(Calculate(userInput));
+            while (true)
+            {
+                try
+                {
+                    if (!Menu()) break;
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("ошибка, перезапуск программы");
+                }
+                Console.ReadKey();
+            }
         }
 
-        public static double Calculate(string userInput)
+        static bool Menu()
         {
-            string[] data = userInput.Split();
-            double money = Convert.ToDouble(data[0]);
-            double percents = Convert.ToDouble(data[1]);
-            double months = Convert.ToDouble(data[2]);
+            string CurDir, InpDir, Name;
+            List<Filename> list = new List<Filename>();
+            // текущая директория
+            CurDir = "C:\\Users\\Ksorz\\OneDrive\\Документы\\Poly";
+            DirectoryInfo dir = new DirectoryInfo(CurDir);
 
-            double n = months;
-            double q = 1 + percents / 100 / 12;
-            double b1 = money * q - money;
+            Console.WriteLine("------------");
+            Console.WriteLine("Список подпапок в директории: ");
+            Console.WriteLine(CurDir);
+            foreach (var subdirectoty in dir.GetDirectories())
+                Console.WriteLine(@"...\" + subdirectoty.Name);
+            Console.WriteLine("------------");
+            Console.WriteLine("Введите имя подпапки (или оставьте поле пустым) и нажмите Enter");
+            Console.WriteLine("------------");
+            InpDir = Console.ReadLine();
+            GetFilesToList(CurDir + @"\" + InpDir, list); // рекурсивно создаем список файлов
+            List<Filename>[] HashTable = MakeHashTable(list); // создаем хэш-таблицу из списка
+            Console.WriteLine("------------");
+            Console.WriteLine("Введите имя файла которое ищем");
+            Console.WriteLine("------------");
+            Name = Console.ReadLine();
+            Find(Name, HashTable, out List<Filename> fileList);
+            Console.WriteLine("------------");
+            Console.Write("Ищем: ");
+            Console.WriteLine(Name.ToUpper());
+            Console.WriteLine("------------");
+            if (fileList.Count == 0)
+            {
+                Console.WriteLine("Не нашли");
+                Console.WriteLine("------------");
+            }
+            else
+            {
+                Console.WriteLine("Нашли файлы:");
+                foreach (Filename file in fileList)
+                {
+                    Console.WriteLine(file.FullName); // выводим результаты  поиска
+                }
+                Console.WriteLine("------------");
 
-            double profit = b1 * (1 - Math.Pow(q, n)) / (1 - q);
-
-            return profit + money;
+            }
+            Console.WriteLine("Введите 0 для выхода");
+            if (Convert.ToInt32(Console.ReadLine()) == 0)
+                return false;
+            return true;
         }
 
+        // создает хэш-таблицу из списка файлов
+        static List<Filename>[] MakeHashTable(List<Filename> list)
+        {
+            byte Hash = 0;
+
+            List<Filename>[] HashTable = new List<Filename>[256];
+            for (int i = 0; i < HashTable.Length; i++)
+            {
+                HashTable[i] = new List<Filename>();
+            }
+
+            foreach (Filename file in list)
+            {
+                Hash = GetHash(file.Name);
+                HashTable[Hash].Add(file);
+            }
+            return HashTable;
+        }
+        // рекурсивно проходит папки и подпапки и добавляет файлы в список
+        static void GetFilesToList(string Path1, List<Filename> list)
+        {
+            DirectoryInfo dir = new DirectoryInfo(Path1);
+            //перебор файлов в папке
+            try
+            {
+                foreach (var file in dir.GetFiles())
+                {
+                    list.Add(new Filename(Path1 + @"\" + file, Path.GetFileNameWithoutExtension(file.FullName).ToUpper()));
+                }
+            }
+            catch
+            {
+                Console.WriteLine("нет папки с таким имененем");
+                throw new Exception();
+            }
+
+            //перебор подпапок
+            foreach (var subdirectoty in dir.GetDirectories())
+                GetFilesToList(Path1 + @"\" + subdirectoty, list);
+        }
+        //ищет файлы с имененем input в HashTable, результаты записывает в список
+        static bool Find(string input, List<Filename>[] HashTable, out List<Filename> fileList)
+        {
+            fileList = new List<Filename>();
+            byte Hash = GetHash(input.ToUpper());
+            bool find = false;
+            foreach (Filename file in HashTable[Hash])
+            {
+                if (input.ToUpper().Equals(file.Name.ToUpper()))
+                {
+                    fileList.Add(file);
+                    find = true;
+                }
+            }
+            return find;
+        }
+        // возвращает byte хэш(0 - 255) из string
+        static byte GetHash(string StrInput)
+        {
+            int hash = 0;
+            foreach (char symbol in StrInput)
+            {
+                hash += symbol;
+            }
+            return (byte)hash;
+        }
     }
 }
