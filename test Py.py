@@ -55,6 +55,20 @@ for i in range(10):
     print(lisst[i])
 
 
+index = 0
+
+for i in range(150):
+    if ((i + 1) / 3).is_integer():
+        continue
+    elif ((i + 1) / 7).is_integer():
+        continue
+    index += 1
+    print((i+1), "is", index)
+
+    if index == 70:
+        print(i+1)
+
+
 
 
 
