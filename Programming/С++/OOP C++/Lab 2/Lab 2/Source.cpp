@@ -1,11 +1,8 @@
 #include <iostream>
-#include <climits>
 #include <Windows.h>
 #include <string>
-#include <iomanip>
 
-#include <ctime> // для функции time()
-#include <cstdlib> // для функций rand() и srand()
+#include "matrix.hpp"
 
 using namespace std;
 
@@ -24,68 +21,6 @@ using namespace std;
 
 
 
-int getRand(int min, int max)
-{
-	static const double fraction = 1.0 / (static_cast<double>(RAND_MAX) + 1.0);
-	// Равномерно распределяем рандомное число в нашем диапазоне
-	return static_cast<int>(rand() * fraction * (max - min + 1) + min);
-}
-
-struct Matrix
-{
-	int sizeX;
-	int sizeY;
-	int** mx;
-};
-
-Matrix matrix()
-{
-	Matrix mx;
-	int value;
-	cout << "Количество столбцов:" << endl;
-	cin >> mx.sizeY;
-	cout << "Количество строк:" << endl;
-	cin >> mx.sizeX;
-
-	mx.mx = new int* [mx.sizeX];
-	if (mx.sizeX * mx.sizeY > 10)
-	{
-		srand(static_cast<unsigned int>(time(0))); // устанавливаем значение системных часов в качестве стартового числа
-		int min;
-		int max;
-		cout << "Матрица слишком большая, введите диапозон случайных значений для автоматического заполнения" << endl;
-		cout << "Минимальное значение:" << endl;
-		cin >> min;
-		cout << "Максимальное значение:" << endl;
-		cin >> max;
-
-		for (int i = 0; i < mx.sizeX; i++)
-		{
-			mx.mx[i] = new int[mx.sizeY];
-			for (int j = 0; j < mx.sizeY; j++)
-			{
-				mx.mx[i][j] = getRand(min, max);
-			}
-		}
-	}
-	else
-	{
-		for (int i = 0; i < mx.sizeX; i++)
-		{
-			mx.mx[i] = new int[mx.sizeY];
-			for (int j = 0; j < mx.sizeY; j++)
-			{
-				cout << "Позиция " << i + 1 << " - " << j + 1 << ". Введите значение:"<< endl;
-				cin >> value;
-				mx.mx[i][j] = value;
-			}
-		}
-	}
-	return mx;
-}
-
-
-
 int main() {
 	setlocale(LC_ALL, "Russian");
 	SetConsoleCP(1251);
@@ -95,27 +30,58 @@ int main() {
 	"Вычисление следа квадратной матрицы", "Вычитание матриц", "Умножение строки на столбец", "Умножение матрицы на число" };
 	cout << "Вариант: " << int('L') % 8 << ' ' << variants[int('L') % 8] << endl;
 	
-	Matrix mx = matrix();
+	char choice = '0'; // Переменная switch
+	char isExist = 'x'; // Для проверки существования матрицы
 
-	for (int i = 0; i < mx.sizeX; i++)
-	{
-		cout << string(mx.sizeX * 4, '~') << endl;
-		cout << "| ";
-		for (int j = 0; j < mx.sizeY; j++)
-		{
-			cout << mx.mx[i][j] << " | ";
-		}
-		cout << endl;
-	}
-
-
-
-	char choice = '0';
 	while (choice != 'q')
 	{
+		cout << endl;
+		cout << "Создать матрицу:         'm'" << endl;
+		cout << "Вывод матрицы на экран:  'p'" << endl;
+		cout << "След матрицы:            't'" << endl;
+		cout << "Удалить матрицу:         'd'" << endl;
+		cin >> choice;
 
+		switch (choice)
+		{
+		case 'm':
+
+			Matrix mx = matrix();
+			isExist = 'v';
+			continue;
+
+		case 'p':
+
+			cout << endl;
+			if (isExist == 'v') { printMx(mx); }
+			else { cout << "Сначала создайте матрицу!" << endl;	}
+			continue;
+			
+		case 't':
+
+			cout << endl;
+			if (isExist == 'v') { traceMx(mx); }
+			else { cout << "Сначала создайте матрицу!" << endl; }
+			continue;
+
+		case 'd':
+
+			cout << endl;
+			if (isExist == 'v')
+			{
+				deleteMx(mx);
+				isExist = 'x';
+				cout << "Матрица удалена" << endl;
+			}
+			else
+			{ 
+				cout << "Матрицы итак нет!" << endl;
+			}
+			continue;
+			
+		default:
+			break;
+		}
 	}
-
-
 	return 0;
 }
