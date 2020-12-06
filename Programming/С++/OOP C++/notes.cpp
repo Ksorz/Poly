@@ -9,8 +9,8 @@ using namespace std;
 
 int main() {
     setlocale(LC_ALL, "Russian");
-    wcout.imbue(locale(".1251")); // SetConsoleOutputCP(1251);
-    wcin.imbue(locale(".866")); // SetConsoleCP(1251);
+    SetConsoleOutputCP(1251); // wcout.imbue(locale(".1251"));
+    SetConsoleCP(1251); // wcin.imbue(locale(".866"));
 
 
     // ====================================================================================
@@ -20,6 +20,9 @@ int main() {
 	};
 	for (auto item : dictionary)
 		cout << item.first << " ^^ " << item.second << endl;
+
+    const int x = 100;
+    constexpr int Square(int x) { return x * x; } // Constant variable 
     // ------------------------------------------------------------------------------------
     extern int unind; // Variable declaration without definition
     // ------------------------------------------------------------------pointer, указатель
