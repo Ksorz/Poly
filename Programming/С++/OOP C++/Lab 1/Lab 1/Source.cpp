@@ -80,17 +80,17 @@ int minNumber(int a, int b)
   * @param x значение, порядок которого следует определить
   * @return Количество знаков переданного значения.
   */
-int order(int x)
-{
-    int order = 0;
+  int order(int x)
+  {
+      int order = 0;
 
-    while (abs(x) >= 10)
-    {
-        order++;
-        x = x / 10;
-    }
-    return order;
-}
+      while (abs(x) >= 10)
+      {
+          order++;
+          x = x / 10;
+      }
+      return order;
+  }
 
 /* TODO №4
 
@@ -162,7 +162,7 @@ int main() {
             << "     e - Порядок значения\n"
             << "     q - Выход\n";
         cin >> choice;
-        
+
         switch (choice)
         {
         case 'i':
@@ -180,11 +180,11 @@ int main() {
             continue;
 
         case 'm':
-            
+
             cout << "Введите первое число:" << endl;
             cin >> num1;
             cout << "Введите второе число:" << endl;
-            cin >> num2;            
+            cin >> num2;
 
             if (std::stoi(num1) == std::stof(num1) && std::stoi(num2) == std::stof(num2)) {
                 cout << "Сложнейшие вычисления говорят, что число " << minNumber(std::stoi(num1), std::stoi(num2)) << " наименьшее из двух!" << endl;
@@ -196,7 +196,7 @@ int main() {
             // Возможно на этом шаге я сделал полную ерунду
             // Не понимаю как иначе подключить использование перегруженной функции для такой задачи
         case 'e':
-            
+
             cout << "Введите целое число:" << endl;
             cin >> x;
             cout << "Компьютер думал и пришёл к ответу, порядок числа " << x << ": " << order(x) << '!' << endl;
@@ -217,6 +217,7 @@ int main() {
         }
     }
 }
+
 
 /* TODO №6 Опишите функцию "belongsToInterval".
 * Принимает два целых значения как интервал и одно для сравнения. Возвращает false/true приндалежит ли значение интервалу

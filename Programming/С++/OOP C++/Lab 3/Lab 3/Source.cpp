@@ -24,7 +24,6 @@ int getIsoscelesTriangles(Triangles t[], int size, Triangles* selected);  */
 
 
 
-
 // Возможно я слегка увлёкся...
 int main()
 {
@@ -33,7 +32,10 @@ int main()
 	SetConsoleCP(1251);
 	cout << "Вариант: " << (int('L') + int('A')) % 11 << endl;
 
-
+	char ll = 'd';
+	float ss = ll;
+	char ddd = ss;
+	cout << ll + ss;
 	
 	int pointsSize = 0; // Размер будущего массива точек
 	int trianglesSize = 0; // Размер будущего массива треугольников
