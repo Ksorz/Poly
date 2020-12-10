@@ -100,15 +100,7 @@ int minNumber(int a, int b)
     Константы максимальных и минимальных значений определены в файле <climits> (<limits.h>)
 */
 
-void typeInfo()
-{
-    cout << "Размер в байтах, максимальное и минимальное значениdя для:\n" << endl;
-    cout << "char      -- " << sizeof(char) << ", " << std::numeric_limits<char>::min << ", " << std::numeric_limits<char>::max << endl;
-    cout << "int       -- " << sizeof(int) << ", " << std::numeric_limits<int>::min << ", " << std::numeric_limits<int>::max << endl;
-    cout << "short     -- " << sizeof(short) << ", " << std::numeric_limits<short>::min << ", " << std::numeric_limits<short>::max << endl;
-    cout << "long      -- " << sizeof(long) << ", " << std::numeric_limits<long>::min << ", " << std::numeric_limits<long>::max << endl;
-    cout << "long long -- " << sizeof(long long) << ", " << std::numeric_limits<long long>::min << ", " << std::numeric_limits<long long>::max << endl;
-}
+  void typeInfo();
 
 /* TODO №5
 *   Внутри функции считываем символ с консоли (cin >> c)
@@ -231,9 +223,16 @@ int main() {
 * Принимает целое значение, в цикле делит его на 10, пока модуль значение >= 10. Количество таких итераций равно порядку значения
 */
 
-/* TODO №9 Опишите функцию "typeInfo".
-* Просто выводит на экран параметры типов данных
-*/
+// TODO №9 Опишите функцию "typeInfo".
+void typeInfo()
+{
+    cout << "Размер в байтах, максимальное и минимальное значениdя для:\n" << endl;
+    cout << "char      -- " << sizeof(char) << ", " << std::numeric_limits<char>::min << ", " << std::numeric_limits<char>::max << endl;
+    cout << "int       -- " << sizeof(int) << ", " << std::numeric_limits<int>::min << ", " << std::numeric_limits<int>::max << endl;
+    cout << "short     -- " << sizeof(short) << ", " << std::numeric_limits<short>::min << ", " << std::numeric_limits<short>::max << endl;
+    cout << "long      -- " << sizeof(long) << ", " << std::numeric_limits<long>::min << ", " << std::numeric_limits<long>::max << endl;
+    cout << "long long -- " << sizeof(long long) << ", " << std::numeric_limits<long long>::min << ", " << std::numeric_limits<long long>::max << endl;
+}
 
 /* TODO №10 Опишите функцию "showLetterCode".
 * Принимает char, выводит его числовое значение
