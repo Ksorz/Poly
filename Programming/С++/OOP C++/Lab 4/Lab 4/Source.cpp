@@ -37,9 +37,10 @@ class NSet // (задание) Класс для работы с множествами чисел
 private: // (задание) закрытые поля
 
 	int cardinality;
-	double* set;
+	int* set;
 
 public:
+
 	// (задание) конструкторы
 	NSet() // конструктор по умолчанию (в данном случае пользователь выбирает как задать множество)
 	{
@@ -61,7 +62,7 @@ public:
 		}
 		else
 		{
-			set = new double[cardinality];
+			set = new int[cardinality];
 			for (int i = 0; i < cardinality; i++)
 			{
 				cout << "Элемент " << i + 1 << ":" << endl;
@@ -70,7 +71,13 @@ public:
 			}
 		}
 	}
-	NSet(const int cardinality, double* set = nullptr) : cardinality(cardinality), set(set) {} // конструктор с параметром мощности множества
+	NSet(const int cardinality, int* set = nullptr) : cardinality(cardinality), set(set) {} // конструктор с параметром мощности множества
+	NSet(const NSet& other) // Конструктор копирования
+	{ // В данном случае объекта ещё нет и мы его создаём
+		cardinality = other.getCard();
+		set = new int[cardinality];
+		for (int i = 0; i < cardinality; i++) set[i] = other.set[i];
+	}
 
 	// (задание) Деструктор
 	~NSet()
@@ -85,25 +92,33 @@ public:
 		os << "Мощность множества: " << p.cardinality;
 		return os;
 	}
-	double operator[] (int i) const { return (i < cardinality) ? set[i] : 0; } // (задание) Операция индексирования
-	operator int*() // (задание) Преобразование в тип int*, переопределение операции преобразования типа
+	int operator[] (int i) const { return (i < cardinality) ? set[i] : 0; } // (задание) Операция индексирования
+	NSet& operator= (NSet& other) // Переопределение операции =
+	{ // В данном случае объект уже существует и мы его переопределяем
+		if (&other == this) return *this; // Проверяем на самоприсваивание 
+		delete[] set; // Удаляем текущий объект (устраняем возможность утечки памяти)
+		cardinality = other.getCard();
+		set = new int[cardinality];
+		for (int i = 0; i < cardinality; i++) set[i] = other.set[i];
+		return *this;        
+	}
+	operator int* () // (задание) Преобразование в тип int*, переопределение операции преобразования типа
 	{
 		int* result = new int[cardinality];
-		for (int i = 0; i < cardinality; i++) result[i] = (int)round(set[i]);
-		return result; 
+		for (int i = 0; i < cardinality; i++) result[i] = set[i];
+		return result;
 	}
-
 	// Методы
 	// (задание) открытые методы доступа к полям
 	void printSet() const
 	{
-		if (cardinality <= 900)
+		if (cardinality <= 800)
 		{
 			cout << ": ";
 			for (int i = 0; i < cardinality; i++)
 			{
 				cout << set[i] << " : ";
-				if ((i + 1) % 15 == 0) cout << endl << ": ";
+				if ((i + 1) % 16 == 0) cout << endl << ": ";
 			}
 			cout << endl;
 		}
@@ -120,10 +135,10 @@ public:
 
 	void randomSetFilling() // Заполнение массива случайными значениями
 	{
-		double min, max;
+		int min, max;
 		cout << "Укажите диапозон значений:" << endl;
 		cin >> min >> max;
-		set = new double[cardinality];
+		set = new int[cardinality];
 
 		for (int i = 0; i < cardinality; i++)
 		{
@@ -142,21 +157,21 @@ int main()
 
 
 	
-	double* a = new double[13]{ 3.14, 2.72, 6.28, 0.58, 1.62, 0.7, 299792458, 6.67, 6.63, 1.05, 1.6, 1.38, 7.2973e-3 };
-	NSet alpha(13, a);
-	int* beta = new int[alpha.getCard()];
-	beta = alpha;
-	
-	
+	//double* a = new double[13]{ 3.14, 2.72, 6.28, 0.58, 1.62, 0.7, 299792458, 6.67, 6.63, 1.05, 1.6, 1.38, 7.2973e-3 };
+	int* a = new int[16]{ 0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987 };
+	NSet fe { 16, a };
+	int* alpha = new int[fe.getCard()];
+	alpha = fe;
+	alpha[15] = 1000;
 
 
-	cout << alpha << endl;
-	alpha.printSet();
-	cout << "Indexing: " << alpha[12] << endl;
-	for (int i = 0; i < 13; i++) cout << beta[i] << " -- ";
-	system("cls");
+	cout << fe << endl;
+	fe.printSet();
+	cout << "Indexing: " << fe[12] << endl;
+	for (int i = 0; i < 16; i++) cout << alpha[i] << " : ";
+	//system("cls");
 
-	cout << alpha.isExist(3.13) << endl;
+	cout << fe.isExist(3.13) << endl;
 
 
 
