@@ -24,7 +24,7 @@ int V = abs(int(c1) - int(c2)) % 4, где с1 – первая буква фамилии на английском 
 
 Вариант 3:
 ++++++++ Класс для работы с множествами чисел.
-Поддерживаются операции пересечения множеств, объединения, разности, нахождение уникальных элементов,
+Поддерживаются операции пересечения множеств(+=), объединения(+), разности(-), нахождение уникальных элементов(-=),
 ++++++++ проверка наличия элемента в множестве
 ++++++++ Операция индексирования
 ++++++++ Деструктор
@@ -38,6 +38,11 @@ private: // (задание) закрытые поля
 
 	int cardinality;
 	int* set;
+
+	void copy(int* from, int* to, int fSize) const // Функция копирования (from всегда >= to)
+	{
+		for (int i = 0; i < fSize; i++) to[i] = from[i];
+	}
 
 public:
 
@@ -82,7 +87,7 @@ public:
 	// (задание) Деструктор
 	~NSet()
 	{
-		cout << "[ Destructor ] " << "Множество, мощность: " << cardinality << " <" << this << ">" << endl;
+		//cout << "[ Destructor ] " << "Множество, мощность: " << cardinality << " <" << this << ">" << endl;
 		delete[] set;
 	}
 
@@ -92,9 +97,9 @@ public:
 		os << "Мощность множества: " << p.cardinality;
 		return os;
 	}
-	int operator[] (int i) const { return (i < cardinality) ? set[i] : 0; } // (задание) Операция индексирования
-	NSet& operator= (NSet& other) // Переопределение операции =
-	{ // В данном случае объект уже существует и мы его переопределяем
+	int operator[] (int i) const { return set[i]; } // (задание) Операция индексирования
+	NSet operator= (NSet other) // Переопределение операции =
+	{
 		if (&other == this) return *this; // Проверяем на самоприсваивание 
 		delete[] set; // Удаляем текущий объект (устраняем возможность утечки памяти)
 		cardinality = other.getCard();
@@ -102,19 +107,82 @@ public:
 		for (int i = 0; i < cardinality; i++) set[i] = other.set[i];
 		return *this;        
 	}
+
+	friend NSet operator+= (NSet& ns1, NSet& ns2) // Пересечение множеств
+	{
+		int newCard = 0; // мощность нового множества
+		int* temp = new int[ns1.getCard()]; // временное множество (мощность не будет больше наименьшей из мощностей двух множеств)
+
+		for (int i = 0; i < ns1.getCard(); i++)
+		{
+			if (ns2.isExist(ns1[i])) // если элемент существует в обоих множествах
+			{
+				newCard++;
+				temp[i] = ns1[i]; // добавляем его во временное множество
+			}
+		}
+
+		int* result = new int[newCard]; // новое множество нужного размера
+		ns1.copy(temp, result, newCard); // копируем элементы из temp в новое множество
+		delete[] temp;
+		return NSet{ newCard, result }; // Возвращаем пересечение множеств
+	}
+
+	friend NSet operator+ (NSet& ns1, NSet& ns2) // Объединение множеств
+	{
+		int newCard = ns1.cardinality; // При объединении минимальная мощность будет равна большему из двух множеств
+		int* temp = new int[ns1.cardinality + ns2.cardinality]; // Временное множество, способное вместить все элементы из двух
+		ns1.copy(ns1.set, temp, ns1.cardinality); // Копируем все элементы одного из множеств (не важно какого именно)
+
+		for (int i = 0, j = ns1.cardinality; i < ns2.cardinality; i++) // Пробегаем временное множество от элемента ns1.getCard() + 1 до конца, ...
+		{                                                              // ... этот промежуток равен ns2.getCard(), поэтому i < ns2.getCard()
+			if (!ns1.isExist(ns2[i])) // Если элемента нет, то... --- тут какаято фигня
+			{
+				newCard++; // ... увеличиваем минимальную мощность нового множества и ...
+				temp[j] = ns2[i]; // ... добавляем элемент во временное множество
+				j++;
+			}
+		}
+
+		int* result = new int[newCard]; // новое множество нужного размера
+		ns1.copy(temp, result, newCard); // копируем элементы из temp в новое множество
+		delete[] temp;
+		return NSet { newCard, result }; // Возвращаем объединение множеств
+	}
+
 	operator int* () // (задание) Преобразование в тип int*, переопределение операции преобразования типа
 	{
 		int* result = new int[cardinality];
 		for (int i = 0; i < cardinality; i++) result[i] = set[i];
 		return result;
 	}
+
+	
+
+
+
+	/*
+	NSet operator+ (NSet& other)
+	{
+		int* newSet = new int[cardinality + other.getCard()];
+		NSet result { cardinality + other.getCard(), newSet };
+		for (int i = 0; i < result.getCard(); i++)
+		{
+
+		}
+	}
+	*/
+
 	// Методы
 	// (задание) открытые методы доступа к полям
+
+	
+
 	void printSet() const
 	{
 		if (cardinality <= 800)
 		{
-			cout << ": ";
+			cout << "Cardinality == " << cardinality << "\n: ";
 			for (int i = 0; i < cardinality; i++)
 			{
 				cout << set[i] << " : ";
@@ -125,13 +193,6 @@ public:
 		else { cout << "Слишком большое множество, показывать не будем!" << endl; }
 	}
 	int getCard() const { return cardinality; }
-
-	// (задание) проверка наличия элемента в множестве
-	bool isExist(double val) const
-	{
-		for (int i = 0; i < cardinality; i++) if (set[i] == val) return true;
-		return false;
-	}
 
 	void randomSetFilling() // Заполнение массива случайными значениями
 	{
@@ -144,6 +205,15 @@ public:
 		{
 			set[i] = rnd(min, max);
 		}
+	}
+
+	
+
+	// (задание) проверка наличия элемента в множестве	
+	bool isExist(const int element) const
+	{
+		for (int i = 0; i < cardinality; i++) if (set[i] == element) return true;
+		return false;
 	}
 };
 
@@ -159,20 +229,33 @@ int main()
 	
 	//double* a = new double[13]{ 3.14, 2.72, 6.28, 0.58, 1.62, 0.7, 299792458, 6.67, 6.63, 1.05, 1.6, 1.38, 7.2973e-3 };
 	int* a = new int[16]{ 0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987 };
+	int* b = new int[16]{ 0, -1, -2, -3, -5, -8, -13, -21, -34, -55, -89, -144, -233, -377, -610, -987 };
 	NSet fe { 16, a };
-	int* alpha = new int[fe.getCard()];
-	alpha = fe;
+	NSet rFe{ 16, b };
+
+
+	
+	cout << "checkCrossing" << endl;
+	NSet checkCrossing = fe += rFe;
+	checkCrossing.printSet();
+	cout << "\n\n";
+	cout << "checkCombination" << endl;
+	NSet checkCombination = fe + rFe;
+	checkCombination.printSet();
+
+
+
+	cout << "\n\n";
+	cout << "\n\n";
+	cout << "\n\n";
+	int* alpha = fe;
 	alpha[15] = 1000;
-
-
 	cout << fe << endl;
 	fe.printSet();
 	cout << "Indexing: " << fe[12] << endl;
 	for (int i = 0; i < 16; i++) cout << alpha[i] << " : ";
 	//system("cls");
-
-	cout << fe.isExist(3.13) << endl;
-
+	
 
 
 	return 0;
