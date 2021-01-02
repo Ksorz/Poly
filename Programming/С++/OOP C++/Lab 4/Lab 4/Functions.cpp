@@ -23,6 +23,23 @@ bool yesNo(char yes)
 	else return false;
 }
 
+void push_back(int*& oldArr, int& size, const int newVal)
+{
+	int* newArr = new int[size + 1]; // Создаем новый массив
+
+	for (int i = 0; i < size; i++)
+	{
+		newArr[i] = oldArr[i]; // Копируем элементы
+	}
+
+	newArr[size++] = newVal; // Включаем новый элемент
+	delete[] oldArr; // Удаляем старый массив из памяти
+	oldArr = newArr; // Переприсваиваем указатель
+}
+
+
+
+
 
 
 
