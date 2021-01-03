@@ -6,6 +6,8 @@
 // :::::::::::::::::::
 // Передача функций в качестве аргументов
 // double(*f)(double) -- указатель на функцию, которая возвращает double и принимает 1 аргумент типа double
+extern int fGlobalVar;                     // Объявление глобальной переменной из модуля Source.cpp в данном модуле 
+
 double transform(double val, double(*f)(double)) { return f(val); }
 
 // В данном случае нужно передавать адреса значений или указатели -- swap1(&x, &y);
@@ -41,3 +43,28 @@ int** optimizedArray(int sizeX, int sizeY)
 
 // inline-функции: компилятор вместо вызова функции (переход по определенному адресу функции) подставляет тело функции в точку вызова
 inline int maxValue(int a, int b) { return a > b ? a : b; }
+
+// Длина строки
+int strLen(char* str)
+{
+	int result = 0;
+	for (; *str++; result++); // Последний символ в строке char всегда 0, достигая его получаем false
+	return result;
+}
+
+// Копирование строки
+void strCopy(char* out, char* in)
+{
+	while (*out++ = *in++);
+}
+
+// Инверсия строки
+char* strReverse(char* str)
+{
+	int n = strLen(str);
+	char ch, * p, * q;
+	for (p = str, q = str + (n - 1); p < q; p++, q--)
+		ch = *p; *p = *q; *q = ch;
+	return str;
+}
+
