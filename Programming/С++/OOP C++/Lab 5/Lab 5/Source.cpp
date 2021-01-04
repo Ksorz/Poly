@@ -35,27 +35,28 @@ using namespace std;
 
 
 
-/*
+
 class A
 {
 	static int q;
 public:
-	A(int qq) { setQ(qq); }
-
-	virtual void setQ(int qq) { q = qq; }
+	A(int qq) { q += qq; }
+	//void setQ(int qq) { q = qq; }
 
 	virtual int getQ() { return q; }
 };
+
+int A::q = 0;
+
 
 class B : public A
 {
 	int q;
 public:
 
-	B(int qq) : q(qq), A(qq) {}
+	B(int qq) : A(qq), q(qq) {}
 
-	virtual void setQ(int qq) { q += qq; }
-
+	//virtual void setQ(int qq) { q = qq; }
 	virtual int getQ() { return q; }
 };
 /*
@@ -77,11 +78,11 @@ int main()
 	cout << "Вариант: " << (int('E') + int('N')) % 8 << endl;
 
 
-	//B one(7);
-	//B two{ 4 };
+	B one(7);
+	B two{ 4 };
 
-	//cout << "Cone q == " << one.getQ() << endl;
-	//cout << "Cone q == " << one.B::getQ() << endl;
+	cout << "Cone q == " << one.getQ() << endl;
+	cout << "Cone q == " << one.A::getQ() << endl;
 	//cout << "Cone q == " << one.A::getQ() << endl;
 
 
