@@ -7,9 +7,13 @@
 
 using namespace std;
 
-
+// Глобальные константы ==========================================================================
 static int const matsExLen = 4;
 static string const materialsExample[matsExLen] = { "Пластик", "Металл" , "Дерево" , "Текстиль" };
+// Глобальные константы ==========================================================================
+
+
+
 // Блок свободных функций ========================================================================
 bool yesNo(char& choice, string yes, string no)
 {
@@ -46,7 +50,10 @@ void push_back(string*& oldArr, const string newItem, int& size)
 }
 // Блок свободных функций ========================================================================
 
+
+
 // Блок virtual showInfo() =======================================================================
+// virtual функции (показать информацию)
 void Instrument::showInfo() const
 {
 	cout << itemName;
@@ -95,7 +102,10 @@ void ЕlectricalWire::showInfo() const
 }
 // Блок virtual showInfo() =======================================================================
 
+
+
 // Блок static функций в Instrument ==============================================================
+// Показать все предметы
 void Instrument::show_all(const int size, Instrument** iss)
 {
 	for (int i = 0; i < size; i++)
@@ -105,6 +115,7 @@ void Instrument::show_all(const int size, Instrument** iss)
 		cout << endl << iss[i]->getClassName() << "\n\n";
 	}
 }
+// Отобразить статистику по имеющимся предметам
 void Instrument::show_stat()
 {
 	cout << Instrument::className << " (" << Instrument::getTotalQ() << " шт.):\n";
@@ -114,6 +125,7 @@ void Instrument::show_stat()
 	cout << "   • " << Rechargeable::className << " (" << Rechargeable::getTotalQ() << " шт.)\n";
 	cout << "   • " << ЕlectricalWire::className << " (" << ЕlectricalWire::getTotalQ() << " шт.)\n";
 }
+// Добавить инструмент в конец списка
 void Instrument::push_back_iss(Instrument**& oldIss, int& size, Instrument* newItem)
 {
 	Instrument** newIss = new Instrument * [size + 1]; // Создаем новый массив
@@ -131,6 +143,7 @@ void Instrument::push_back_iss(Instrument**& oldIss, int& size, Instrument* newI
 	newIss[size - 1]->showInfo();
 	cout << endl << newIss[size - 1]->getClassName() << "\n\n";
 }
+// Удалить инструмент из списка
 void Instrument::delete_item_iss(Instrument**& oldIss, int& size, int index)
 {
 	bool isDeleted = false;
@@ -158,6 +171,7 @@ void Instrument::delete_item_iss(Instrument**& oldIss, int& size, int index)
 	delete[] oldIss;
 	oldIss = newIss;
 }
+// Инициализировать новый инструмент
 void Instrument::create_new_item(Instrument**& iss, int& issSize)
 {
 	char choice = '0';
@@ -227,6 +241,25 @@ void Instrument::create_new_item(Instrument**& iss, int& issSize)
 		}
 	}
 }
+// Инициализировать базовые сведения о предмете
+void Instrument::initializeData(string& iName, int& iQuantity, string& mod, int& p)
+{
+	cout << "\nВведите название:" << endl;
+	getline(cin >> ws, iName);
+	cout << "\nВведите количество (целое число):" << endl;
+	cin >> iQuantity;
+
+	cout << "\nУказать дополнительные сведения?" << endl;
+	char choice = '0';
+	if (yesNo(choice, "Да", "Нет"))
+	{
+		cout << "\nУкажите название модели:" << endl;
+		getline(cin >> ws, mod);
+		cout << "\nУкажите цену (целое число):" << endl;
+		cin >> p;
+	}
+}
+// Функция поиска
 void Instrument::search(const int size, Instrument** iss)
 {
 	char choice = '0';
@@ -250,6 +283,7 @@ void Instrument::search(const int size, Instrument** iss)
 			{
 				cout << "\nМеханические:                                              '1'" << endl;
 				cout << "Электрические:                                             '2'" << endl;
+			
 				cout << "Для рыбалки:                                               '3'" << endl;
 				cout << "С аккумулятором:                                           '4'" << endl;
 				cout << "С проводом:                                                '5'\n" << endl;
@@ -409,36 +443,13 @@ void Instrument::search(const int size, Instrument** iss)
 
 
 
-
-
-
-
-void Instrument::initializeData(string& iName, int& iQuantity, string& mod, int& p)
-{
-	cout << "\nВведите название:" << endl;
-	getline(cin >> ws, iName);
-	cout << "\nВведите количество (целое число):" << endl;
-	cin >> iQuantity;
-	
-	cout << "\nУказать дополнительные сведения?" << endl;
-	char choice = '0';
-	if (yesNo(choice, "Да", "Нет"))
-	{
-		cout << "\nУкажите название модели:" << endl;
-		getline(cin >> ws, mod);
-		cout << "\nУкажите цену (целое число):" << endl;
-		cin >> p;
-	}
-}
-
-
-
-
+// Блок virtual функций инициализации (правки) данных ============================================
 void Electrical::initializeSpecialData()
 {
 	cout << "\nУкажите вольтаж устройства (целое число):" << endl;
 	cin >> voltage;
 }
+// Вспомогательная функция (отслеживание выбранных материалов)
 bool Mechanical::isAlereadyChosen(const int currentIndex, const int* chosenIndexes, const int chosenLen)
 {
 	for (int i = 0; i < chosenLen; i++) if (chosenIndexes[i] == currentIndex) return true;
@@ -489,7 +500,4 @@ void ЕlectricalWire::initializeSpecialData()
 	cout << "\nУкажите длину провода (целое число):" << endl;
 	cin >> wireLength;
 }
-
-
-
-
+// Блок virtual функций инициализации (правки) данных ============================================

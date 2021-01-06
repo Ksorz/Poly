@@ -2,33 +2,33 @@
 using namespace std;
 
 
-
+// Свободные функции
 bool yesNo(char& choice, string yes = "Продолжить", string no = "Завершить");
 void push_back(int*& oldArr, const int newItem, int& size);
 void push_back(string*& oldArr, const string newItem, int& size);
 
+// Базовый класс "Инструмент"
 class Instrument
 {
-	int totalPrice;
+	int totalPrice; // Цена за все предметы (цена * количество)
 
 protected:
 
 	// Общие поля
-	string itemName;
-	int itemQuantity;
-	string model;
-	int price;
+	string itemName; // Название предмета
+	int itemQuantity; // Количество
+	string model; // Модель
+	int price; // Цена
 
-	static int quantity;
+	static int quantity; // Всего инструментов
 
 public:
 
-	static string className;
+	static string className; // Имя класса
 
 	Instrument() : itemName("000"), itemQuantity(0), model("000"), price(0), totalPrice(0) {}
 	Instrument(string n, int q, string m, int p) : itemQuantity(q), itemName(n), model(m), price(p), totalPrice(p * q) { quantity += q; }
 	virtual ~Instrument() {}
-
 
 	inline static int getTotalQ() { return quantity; }
 	inline int getQ() const { return itemQuantity; }
@@ -47,12 +47,12 @@ public:
 };
 
 
-
+// Механический
 class Mechanical : public Instrument
 {
-	string* materials;
-	int matsLen;
-
+	string* materials; // Из каких материалов состоит
+	int matsLen; // Длина списка материалов
+	// Вспомогательная функция (отслеживание выбранных материалов)
 	bool isAlereadyChosen(const int currentIndex, const int* chosenIndexes, const int chosenLen);
 
 protected:
@@ -80,9 +80,11 @@ public:
 	virtual string getClassName() { return Instrument::getClassName() + ". " + className; }
 };
 
+
+// Механический. Для рыбалки
 class Fishing : public Mechanical
 {
-	char isProfessional;
+	char isProfessional; // Назначение
 
 protected:
 
@@ -96,8 +98,6 @@ public:
 	Fishing(string n, int q, string m = "000", int p = 0, string* mat = nullptr, char ip = '-') : Mechanical(n, q, m, p, mat), isProfessional(ip) { quantity += q; }
 	~Fishing()
 	{
-		Mechanical::quantity -= itemQuantity;
-		Instrument::quantity -= itemQuantity;
 		quantity -= itemQuantity;
 	}
 
@@ -109,10 +109,10 @@ public:
 };
 
 
-
+// Электрический
 class Electrical : public Instrument
 {
-	int voltage;
+	int voltage; // Вольтаж
 
 protected:
 
@@ -133,9 +133,11 @@ public:
 	virtual string getClassName() { return Instrument::getClassName() + ". " + className; }
 };
 
+
+// Электрический. С аккумулятором
 class Rechargeable : public Electrical
 {
-	int batteryCapacity;
+	int batteryCapacity; // Емкость аккумулятора
 
 protected:
 
@@ -162,10 +164,10 @@ public:
 };
 
 
-
+// Электрический. С проводом
 class ЕlectricalWire : public Electrical
 {
-	double wireLength;
+	double wireLength; // Длина провода
 
 protected:
 
