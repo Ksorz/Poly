@@ -21,14 +21,14 @@ using namespace std;
 -- + В базовом классе ввести виртуальные методы (н - р, toString, show), в производных классах ввести переопределения виртуальных методов.
 -- + Ввести статические элементы хотя бы в 3 классах (н - р, статическое поле - наибольший вес млекопитающего животного Mammal::MaximalWeight,
      статическая функция получения квадрата с заданной длиной стороны Square::GetSquare).
---- В главном модуле(с функцией main) ввести массив указателей на объекты базового класса. Число элементов массива можно задать константой(N >= 10)
---- или определять динамически в программе. Заполнить массив объектами разных типов. Выполнить обработку массива объектов для того, чтобы:
- -- подсчитать количество объектов каждого типа; для проверки типа объекта в массиве можно использовать операторы dynamic_cast или typeid;
- -- вывести информацию по каждому объекту, используя виртуальные методы базового класса(н - р, show или toString);
+--- + В главном модуле(с функцией main) ввести массив указателей на объекты базового класса. Число элементов массива можно задать константой(N >= 10)
+--- + или определять динамически в программе. Заполнить массив объектами разных типов. Выполнить обработку массива объектов для того, чтобы:
+ -- + подсчитать количество объектов каждого типа; для проверки типа объекта в массиве можно использовать операторы dynamic_cast или typeid;
+ -- + вывести информацию по каждому объекту, используя виртуальные методы базового класса(н - р, show или toString);
  -- найти объекты удовлетворяющие условию; например, найти студентов с самым ранним годом поступления (для варианта 0),
    найти четырехугольник с максимальной площадью(для варианта 4), найти млекопитающее животное с наибольшей длиной тела(для варианта 1), 
    найти самолёты с наибольшей максимальной скоростью(для варианта 6).
--- Предусмотреть освобождение динамической памяти.
+-- + Предусмотреть освобождение динамической памяти.
 */
 
 
@@ -39,20 +39,14 @@ int Fishing::quantity = 0;
 int Rechargeable::quantity = 0;
 int ЕlectricalWire::quantity = 0;
 
-int Instrument::maxPrice = 0;
-int Electrical::maxPrice = 0;
-int Mechanical::maxPrice = 0;
-
-Instrument Instrument::maxPriceTool{};
-Electrical Electrical::maxPriceTool{};
-Mechanical Mechanical::maxPriceTool{};
-
 string Instrument::className = "Инструмент";
 string Electrical::className = "Электрический";
 string Mechanical::className = "Механический";
 string Fishing::className = "Рыбная ловля";
 string Rechargeable::className = "С аккумулятором";
 string ЕlectricalWire::className = "Питание от провода";
+
+
 
 int main()
 {
@@ -63,11 +57,14 @@ int main()
 
 	string* v3000 = new string[2]{ "Платина", "Палладий" };
 
-	int issSize = 13;
-	Instrument** iss = new Instrument*[issSize]; // iss (instruments)
+
+	static int issSize = 13;
+	static Instrument** iss = new Instrument * [issSize]; // iss (instruments)
+	
+
 	iss[0] = new Mechanical{ "Молоток", 28, "Тор 666", 1499 };
 	iss[1] = new Mechanical{ "Ножницы", 23 };
-	iss[2] = new Mechanical{ "Отвертка", 1, "Вертухай 3000", 999, v3000, 2 };
+	iss[2] = new Mechanical{ "Отвертка", 1, "Вертухай 3000", 79999, v3000, 2 };
 	iss[3] = new Mechanical{ "Щипцы", 26 };
 	iss[4] = new Mechanical{ "Пила", 19 };
 	iss[5] = new Fishing{ "Удочка", 14, "Посейдон junior", 3799 };
@@ -80,39 +77,43 @@ int main()
 	iss[12] = new ЕlectricalWire{ "Строительный фен", 4, "Птеродактиль", 7999 };
 	
 
+	if (typeid(*iss[1]) == typeid(Mechanical)) cout << "YES YES YES" << endl;
 
+	cout << typeid(*iss[1]).name() << endl;
 
+	cout << typeid(*iss[5]).name() << endl;
+
+	cout << typeid(*iss[9]).name() << endl;
 
 
 	char choice = '0';
 	while (choice != 'q')
 	{
-		cout << "\nПоказать все инструменты:                                  'S'" << endl;
-		cout << "Типы и количество:                                         'A'" << endl;
-		cout << "Добавить инструмент:                                       'N'" << endl;
-		cout << "Удалить инструмент:                                        'D'" << endl;
-		cout << "Показать предметы с максимальной стоимостью                'C'\n" << endl;
+
+		cout << "\nТипы и количество:                                         '1'" << endl;
+		cout << "Показать все инструменты:                                  '2'" << endl;
+		cout << "Добавить инструмент:                                       '3'" << endl;
+		cout << "Удалить инструмент:                                        '4'" << endl;
+		cout << "Поиск:                                                     '5'\n" << endl;
 		cout << "Выход:                                                     'Q'" << endl;
 		cin >> choice;
 
 		switch (choice)
 		{
-		case'a':
+		case'1':
 			system("cls");
 			Instrument::show_stat();
 			continue;
-		case 's':
+		case '2':
 			system("cls");
 			Instrument::show_all(issSize, iss);
-			yesNo(choice);
-			system("cls");
 			continue;
-		case 'n':
+		case '3':
 			system("cls");
 			Instrument::create_new_item(iss, issSize);
 			system("cls");
 			continue;
-		case 'd':
+		case '4':
 			int index;
 			system("cls");
 			Instrument::show_all(issSize, iss);
@@ -120,15 +121,11 @@ int main()
 			cin >> index;
 			Instrument::delete_item_iss(iss, issSize, index - 1);
 			continue;
-		case 'c':
+		case '5':
 			system("cls");
-			cout << "Из всех: " << endl;
-			Instrument::getmaxPriceTool().showInfo();
-			cout << "\n\nИз электрических: " << endl;
-			Electrical::getmaxPriceTool().showInfo();
-			cout << "\n\nИз механических: " << endl;
-			Mechanical::getmaxPriceTool().showInfo();
-			cout << endl;
+			Instrument::search(issSize, iss);
+
+
 			continue;
 		default:
 			continue;

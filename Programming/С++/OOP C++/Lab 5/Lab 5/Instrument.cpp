@@ -1,6 +1,7 @@
 #include <iostream> 
 #include <Windows.h>
 #include <string>
+#include <climits>
 
 #include "Instrument.hpp"
 
@@ -108,6 +109,7 @@ void Instrument::show_stat()
 {
 	cout << Instrument::className << " (" << Instrument::getTotalQ() << " шт.):\n";
 	cout << " • " << Mechanical::className << " (" << Mechanical::getTotalQ() << " шт.)\n";
+	cout << "   • " << Fishing::className << " (" << Fishing::getTotalQ() << " шт.)\n";
 	cout << " • " << Electrical::className << " (" << Electrical::getTotalQ() << " шт.)\n";
 	cout << "   • " << Rechargeable::className << " (" << Rechargeable::getTotalQ() << " шт.)\n";
 	cout << "   • " << ЕlectricalWire::className << " (" << ЕlectricalWire::getTotalQ() << " шт.)\n";
@@ -131,12 +133,12 @@ void Instrument::push_back_iss(Instrument**& oldIss, int& size, Instrument* newI
 }
 void Instrument::delete_item_iss(Instrument**& oldIss, int& size, int index)
 {
-	bool siDeleted = false;
+	bool isDeleted = false;
 	Instrument** newIss = new Instrument * [--size];
-
+	
 	for (int i = 0; i < size + 1; i++)
 	{
-		if (!siDeleted)
+		if (!isDeleted)
 		{
 			if (i == index)
 			{
@@ -145,7 +147,7 @@ void Instrument::delete_item_iss(Instrument**& oldIss, int& size, int index)
 				oldIss[index]->showInfo();
 				cout << endl << oldIss[index]->getClassName() << "\n\n";
 				delete oldIss[index];
-				siDeleted = true;
+				isDeleted = true;
 				continue;
 			}
 			newIss[i] = oldIss[i];
@@ -159,6 +161,8 @@ void Instrument::delete_item_iss(Instrument**& oldIss, int& size, int index)
 void Instrument::create_new_item(Instrument**& iss, int& issSize)
 {
 	char choice = '0';
+	int q, p;
+	string n, m;
 	while (choice != 'q')
 	{
 		system("cls");
@@ -166,7 +170,7 @@ void Instrument::create_new_item(Instrument**& iss, int& issSize)
 		cout << "Выберите тип \n\n1: " << Mechanical::className << "\n2: " << Fishing::className;
 		cout << "\n3: " << Rechargeable::className << "\n4: " << ЕlectricalWire::className << "\n\nQ: Главное меню\n";
 		cin >> choice;
-		
+		p = 0; m = "000";
 
 		switch (choice)
 		{
@@ -175,8 +179,9 @@ void Instrument::create_new_item(Instrument**& iss, int& issSize)
 		case'1':
 
 		{
-			Mechanical* newItem = new Mechanical;
-			newItem->initializeData();
+			Instrument::initializeData(n, q, m, p);
+			Mechanical* newItem = new Mechanical(n, q, m, p);
+			newItem->initializeSpecialData();
 			Instrument::push_back_iss(iss, issSize, newItem);
 		}
 		yesNo(choice, "Добавить ещё", "Завершить");
@@ -185,8 +190,9 @@ void Instrument::create_new_item(Instrument**& iss, int& issSize)
 		case'2':
 
 		{
-			Fishing* newItem = new Fishing;
-			newItem->initializeData();
+			Instrument::initializeData(n, q, m, p);
+			Fishing* newItem = new Fishing(n, q, m, p);
+			newItem->initializeSpecialData();
 			Instrument::push_back_iss(iss, issSize, newItem);
 		}
 		yesNo(choice, "Добавить ещё", "Завершить");
@@ -195,8 +201,9 @@ void Instrument::create_new_item(Instrument**& iss, int& issSize)
 		case'3':
 
 		{
-			Rechargeable* newItem = new Rechargeable;
-			newItem->initializeData();
+			Instrument::initializeData(n, q, m, p);
+			Rechargeable* newItem = new Rechargeable(n, q, m, p);
+			newItem->initializeSpecialData();
 			Instrument::push_back_iss(iss, issSize, newItem);
 		}
 		yesNo(choice, "Добавить ещё", "Завершить");
@@ -205,8 +212,10 @@ void Instrument::create_new_item(Instrument**& iss, int& issSize)
 		case'4':
 
 		{
-			ЕlectricalWire* newItem = new ЕlectricalWire;
-			newItem->initializeData();
+
+			Instrument::initializeData(n, q, m, p);
+			ЕlectricalWire* newItem = new ЕlectricalWire(n, q, m, p);
+			newItem->initializeSpecialData();
 			Instrument::push_back_iss(iss, issSize, newItem);
 		}
 		yesNo(choice, "Добавить ещё", "Завершить");
@@ -218,65 +227,208 @@ void Instrument::create_new_item(Instrument**& iss, int& issSize)
 		}
 	}
 }
+void Instrument::search(const int size, Instrument** iss)
+{
+	char choice = '0';
+	int var = 0;
+	Instrument* varObject = nullptr;
+
+	while (choice != 'q')
+	{
+		cout << "\nПоиск по типу:                                             '1'" << endl;
+		cout << "Максимальная стоимость:                                    '2'" << endl;
+		cout << "Минимальная стоимость:                                     '3'" << endl;
+		cout << "Максимальное количество:                                   '4'" << endl;
+		cout << "Минимальное количество:                                    '5'\n" << endl;
+		cout << "Главное меню:                                              'Q'" << endl;
+		cin >> choice;
+		switch (choice)
+		{
+		case '1':
+
+			while (choice != 'q')
+			{
+				cout << "\nМеханические:                                              '1'" << endl;
+				cout << "Электрические:                                             '2'" << endl;
+				cout << "Для рыбалки:                                               '3'" << endl;
+				cout << "С аккумулятором:                                           '4'" << endl;
+				cout << "С проводом:                                                '5'\n" << endl;
+				cout << "Шаг назад:                                                 'Q'" << endl;
+				cin >> choice;
+
+				switch (choice)
+				{
+				case '1':
+
+					system("cls");
+					for (int i = 0; i < size; i++)
+						if (typeid(*iss[i]) == typeid(Mechanical) || typeid(*iss[i]) == typeid(Fishing))
+						{
+							iss[i]->showInfo();
+							cout << "\n" << iss[i]->getClassName() << "\n\n";
+						}
+					continue;
+
+				case '2':
+
+					system("cls");
+					for (int i = 0; i < size; i++)
+						if (typeid(*iss[i]) == typeid(Rechargeable) || typeid(*iss[i]) == typeid(ЕlectricalWire))
+						{
+							iss[i]->showInfo();
+							cout << "\n" << iss[i]->getClassName() << "\n\n";
+						}
+					continue;
+
+				case '3':
+
+					system("cls");
+					for (int i = 0; i < size; i++)
+						if (typeid(*iss[i]) == typeid(Fishing))
+						{
+							iss[i]->showInfo();
+							cout << "\n" << iss[i]->getClassName() << "\n\n";
+						}
+					continue;
+
+				case '4':
+
+					system("cls");
+					for (int i = 0; i < size; i++)
+						if (typeid(*iss[i]) == typeid(Rechargeable))
+						{
+							iss[i]->showInfo();
+							cout << "\n" << iss[i]->getClassName() << "\n\n";
+						}
+					continue;
+
+				case '5':
+
+					system("cls");
+					for (int i = 0; i < size; i++)
+						if (typeid(*iss[i]) == typeid(ЕlectricalWire))
+						{
+							iss[i]->showInfo();
+							cout << "\n" << iss[i]->getClassName() << "\n\n";
+						}
+					continue;
+
+				default:
+					continue;
+				}
+			}
+			system("cls");
+			choice = '0';
+
+		case '2':
+
+			system("cls");
+			for (int i = 0; i < size; i++)
+				if (iss[i]->price > var)
+				{
+					var = iss[i]->price;
+					varObject = iss[i];
+				}
+			cout << "Максимальную стоимость имеет следующий инструмент: \n\n";
+			varObject->showInfo();
+			cout << "\n" << varObject->getClassName() << "\n\n";
+			var = 0;
+			varObject = nullptr;
+			continue;
+
+		case '3':
+
+			system("cls");
+			var = INT_MAX;
+			for (int i = 0; i < size; i++)
+				if (iss[i]->price < var && iss[i]->price != 0)
+				{
+					var = iss[i]->price;
+					varObject = iss[i];
+				}
+			if (varObject == nullptr)
+			{
+				cout << "Не нашли..." << endl;
+				var = 0;
+				continue;
+			}
+			cout << "Минимальную стоимость имеет следующий инструмент: \n\n";
+			varObject->showInfo();
+			cout << "\n" << varObject->getClassName() << "\n\n";
+			var = 0;
+			varObject = nullptr;
+			continue;
+
+		case '4':
+
+			system("cls");
+			for (int i = 0; i < size; i++)
+			{
+				if (iss[i]->getQ() > var)
+				{
+					var = iss[i]->getQ();
+					varObject = iss[i];
+				}
+			}
+			cout << "Максимальное количество экземпляров: \n\n";
+			varObject->showInfo();
+			cout << "\n" << varObject->getClassName() << "\n\n";
+			var = 0;
+			varObject = nullptr;
+			continue;
+
+		case '5':
+
+			system("cls");
+			var = INT_MAX;
+			for (int i = 0; i < size; i++)
+				if (iss[i]->getQ() < var && iss[i]->getQ() != 0)
+				{
+					var = iss[i]->getQ();
+					varObject = iss[i];
+				}
+			if (varObject == nullptr)
+			{
+				cout << "Не нашли..." << endl;
+				var = 0;
+				continue;
+			}
+			cout << "Минимальное количество экземпляров: \n\n";
+			varObject->showInfo();
+			cout << "\n" << varObject->getClassName() << "\n\n";
+			var = 0;
+			varObject = nullptr;
+			continue;
+
+		default:
+			continue;
+		}
+	}
+}
 // Блок static функций в Instrument ==============================================================
 
 
 
-void Instrument::renewHighestPrice(const int size, Instrument** iss)
-{
-	maxPrice = 0;
-	for (int i = 0; i < size; i++)
-		if (is_same<decltype(iss[i]), class Instrument>::value&& iss[i]->getMaxPrice() > maxPrice)
-		{
-			maxPrice = iss[i]->getMaxPrice();
-			maxPriceTool = *this;
-		}
-}
-void Mechanical::renewHighestPrice(const int size, Instrument** iss)
-{
-	maxPrice = 0;
-	for (int i = 0; i < size; i++)
-		if (is_same<decltype(iss[i]), class Mechanical>::value&& iss[i]->getMaxPrice() > maxPrice)
-		{
-			maxPrice = iss[i]->getMaxPrice();
-			maxPriceTool = *this;
-		}
-}
-void Electrical::renewHighestPrice(const int size, Instrument** iss)
-{
-	maxPrice = 0;
-	for (int i = 0; i < size; i++)
-		if (is_same<decltype(iss[i]), class Electrical>::value && iss[i]->getMaxPrice() > maxPrice) 
-		{
-			maxPrice = iss[i]->getMaxPrice();
-			maxPriceTool = *this;
-		}
-}
 
 
 
 
-
-void Instrument::initializeData()
+void Instrument::initializeData(string& iName, int& iQuantity, string& mod, int& p)
 {
 	cout << "\nВведите название:" << endl;
-	getline(cin >> ws, itemName);
+	getline(cin >> ws, iName);
 	cout << "\nВведите количество (целое число):" << endl;
-	cin >> itemQuantity;
-	totalPrice = price * itemQuantity;
+	cin >> iQuantity;
 	
 	cout << "\nУказать дополнительные сведения?" << endl;
 	char choice = '0';
 	if (yesNo(choice, "Да", "Нет"))
 	{
 		cout << "\nУкажите название модели:" << endl;
-		getline(cin >> ws, model);
+		getline(cin >> ws, mod);
 		cout << "\nУкажите цену (целое число):" << endl;
-		cin >> price;
-		totalPrice = price * itemQuantity;
-		initializeSpecialData();
+		cin >> p;
 	}
-	if (maxPrice < price) maxPrice = price;
 }
 
 
@@ -308,7 +460,7 @@ void Mechanical::initializeSpecialData()
 				cout << i + 1 << ": " << materialsExample[i] << endl;
 			}
 		}
-		if (chosenLen > 0) cout << "\nQ: Завершить" << endl;
+		if (chosenLen > 0) cout << "\nQ: Далее" << endl;
 		if (chosenLen >= matsExLen) break;
 		cin >> choice;
 		if ((int(choice - '0' - 1) + 1) > matsExLen) continue;
