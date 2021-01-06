@@ -2,13 +2,16 @@
 using namespace std;
 
 bool yesNo(char& choice, string yes = "Продолжить", string no = "Завершить");
-
+void push_back(int*& oldArr, const int newItem, int& size);
+void push_back(string*& oldArr, const string newItem, int& size);
 
 class Instrument
 {
 	int totalPrice;
 	static int maxPrice;
 	static Instrument maxPriceTool;
+
+	virtual void renewHighestPrice(const int size, Instrument** iss);
 
 protected:
 
@@ -30,7 +33,7 @@ public:
 		quantity += q;
 		if (maxPrice < price) { maxPrice = price; maxPriceTool = *this; }
 	}
-	virtual ~Instrument() {};
+	virtual ~Instrument() { void renewHighestPrice(const int size, Instrument** iss); }
 
 	inline static int getMaxPrice() { return maxPrice; }
 	inline static Instrument getmaxPriceTool() { return maxPriceTool; }
@@ -59,6 +62,7 @@ class Mechanical : public Instrument
 	static Mechanical maxPriceTool;
 
 	bool isAlereadyChosen(const int currentIndex, const int* chosenIndexes, const int chosenLen);
+	void renewHighestPrice(const int size, Instrument** iss);
 
 protected:
 
@@ -69,7 +73,7 @@ public:
 	static string className;
 
 	Mechanical() : materials(nullptr), matsLen(0) {}
-	Mechanical(string n, int q, string m = "000", int p = 0, string* mat = nullptr, int ml = 0) : Instrument(n, q, m, p), materials(mat), matsLen(ml) 
+	Mechanical(string n, int q, string m = "000", int p = 0, string* mat = nullptr, int ml = 0) : Instrument(n, q, m, p), materials(mat), matsLen(ml)
 	{
 		quantity += q;
 		if (maxPrice < price) { maxPrice = price; maxPriceTool = *this; }
@@ -78,7 +82,8 @@ public:
 	{
 		Instrument::quantity -= itemQuantity;
 		quantity -= itemQuantity;
-		delete materials;
+		void renewHighestPrice(const int size, Instrument** iss);
+		delete[] materials;
 	}
 
 	inline static int getMaxPrice() { return maxPrice; }
@@ -126,6 +131,8 @@ class Electrical : public Instrument
 	static int maxPrice;
 	static Electrical maxPriceTool;
 
+	void renewHighestPrice(const int size, Instrument** iss);
+
 protected:
 
 	static int quantity;
@@ -140,7 +147,7 @@ public:
 		quantity += q;
 		if (maxPrice < price) { maxPrice = price; maxPriceTool = *this; }
 	}
-	virtual ~Electrical() {};
+	virtual ~Electrical() { void renewHighestPrice(const int size, Instrument** iss); }
 
 	inline static int getMaxPrice() { return maxPrice; }
 	inline static Instrument getmaxPriceTool() { return maxPriceTool; }

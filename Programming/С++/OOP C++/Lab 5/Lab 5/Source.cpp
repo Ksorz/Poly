@@ -54,8 +54,6 @@ string Fishing::className = "Рыбная ловля";
 string Rechargeable::className = "С аккумулятором";
 string ЕlectricalWire::className = "Питание от провода";
 
-
-
 int main()
 {
 	setlocale(LC_ALL, "Russian");
@@ -81,6 +79,11 @@ int main()
 	iss[11] = new ЕlectricalWire{ "Дрель", 6 };
 	iss[12] = new ЕlectricalWire{ "Строительный фен", 4, "Птеродактиль", 7999 };
 	
+
+
+
+
+
 	char choice = '0';
 	while (choice != 'q')
 	{

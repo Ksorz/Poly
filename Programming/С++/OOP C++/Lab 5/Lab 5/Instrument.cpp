@@ -221,6 +221,42 @@ void Instrument::create_new_item(Instrument**& iss, int& issSize)
 // Блок static функций в Instrument ==============================================================
 
 
+
+void Instrument::renewHighestPrice(const int size, Instrument** iss)
+{
+	maxPrice = 0;
+	for (int i = 0; i < size; i++)
+		if (is_same<decltype(iss[i]), class Instrument>::value&& iss[i]->getMaxPrice() > maxPrice)
+		{
+			maxPrice = iss[i]->getMaxPrice();
+			maxPriceTool = *this;
+		}
+}
+void Mechanical::renewHighestPrice(const int size, Instrument** iss)
+{
+	maxPrice = 0;
+	for (int i = 0; i < size; i++)
+		if (is_same<decltype(iss[i]), class Mechanical>::value&& iss[i]->getMaxPrice() > maxPrice)
+		{
+			maxPrice = iss[i]->getMaxPrice();
+			maxPriceTool = *this;
+		}
+}
+void Electrical::renewHighestPrice(const int size, Instrument** iss)
+{
+	maxPrice = 0;
+	for (int i = 0; i < size; i++)
+		if (is_same<decltype(iss[i]), class Electrical>::value && iss[i]->getMaxPrice() > maxPrice) 
+		{
+			maxPrice = iss[i]->getMaxPrice();
+			maxPriceTool = *this;
+		}
+}
+
+
+
+
+
 void Instrument::initializeData()
 {
 	cout << "\nВведите название:" << endl;
