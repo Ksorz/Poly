@@ -512,6 +512,11 @@ int main()
 		//ch.f(13);                        // Сокрытие
 		ch.Parent::f(13);                  // Раскрытие
 	}
+	system("cls");
+	_ConvertingClasses_Cast___PTRREF();
+
+
+
 	return 0;
 }
 

@@ -1,4 +1,4 @@
-#include <iostream> 
+п»ї#include <iostream> 
 #include <Windows.h>
 #include <string>
 #include <climits>
@@ -7,17 +7,17 @@
 
 using namespace std;
 
-// Глобальные константы ==========================================================================
+// Р“Р»РѕР±Р°Р»СЊРЅС‹Рµ РєРѕРЅСЃС‚Р°РЅС‚С‹ ==========================================================================
 static int const matsExLen = 4;
-static string const materialsExample[matsExLen] = { "Пластик", "Металл" , "Дерево" , "Текстиль" };
-// Глобальные константы ==========================================================================
+static string const materialsExample[matsExLen] = { "РџР»Р°СЃС‚РёРє", "РњРµС‚Р°Р»Р»" , "Р”РµСЂРµРІРѕ" , "РўРµРєСЃС‚РёР»СЊ" };
+// Р“Р»РѕР±Р°Р»СЊРЅС‹Рµ РєРѕРЅСЃС‚Р°РЅС‚С‹ ==========================================================================
 
 
 
-// Блок свободных функций ========================================================================
+// Р‘Р»РѕРє СЃРІРѕР±РѕРґРЅС‹С… С„СѓРЅРєС†РёР№ ========================================================================
 bool yesNo(char& choice, string yes, string no)
 {
-	cout << yes << ": любая клавиша" << "\n" << no << ": 'Q'" << endl;
+	cout << yes << ": Р»СЋР±Р°СЏ РєР»Р°РІРёС€Р°" << "\n" << no << ": 'Q'" << endl;
 	cin >> choice;
 	if (choice == 'q' || choice == 'Q') return false;
 	return true;
@@ -48,27 +48,27 @@ void push_back(string*& oldArr, const string newItem, int& size)
 	delete[] oldArr;
 	oldArr = newArr;
 }
-// Блок свободных функций ========================================================================
+// Р‘Р»РѕРє СЃРІРѕР±РѕРґРЅС‹С… С„СѓРЅРєС†РёР№ ========================================================================
 
 
 
-// Блок virtual showInfo() =======================================================================
-// virtual функции (показать информацию)
+// Р‘Р»РѕРє virtual showInfo() =======================================================================
+// virtual С„СѓРЅРєС†РёРё (РїРѕРєР°Р·Р°С‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ)
 void Instrument::showInfo() const
 {
 	cout << itemName;
 
-	if (model != "000") cout << ", модель: \"" << model << "\"";
-	cout << " (" << itemQuantity << " шт.) ";
-	if (price != 0) cout << "\nЦена: за единицу - " << price << " руб., общая - " << totalPrice << " руб.";
-	else cout << "Цена не указана.";
+	if (model != "000") cout << ", РјРѕРґРµР»СЊ: \"" << model << "\"";
+	cout << " (" << itemQuantity << " С€С‚.) ";
+	if (price != 0) cout << "\nР¦РµРЅР°: Р·Р° РµРґРёРЅРёС†Сѓ - " << price << " СЂСѓР±., РѕР±С‰Р°СЏ - " << totalPrice << " СЂСѓР±.";
+	else cout << "Р¦РµРЅР° РЅРµ СѓРєР°Р·Р°РЅР°.";
 }
 void Mechanical::showInfo() const
 {
 	Instrument::showInfo();
 	if (matsLen > 0)
 	{
-		cout << "\nМатериалы: ";
+		cout << "\nРњР°С‚РµСЂРёР°Р»С‹: ";
 		for (int i = 0; i < matsLen; i++)
 		{
 			cout << " " << materials[i];
@@ -81,31 +81,31 @@ void Fishing::showInfo() const
 	Mechanical::showInfo();
 	if (isProfessional == '0' || isProfessional == '1')
 	{
-		if (isProfessional == '1') cout << "\nПрофессиональное";
-		else cout << "\nПодойдёт для начинающих";
+		if (isProfessional == '1') cout << "\nРџСЂРѕС„РµСЃСЃРёРѕРЅР°Р»СЊРЅРѕРµ";
+		else cout << "\nРџРѕРґРѕР№РґС‘С‚ РґР»СЏ РЅР°С‡РёРЅР°СЋС‰РёС…";
 	}
 }
 void Electrical::showInfo() const
 {
 	Instrument::showInfo();
-	if (voltage > 0) cout << "\n" << voltage << " вольт";
+	if (voltage > 0) cout << "\n" << voltage << " РІРѕР»СЊС‚";
 }
 void Rechargeable::showInfo() const
 {
 	Electrical::showInfo();
 	if (batteryCapacity > 0) cout << ", " << batteryCapacity << " mAh";
 }
-void ЕlectricalWire::showInfo() const
+void ElectricalWire::showInfo() const
 {
 	Electrical::showInfo();
-	if (wireLength > 0) cout << ". Длина провода: " << wireLength << "м.";
+	if (wireLength > 0) cout << ". Р”Р»РёРЅР° РїСЂРѕРІРѕРґР°: " << wireLength << "Рј.";
 }
-// Блок virtual showInfo() =======================================================================
+// Р‘Р»РѕРє virtual showInfo() =======================================================================
 
 
 
-// Блок static функций в Instrument ==============================================================
-// Показать все предметы
+// Р‘Р»РѕРє static С„СѓРЅРєС†РёР№ РІ Instrument ==============================================================
+// РџРѕРєР°Р·Р°С‚СЊ РІСЃРµ РїСЂРµРґРјРµС‚С‹
 void Instrument::show_all(const int size, Instrument** iss)
 {
 	for (int i = 0; i < size; i++)
@@ -115,35 +115,35 @@ void Instrument::show_all(const int size, Instrument** iss)
 		cout << endl << iss[i]->getClassName() << "\n\n";
 	}
 }
-// Отобразить статистику по имеющимся предметам
+// РћС‚РѕР±СЂР°Р·РёС‚СЊ СЃС‚Р°С‚РёСЃС‚РёРєСѓ РїРѕ РёРјРµСЋС‰РёРјСЃСЏ РїСЂРµРґРјРµС‚Р°Рј
 void Instrument::show_stat()
 {
-	cout << Instrument::className << " (" << Instrument::getTotalQ() << " шт.):\n";
-	cout << " • " << Mechanical::className << " (" << Mechanical::getTotalQ() << " шт.)\n";
-	cout << "   • " << Fishing::className << " (" << Fishing::getTotalQ() << " шт.)\n";
-	cout << " • " << Electrical::className << " (" << Electrical::getTotalQ() << " шт.)\n";
-	cout << "   • " << Rechargeable::className << " (" << Rechargeable::getTotalQ() << " шт.)\n";
-	cout << "   • " << ЕlectricalWire::className << " (" << ЕlectricalWire::getTotalQ() << " шт.)\n";
+	cout << Instrument::className << " (" << Instrument::getTotalQ() << " С€С‚.):\n";
+	cout << " - " << Mechanical::className << " (" << Mechanical::getTotalQ() << " С€С‚.)\n";
+	cout << "   - " << Fishing::className << " (" << Fishing::getTotalQ() << " С€С‚.)\n";
+	cout << " - " << Electrical::className << " (" << Electrical::getTotalQ() << " С€С‚.)\n";
+	cout << "   - " << Rechargeable::className << " (" << Rechargeable::getTotalQ() << " С€С‚.)\n";
+	cout << "   - " << ElectricalWire::className << " (" << ElectricalWire::getTotalQ() << " С€С‚.)\n";
 }
-// Добавить инструмент в конец списка
+// Р”РѕР±Р°РІРёС‚СЊ РёРЅСЃС‚СЂСѓРјРµРЅС‚ РІ РєРѕРЅРµС† СЃРїРёСЃРєР°
 void Instrument::push_back_iss(Instrument**& oldIss, int& size, Instrument* newItem)
 {
-	Instrument** newIss = new Instrument * [size + 1]; // Создаем новый массив
+	Instrument** newIss = new Instrument * [size + 1]; // РЎРѕР·РґР°РµРј РЅРѕРІС‹Р№ РјР°СЃСЃРёРІ
 
 	for (int i = 0; i < size; i++)
 	{
-		newIss[i] = oldIss[i]; // Копируем элементы
+		newIss[i] = oldIss[i]; // РљРѕРїРёСЂСѓРµРј СЌР»РµРјРµРЅС‚С‹
 	}
 
-	newIss[size++] = newItem; // Включаем новый элемент
+	newIss[size++] = newItem; // Р’РєР»СЋС‡Р°РµРј РЅРѕРІС‹Р№ СЌР»РµРјРµРЅС‚
 	delete[] oldIss;
-	oldIss = newIss; // Переприсваиваем указатель
+	oldIss = newIss; // РџРµСЂРµРїСЂРёСЃРІР°РёРІР°РµРј СѓРєР°Р·Р°С‚РµР»СЊ
 	system("cls");
-	cout << "Добавлено:\n";
+	cout << "Р”РѕР±Р°РІР»РµРЅРѕ:\n";
 	newIss[size - 1]->showInfo();
 	cout << endl << newIss[size - 1]->getClassName() << "\n\n";
 }
-// Удалить инструмент из списка
+// РЈРґР°Р»РёС‚СЊ РёРЅСЃС‚СЂСѓРјРµРЅС‚ РёР· СЃРїРёСЃРєР°
 void Instrument::delete_item_iss(Instrument**& oldIss, int& size, int index)
 {
 	bool isDeleted = false;
@@ -156,7 +156,7 @@ void Instrument::delete_item_iss(Instrument**& oldIss, int& size, int index)
 			if (i == index)
 			{
 				system("cls");
-				cout << "Удалено:\n";
+				cout << "РЈРґР°Р»РµРЅРѕ:\n";
 				oldIss[index]->showInfo();
 				cout << endl << oldIss[index]->getClassName() << "\n\n";
 				delete oldIss[index];
@@ -171,7 +171,7 @@ void Instrument::delete_item_iss(Instrument**& oldIss, int& size, int index)
 	delete[] oldIss;
 	oldIss = newIss;
 }
-// Инициализировать новый инструмент
+// РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°С‚СЊ РЅРѕРІС‹Р№ РёРЅСЃС‚СЂСѓРјРµРЅС‚
 void Instrument::create_new_item(Instrument**& iss, int& issSize)
 {
 	char choice = '0';
@@ -180,9 +180,9 @@ void Instrument::create_new_item(Instrument**& iss, int& issSize)
 	while (choice != 'q')
 	{
 		system("cls");
-		cout << "Добавление нового инструмента" << endl;
-		cout << "Выберите тип \n\n1: " << Mechanical::className << "\n2: " << Fishing::className;
-		cout << "\n3: " << Rechargeable::className << "\n4: " << ЕlectricalWire::className << "\n\nQ: Главное меню\n";
+		cout << "Р”РѕР±Р°РІР»РµРЅРёРµ РЅРѕРІРѕРіРѕ РёРЅСЃС‚СЂСѓРјРµРЅС‚Р°" << endl;
+		cout << "Р’С‹Р±РµСЂРёС‚Рµ С‚РёРї \n\n1: " << Mechanical::className << "\n2: " << Fishing::className;
+		cout << "\n3: " << Rechargeable::className << "\n4: " << ElectricalWire::className << "\n\nQ: Р“Р»Р°РІРЅРѕРµ РјРµРЅСЋ\n";
 		cin >> choice;
 		p = 0; m = "000";
 
@@ -198,7 +198,7 @@ void Instrument::create_new_item(Instrument**& iss, int& issSize)
 			newItem->initializeSpecialData();
 			Instrument::push_back_iss(iss, issSize, newItem);
 		}
-		yesNo(choice, "Добавить ещё", "Завершить");
+		yesNo(choice, "Р”РѕР±Р°РІРёС‚СЊ РµС‰С‘", "Р—Р°РІРµСЂС€РёС‚СЊ");
 		continue;
 			
 		case'2':
@@ -209,7 +209,7 @@ void Instrument::create_new_item(Instrument**& iss, int& issSize)
 			newItem->initializeSpecialData();
 			Instrument::push_back_iss(iss, issSize, newItem);
 		}
-		yesNo(choice, "Добавить ещё", "Завершить");
+		yesNo(choice, "Р”РѕР±Р°РІРёС‚СЊ РµС‰С‘", "Р—Р°РІРµСЂС€РёС‚СЊ");
 		continue;
 
 		case'3':
@@ -220,7 +220,7 @@ void Instrument::create_new_item(Instrument**& iss, int& issSize)
 			newItem->initializeSpecialData();
 			Instrument::push_back_iss(iss, issSize, newItem);
 		}
-		yesNo(choice, "Добавить ещё", "Завершить");
+		yesNo(choice, "Р”РѕР±Р°РІРёС‚СЊ РµС‰С‘", "Р—Р°РІРµСЂС€РёС‚СЊ");
 		continue;
 
 		case'4':
@@ -228,11 +228,11 @@ void Instrument::create_new_item(Instrument**& iss, int& issSize)
 		{
 
 			Instrument::initializeData(n, q, m, p);
-			ЕlectricalWire* newItem = new ЕlectricalWire(n, q, m, p);
+			ElectricalWire* newItem = new ElectricalWire(n, q, m, p);
 			newItem->initializeSpecialData();
 			Instrument::push_back_iss(iss, issSize, newItem);
 		}
-		yesNo(choice, "Добавить ещё", "Завершить");
+		yesNo(choice, "Р”РѕР±Р°РІРёС‚СЊ РµС‰С‘", "Р—Р°РІРµСЂС€РёС‚СЊ");
 		continue;
 
 		default:
@@ -241,25 +241,25 @@ void Instrument::create_new_item(Instrument**& iss, int& issSize)
 		}
 	}
 }
-// Инициализировать базовые сведения о предмете
+// РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°С‚СЊ Р±Р°Р·РѕРІС‹Рµ СЃРІРµРґРµРЅРёСЏ Рѕ РїСЂРµРґРјРµС‚Рµ
 void Instrument::initializeData(string& iName, int& iQuantity, string& mod, int& p)
 {
-	cout << "\nВведите название:" << endl;
+	cout << "\nР’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ:" << endl;
 	getline(cin >> ws, iName);
-	cout << "\nВведите количество (целое число):" << endl;
+	cout << "\nР’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ (С†РµР»РѕРµ С‡РёСЃР»Рѕ):" << endl;
 	cin >> iQuantity;
 
-	cout << "\nУказать дополнительные сведения?" << endl;
+	cout << "\nРЈРєР°Р·Р°С‚СЊ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ СЃРІРµРґРµРЅРёСЏ?" << endl;
 	char choice = '0';
-	if (yesNo(choice, "Да", "Нет"))
+	if (yesNo(choice, "Р”Р°", "РќРµС‚"))
 	{
-		cout << "\nУкажите название модели:" << endl;
+		cout << "\nРЈРєР°Р¶РёС‚Рµ РЅР°Р·РІР°РЅРёРµ РјРѕРґРµР»Рё:" << endl;
 		getline(cin >> ws, mod);
-		cout << "\nУкажите цену (целое число):" << endl;
+		cout << "\nРЈРєР°Р¶РёС‚Рµ С†РµРЅСѓ (С†РµР»РѕРµ С‡РёСЃР»Рѕ):" << endl;
 		cin >> p;
 	}
 }
-// Функция поиска
+// Р¤СѓРЅРєС†РёСЏ РїРѕРёСЃРєР°
 void Instrument::search(const int size, Instrument** iss)
 {
 	char choice = '0';
@@ -268,12 +268,12 @@ void Instrument::search(const int size, Instrument** iss)
 
 	while (choice != 'q')
 	{
-		cout << "\nПоиск по типу:                                             '1'" << endl;
-		cout << "Максимальная стоимость:                                    '2'" << endl;
-		cout << "Минимальная стоимость:                                     '3'" << endl;
-		cout << "Максимальное количество:                                   '4'" << endl;
-		cout << "Минимальное количество:                                    '5'\n" << endl;
-		cout << "Главное меню:                                              'Q'" << endl;
+		cout << "\nРџРѕРёСЃРє РїРѕ С‚РёРїСѓ:                                             '1'" << endl;
+		cout << "РњР°РєСЃРёРјР°Р»СЊРЅР°СЏ СЃС‚РѕРёРјРѕСЃС‚СЊ:                                    '2'" << endl;
+		cout << "РњРёРЅРёРјР°Р»СЊРЅР°СЏ СЃС‚РѕРёРјРѕСЃС‚СЊ:                                     '3'" << endl;
+		cout << "РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ:                                   '4'" << endl;
+		cout << "РњРёРЅРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ:                                    '5'\n" << endl;
+		cout << "Р“Р»Р°РІРЅРѕРµ РјРµРЅСЋ:                                              'Q'" << endl;
 		cin >> choice;
 		switch (choice)
 		{
@@ -281,13 +281,13 @@ void Instrument::search(const int size, Instrument** iss)
 
 			while (choice != 'q')
 			{
-				cout << "\nМеханические:                                              '1'" << endl;
-				cout << "Электрические:                                             '2'" << endl;
+				cout << "\nРњРµС…Р°РЅРёС‡РµСЃРєРёРµ:                                              '1'" << endl;
+				cout << "Р­Р»РµРєС‚СЂРёС‡РµСЃРєРёРµ:                                             '2'" << endl;
 			
-				cout << "Для рыбалки:                                               '3'" << endl;
-				cout << "С аккумулятором:                                           '4'" << endl;
-				cout << "С проводом:                                                '5'\n" << endl;
-				cout << "Шаг назад:                                                 'Q'" << endl;
+				cout << "Р”Р»СЏ СЂС‹Р±Р°Р»РєРё:                                               '3'" << endl;
+				cout << "РЎ Р°РєРєСѓРјСѓР»СЏС‚РѕСЂРѕРј:                                           '4'" << endl;
+				cout << "РЎ РїСЂРѕРІРѕРґРѕРј:                                                '5'\n" << endl;
+				cout << "РЁР°Рі РЅР°Р·Р°Рґ:                                                 'Q'" << endl;
 				cin >> choice;
 
 				switch (choice)
@@ -307,7 +307,7 @@ void Instrument::search(const int size, Instrument** iss)
 
 					system("cls");
 					for (int i = 0; i < size; i++)
-						if (typeid(*iss[i]) == typeid(Rechargeable) || typeid(*iss[i]) == typeid(ЕlectricalWire))
+						if (typeid(*iss[i]) == typeid(Rechargeable) || typeid(*iss[i]) == typeid(ElectricalWire))
 						{
 							iss[i]->showInfo();
 							cout << "\n" << iss[i]->getClassName() << "\n\n";
@@ -340,7 +340,7 @@ void Instrument::search(const int size, Instrument** iss)
 
 					system("cls");
 					for (int i = 0; i < size; i++)
-						if (typeid(*iss[i]) == typeid(ЕlectricalWire))
+						if (typeid(*iss[i]) == typeid(ElectricalWire))
 						{
 							iss[i]->showInfo();
 							cout << "\n" << iss[i]->getClassName() << "\n\n";
@@ -363,7 +363,7 @@ void Instrument::search(const int size, Instrument** iss)
 					var = iss[i]->price;
 					varObject = iss[i];
 				}
-			cout << "Максимальную стоимость имеет следующий инструмент: \n\n";
+			cout << "РњР°РєСЃРёРјР°Р»СЊРЅСѓСЋ СЃС‚РѕРёРјРѕСЃС‚СЊ РёРјРµРµС‚ СЃР»РµРґСѓСЋС‰РёР№ РёРЅСЃС‚СЂСѓРјРµРЅС‚: \n\n";
 			varObject->showInfo();
 			cout << "\n" << varObject->getClassName() << "\n\n";
 			var = 0;
@@ -382,11 +382,11 @@ void Instrument::search(const int size, Instrument** iss)
 				}
 			if (varObject == nullptr)
 			{
-				cout << "Не нашли..." << endl;
+				cout << "РќРµ РЅР°С€Р»Рё..." << endl;
 				var = 0;
 				continue;
 			}
-			cout << "Минимальную стоимость имеет следующий инструмент: \n\n";
+			cout << "РњРёРЅРёРјР°Р»СЊРЅСѓСЋ СЃС‚РѕРёРјРѕСЃС‚СЊ РёРјРµРµС‚ СЃР»РµРґСѓСЋС‰РёР№ РёРЅСЃС‚СЂСѓРјРµРЅС‚: \n\n";
 			varObject->showInfo();
 			cout << "\n" << varObject->getClassName() << "\n\n";
 			var = 0;
@@ -404,7 +404,7 @@ void Instrument::search(const int size, Instrument** iss)
 					varObject = iss[i];
 				}
 			}
-			cout << "Максимальное количество экземпляров: \n\n";
+			cout << "РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЌРєР·РµРјРїР»СЏСЂРѕРІ: \n\n";
 			varObject->showInfo();
 			cout << "\n" << varObject->getClassName() << "\n\n";
 			var = 0;
@@ -423,11 +423,11 @@ void Instrument::search(const int size, Instrument** iss)
 				}
 			if (varObject == nullptr)
 			{
-				cout << "Не нашли..." << endl;
+				cout << "РќРµ РЅР°С€Р»Рё..." << endl;
 				var = 0;
 				continue;
 			}
-			cout << "Минимальное количество экземпляров: \n\n";
+			cout << "РњРёРЅРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЌРєР·РµРјРїР»СЏСЂРѕРІ: \n\n";
 			varObject->showInfo();
 			cout << "\n" << varObject->getClassName() << "\n\n";
 			var = 0;
@@ -439,17 +439,17 @@ void Instrument::search(const int size, Instrument** iss)
 		}
 	}
 }
-// Блок static функций в Instrument ==============================================================
+// Р‘Р»РѕРє static С„СѓРЅРєС†РёР№ РІ Instrument ==============================================================
 
 
 
-// Блок virtual функций инициализации (правки) данных ============================================
+// Р‘Р»РѕРє virtual С„СѓРЅРєС†РёР№ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё (РїСЂР°РІРєРё) РґР°РЅРЅС‹С… ============================================
 void Electrical::initializeSpecialData()
 {
-	cout << "\nУкажите вольтаж устройства (целое число):" << endl;
+	cout << "\nРЈРєР°Р¶РёС‚Рµ РІРѕР»СЊС‚Р°Р¶ СѓСЃС‚СЂРѕР№СЃС‚РІР° (С†РµР»РѕРµ С‡РёСЃР»Рѕ):" << endl;
 	cin >> voltage;
 }
-// Вспомогательная функция (отслеживание выбранных материалов)
+// Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅР°СЏ С„СѓРЅРєС†РёСЏ (РѕС‚СЃР»РµР¶РёРІР°РЅРёРµ РІС‹Р±СЂР°РЅРЅС‹С… РјР°С‚РµСЂРёР°Р»РѕРІ)
 bool Mechanical::isAlereadyChosen(const int currentIndex, const int* chosenIndexes, const int chosenLen)
 {
 	for (int i = 0; i < chosenLen; i++) if (chosenIndexes[i] == currentIndex) return true;
@@ -463,7 +463,7 @@ void Mechanical::initializeSpecialData()
 	while (choice != 'q')
 	{
 		system("cls");
-		cout << "Выберите материалы изделия (по одному):\n\n";
+		cout << "Р’С‹Р±РµСЂРёС‚Рµ РјР°С‚РµСЂРёР°Р»С‹ РёР·РґРµР»РёСЏ (РїРѕ РѕРґРЅРѕРјСѓ):\n\n";
 		for (int i = 0; i < matsExLen; i++)
 		{
 			if (!isAlereadyChosen(i, chosenIndexes, chosenLen))
@@ -471,7 +471,7 @@ void Mechanical::initializeSpecialData()
 				cout << i + 1 << ": " << materialsExample[i] << endl;
 			}
 		}
-		if (chosenLen > 0) cout << "\nQ: Далее" << endl;
+		if (chosenLen > 0) cout << "\nQ: Р”Р°Р»РµРµ" << endl;
 		if (chosenLen >= matsExLen) break;
 		cin >> choice;
 		if ((int(choice - '0' - 1) + 1) > matsExLen) continue;
@@ -483,21 +483,21 @@ void Mechanical::initializeSpecialData()
 void Fishing::initializeSpecialData()
 {
 	Mechanical::initializeSpecialData();
-	cout << "\nВыберите назначение" << endl;
+	cout << "\nР’С‹Р±РµСЂРёС‚Рµ РЅР°Р·РЅР°С‡РµРЅРёРµ" << endl;
 	char c = '0';
-	if (yesNo(c, "Подойдёт для начинающих", "Профессиональное")) isProfessional = '0';
+	if (yesNo(c, "РџРѕРґРѕР№РґС‘С‚ РґР»СЏ РЅР°С‡РёРЅР°СЋС‰РёС…", "РџСЂРѕС„РµСЃСЃРёРѕРЅР°Р»СЊРЅРѕРµ")) isProfessional = '0';
 	else isProfessional = '1';
 }
 void Rechargeable::initializeSpecialData()
 {
 	Electrical::initializeSpecialData();
-	cout << "\nУкажите ёмкость аккумулятора (целое число):" << endl;
+	cout << "\nРЈРєР°Р¶РёС‚Рµ С‘РјРєРѕСЃС‚СЊ Р°РєРєСѓРјСѓР»СЏС‚РѕСЂР° (С†РµР»РѕРµ С‡РёСЃР»Рѕ):" << endl;
 	cin >> batteryCapacity;
 }
-void ЕlectricalWire::initializeSpecialData()
+void ElectricalWire::initializeSpecialData()
 {
 	Electrical::initializeSpecialData();
-	cout << "\nУкажите длину провода (целое число):" << endl;
+	cout << "\nРЈРєР°Р¶РёС‚Рµ РґР»РёРЅСѓ РїСЂРѕРІРѕРґР° (С†РµР»РѕРµ С‡РёСЃР»Рѕ):" << endl;
 	cin >> wireLength;
 }
-// Блок virtual функций инициализации (правки) данных ============================================
+// Р‘Р»РѕРє virtual С„СѓРЅРєС†РёР№ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё (РїСЂР°РІРєРё) РґР°РЅРЅС‹С… ============================================

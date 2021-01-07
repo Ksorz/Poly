@@ -1,30 +1,30 @@
-#pragma once
+п»ї#pragma once
 using namespace std;
 
 
-// Свободные функции
-bool yesNo(char& choice, string yes = "Продолжить", string no = "Завершить");
+// РЎРІРѕР±РѕРґРЅС‹Рµ С„СѓРЅРєС†РёРё
+bool yesNo(char& choice, string yes = "РџСЂРѕРґРѕР»Р¶РёС‚СЊ", string no = "Р—Р°РІРµСЂС€РёС‚СЊ");
 void push_back(int*& oldArr, const int newItem, int& size);
 void push_back(string*& oldArr, const string newItem, int& size);
 
-// Базовый класс "Инструмент"
+// Р‘Р°Р·РѕРІС‹Р№ РєР»Р°СЃСЃ "РРЅСЃС‚СЂСѓРјРµРЅС‚"
 class Instrument
 {
-	int totalPrice; // Цена за все предметы (цена * количество)
+	int totalPrice; // Р¦РµРЅР° Р·Р° РІСЃРµ РїСЂРµРґРјРµС‚С‹ (С†РµРЅР° * РєРѕР»РёС‡РµСЃС‚РІРѕ)
 
 protected:
 
-	// Общие поля
-	string itemName; // Название предмета
-	int itemQuantity; // Количество
-	string model; // Модель
-	int price; // Цена
+	// РћР±С‰РёРµ РїРѕР»СЏ
+	string itemName; // РќР°Р·РІР°РЅРёРµ РїСЂРµРґРјРµС‚Р°
+	int itemQuantity; // РљРѕР»РёС‡РµСЃС‚РІРѕ
+	string model; // РњРѕРґРµР»СЊ
+	int price; // Р¦РµРЅР°
 
-	static int quantity; // Всего инструментов
+	static int quantity; // Р’СЃРµРіРѕ РёРЅСЃС‚СЂСѓРјРµРЅС‚РѕРІ
 
 public:
 
-	static string className; // Имя класса
+	static string className; // РРјСЏ РєР»Р°СЃСЃР°
 
 	Instrument() : itemName("000"), itemQuantity(0), model("000"), price(0), totalPrice(0) {}
 	Instrument(string n, int q, string m, int p) : itemQuantity(q), itemName(n), model(m), price(p), totalPrice(p * q) { quantity += q; }
@@ -47,12 +47,12 @@ public:
 };
 
 
-// Механический
+// РњРµС…Р°РЅРёС‡РµСЃРєРёР№
 class Mechanical : public Instrument
 {
-	string* materials; // Из каких материалов состоит
-	int matsLen; // Длина списка материалов
-	// Вспомогательная функция (отслеживание выбранных материалов)
+	string* materials; // РР· РєР°РєРёС… РјР°С‚РµСЂРёР°Р»РѕРІ СЃРѕСЃС‚РѕРёС‚
+	int matsLen; // Р”Р»РёРЅР° СЃРїРёСЃРєР° РјР°С‚РµСЂРёР°Р»РѕРІ
+	// Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅР°СЏ С„СѓРЅРєС†РёСЏ (РѕС‚СЃР»РµР¶РёРІР°РЅРёРµ РІС‹Р±СЂР°РЅРЅС‹С… РјР°С‚РµСЂРёР°Р»РѕРІ)
 	bool isAlereadyChosen(const int currentIndex, const int* chosenIndexes, const int chosenLen);
 
 protected:
@@ -81,10 +81,10 @@ public:
 };
 
 
-// Механический. Для рыбалки
+// РњРµС…Р°РЅРёС‡РµСЃРєРёР№. Р”Р»СЏ СЂС‹Р±Р°Р»РєРё
 class Fishing : public Mechanical
 {
-	char isProfessional; // Назначение
+	char isProfessional; // РќР°Р·РЅР°С‡РµРЅРёРµ
 
 protected:
 
@@ -109,10 +109,10 @@ public:
 };
 
 
-// Электрический
+// Р­Р»РµРєС‚СЂРёС‡РµСЃРєРёР№
 class Electrical : public Instrument
 {
-	int voltage; // Вольтаж
+	int voltage; // Р’РѕР»СЊС‚Р°Р¶
 
 protected:
 
@@ -134,10 +134,10 @@ public:
 };
 
 
-// Электрический. С аккумулятором
+// Р­Р»РµРєС‚СЂРёС‡РµСЃРєРёР№. РЎ Р°РєРєСѓРјСѓР»СЏС‚РѕСЂРѕРј
 class Rechargeable : public Electrical
 {
-	int batteryCapacity; // Емкость аккумулятора
+	int batteryCapacity; // Р•РјРєРѕСЃС‚СЊ Р°РєРєСѓРјСѓР»СЏС‚РѕСЂР°
 
 protected:
 
@@ -164,10 +164,10 @@ public:
 };
 
 
-// Электрический. С проводом
-class ЕlectricalWire : public Electrical
+// Р­Р»РµРєС‚СЂРёС‡РµСЃРєРёР№. РЎ РїСЂРѕРІРѕРґРѕРј
+class ElectricalWire : public Electrical
 {
-	double wireLength; // Длина провода
+	double wireLength; // Р”Р»РёРЅР° РїСЂРѕРІРѕРґР°
 
 protected:
 
@@ -177,9 +177,9 @@ public:
 
 	static string className;
 
-	ЕlectricalWire() : wireLength(0) {}
-	ЕlectricalWire(string n, int q, string m = "000", int p = 0, int v = 0, double wl = 0) : Electrical(n, q, m, p, v), wireLength(wl) { quantity += q; }
-	~ЕlectricalWire()
+	ElectricalWire() : wireLength(0) {}
+	ElectricalWire(string n, int q, string m = "000", int p = 0, int v = 0, double wl = 0) : Electrical(n, q, m, p, v), wireLength(wl) { quantity += q; }
+	~ElectricalWire()
 	{
 		Electrical::quantity -= itemQuantity;
 		Instrument::quantity -= itemQuantity;
