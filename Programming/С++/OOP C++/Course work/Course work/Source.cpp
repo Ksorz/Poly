@@ -1,11 +1,13 @@
 #include <SFML/Graphics.hpp>	
-//#include <iostream> 
-//#include <Windows.h>
-//#include <string>
+#include <iostream> 
+#include <Windows.h>
+#include <string>
+#include "battleship.hpp"
 
-
-//using namespace std;
+using namespace std;
 using namespace sf; 
+
+
 
 void thisIsForExample_SFML()
 {
@@ -128,67 +130,78 @@ void garbage(RenderWindow battleship)
 			battleship.draw(s);
 		}
 }
+y = 750; // Масштаб
+	x = y * 1.8f;
+
+	step = y / 15.0f;
+	startOne = step * 3;
+	startTwo = step * 15;
 */
 
 
-void drawNet(RenderWindow& battleship, int first, int second, int step)
+void kuriBambuk(RenderWindow& battleship)
 {
-	VertexArray lines(LinesStrip, 44);
-	bool add = false;
+	Small ship1 (3, 5);
+	Big ship2 (3, 7, 2, true);
+	Big ship3 (10, 8, 3, false);
+	Big ship4 (6, 1, 4, true);
 
-	for (int i = 0; i < 21; i++)
-	{
-		lines[i].position = Vector2f(first, second);
+	cout << "step == " << step << endl;
 
-		if (i % 2 != 0)
-		{
-			second = add ? second - step * 10 : second + step * 10;
-			add = !add;
-			continue;
-		}
-		first += step;
-	}
-	first -= step;
-	for (int i = 21; i < 42; i++)
-	{
-		lines[i].position = Vector2f(first, second);
+	ship1.showInfo();
+	cout << endl;
+	ship2.showInfo();
+	cout << endl;
+	ship3.showInfo();
+	cout << endl;
+	ship4.showInfo();
 
-		if (i % 2 != 0)
-		{
-			first = add ? first + step * 10 : first - step * 10;
-			add = !add;
-			continue;
-		}
-		second += step;
-	}
-	lines[42].position = Vector2f(first, second);
-	second -= step * 10;
-	lines[43].position = Vector2f(first, second);
 
-	battleship.draw(lines);
+	ship1.drawShip(battleship, startOne);
+	ship1.drawShip(battleship, startTwo);
+
+	ship2.drawShip(battleship, startOne);
+	ship2.drawShip(battleship, startTwo);
+
+	ship3.drawShip(battleship, startOne);
+	ship3.drawShip(battleship, startTwo);
+
+	ship4.drawShip(battleship, startOne);
+	ship4.drawShip(battleship, startTwo);
+
+
 }
+
 
 int main()
 {
+	setlocale(LC_ALL, "Russian");
+	SetConsoleOutputCP(1251);
+	SetConsoleCP(1251);
 
-	int y = 750; // Масштаб
+	
+	RenderWindow battleship(VideoMode((int)x, (int)y), "Battleship!");
 
-	int x = y * 1.8;
-	int q = y / 15;
-	RenderWindow battleship(VideoMode(x, y), "Battleship!");
+
+	drawNet(battleship, startOne, startOne, (int)step);
+	drawNet(battleship, startTwo, startOne, (int)step);
+
+
 	
 
-	drawNet(battleship, q * 3, q * 3, q);
-	drawNet(battleship, q * 15, q * 3, q);
 
 
-	//lines.append(sf::Vertex(sf::Vector2f(0, 0), sf::Vector2f(0, 0)));
-	// Отображаем всю композицию на экране
+
+	kuriBambuk(battleship);
+
+
+
+
+	
+
 	
 
 	battleship.display();
-
-
 	// Главный цикл приложения: выполняется, пока открыто окно
 	while (battleship.isOpen())
 	{
