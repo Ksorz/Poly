@@ -1,7 +1,9 @@
 #include <SFML/Graphics.hpp>	
 #include <iostream> 
-#include <Windows.h>
+#include <vector>
 #include <string>
+#include <Windows.h>
+
 #include "battleship.hpp"
 
 using namespace std;
@@ -141,10 +143,10 @@ y = 750; // Масштаб
 
 void kuriBambuk(RenderWindow& battleship)
 {
-	Small ship1 (3, 5);
-	Big ship2 (3, 7, 2, true);
-	Big ship3 (10, 8, 3, false);
-	Big ship4 (6, 1, 4, true);
+	Ship ship1 (3, 5);
+	BigShip ship2 (3, 7, 2, true);
+	BigShip ship3 (10, 8, 3, false);
+	BigShip ship4 (6, 1, 4, true);
 
 	cout << "step == " << step << endl;
 
@@ -169,7 +171,6 @@ void kuriBambuk(RenderWindow& battleship)
 	ship4.drawShip(battleship, startOne);
 	ship4.drawShip(battleship, startTwo);
 
-
 }
 
 
@@ -179,9 +180,7 @@ int main()
 	SetConsoleOutputCP(1251);
 	SetConsoleCP(1251);
 
-	
 	RenderWindow battleship(VideoMode((int)x, (int)y), "Battleship!");
-
 
 	drawNet(battleship, startOne, startOne, (int)step);
 	drawNet(battleship, startTwo, startOne, (int)step);

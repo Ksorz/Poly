@@ -20,43 +20,76 @@ struct Coords
 
 
 // =====================================================================================================
-class Small : public Coords
+class Ship : public Coords
 {
 	
 
 protected:
 
-	int dur;
-	int life = dur;
+	const int size;
+	int life = size;
 	bool isAlive = true;
 
 public:
 
-	Small(int xScale, int yScale, int size = 1) : dur(size), Coords{ xScale, yScale } {}
+	Ship(int xScale, int yScale, int size = 1) : size(size), Coords{ xScale, yScale } {}
 
 	
 	virtual void showInfo() const;
+	inline int getSize() { return size; }
+	inline virtual bool isHorizontal() const { return true; }
+
 	void drawShip(RenderWindow& battleship, float teamStartPosition) const;
 
 };
 // =====================================================================================================
-// =====================================================================================================
-class Big : public Small
+class BigShip : public Ship
 {
 
+	bool* deckIsOk = new bool[size];
+	
 protected:
 
-	bool horiz;
+	bool isHorizontal;
 	
 public:
-
-	Big(int xScale, int yScale, int size, bool horizontal) : horiz(horizontal), Small(xScale, yScale, size) {}
-
+	
+	BigShip(int xScale, int yScale, int size, bool horiz) : isHorizontal(horiz), Ship(xScale, yScale, size) { for (int i = 0; i < size; i++) deckIsOk[i] = true; }
+	~BigShip() { delete deckIsOk; }
 
 	virtual void showInfo() const;
+	inline virtual bool isHorizontal() const { return isHorizontal; }
+
 	void drawShip(RenderWindow& battleship, float teamStartPosition) const;
 
 };
 // =====================================================================================================
 
+
+
+// =====================================================================================================
+class Battlefield
+{
+	// Карта занятых позиций (в данный момент будет поддерживаться только 10х10 карта)
+	bool isBound[12][12]; // заграничные [0] и [11] поля все false, к тому же индексы игровых полей удачно 1-10
+	int limit[4] { 4, 3, 2, 1 };
+	vector<Ship> fleet;
+
+	inline bool isOutOfLimit(int shipSize) { return limit[shipSize - 1] == 0 ? true : false; }
+	bool isPlaceAvailable(Ship& const ship) const;
+	void boundPlace(Ship& const ship, bool** boundOnMap);
+
+public:
+
+	Battlefield() { for (int i = 0; i < 12; i++) for (int j = 0; j < 12; j++) isBound[i][j] = false; }
+
+	void addNewShip();
+
+};
+// =====================================================================================================
+class Player : public Battlefield
+{
+
+};
+// =====================================================================================================
 

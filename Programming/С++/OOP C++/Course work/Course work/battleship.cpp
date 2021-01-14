@@ -1,7 +1,9 @@
 #include <SFML/Graphics.hpp>	
 #include <iostream> 
-#include <Windows.h>
+#include <vector>
 #include <string>
+#include <Windows.h>
+
 #include "battleship.hpp"
 
 using namespace std;
@@ -44,34 +46,91 @@ void drawNet(RenderWindow& battleship, float first, float second, int step)
 	battleship.draw(lines);
 }
 
-void Small::showInfo() const
+void Ship::showInfo() const
 {
 	string alive = isAlive ? "Да" : "Нет";
-	cout << "X: " << x << "\nY: " << y << "\nЕщё в строю: " << alive << " (прочность " << life << "/" << dur << ")" << endl;
+	cout << "X: " << x << "\nY: " << y << "\nЕщё в строю: " << alive << " (прочность " << life << "/" << size << ")" << endl;
 }
 
-void Big::showInfo() const
+void BigShip::showInfo() const
 {
 	string alive = isAlive ? "Да" : "Нет";
-	cout << "X: " << x << "\nY: " << y << "\nЕщё в строю: " << alive << " (прочность " << life << "/" << dur << ")" << endl;
-	string sailing = horiz ? "Вдоль горизонта" : "В горизонт";
+	cout << "X: " << x << "\nY: " << y << "\nЕщё в строю: " << alive << " (прочность " << life << "/" << size << ")" << endl;
+	string sailing = isHorizontal ? "Вдоль горизонта" : "В горизонт";
 	if (isAlive) cout << "Плывёт: " << sailing << endl;
 	else cout << "Куда плыл пока не припыл: " << sailing << endl;
 }
 
-void Small::drawShip(RenderWindow& battleship, float teamStartPosition) const
+void Ship::drawShip(RenderWindow& battleship, float teamStartPosition) const
 {
-	RectangleShape rectangle(Vector2f(step, step * dur));
-	rectangle.move(teamStartPosition + (step * (x - 1)), startOne + (step * (y - 1))); // перемещаем
-	rectangle.setFillColor(Color(175, 180, 240)); // устанавливаем цвет прямоугольника
-	battleship.draw(rectangle); // отрисовка прямоугольника
+	RectangleShape rectangle(Vector2f(step, step));
+	rectangle.move(teamStartPosition + (step * (x - 1)), startOne + (step * (y - 1))); 
+	rectangle.setFillColor(isAlive ? Color::Green : Color::Red);
+	battleship.draw(rectangle); 
 }
 
-void Big::drawShip(RenderWindow& battleship, float teamStartPosition) const
+void BigShip::drawShip(RenderWindow& battleship, float teamStartPosition) const
 {
-	RectangleShape rectangle(Vector2f(step, step * dur));
-	if (horiz) rectangle.rotate(270);
-	rectangle.move(teamStartPosition + (step * (x - 1)), startOne + (step * (y - 1))); // перемещаем
-	rectangle.setFillColor(Color(175, 180, 240)); // устанавливаем цвет прямоугольника
-	battleship.draw(rectangle); // отрисовка прямоугольника
+	for (int i = 0; i < size; i++)
+	{
+		RectangleShape rectangle(Vector2f(step, step));
+		// Здесь задаём смещение относительно стартовой позиции (teamStartPosition) 
+		// И условно изображаем большой корабль относильно его направления (isHorizontal)
+		if (isHorizontal) rectangle.move(teamStartPosition + (step * (x - 1)) + (step * i), startOne + (step * (y - 1))); // перемещаем
+		else rectangle.move(teamStartPosition + (step * (x - 1)), startOne + (step * (y - 1)) + (step * i)); // перемещаем
+		rectangle.setFillColor(deckIsOk[i] ? Color::Green : Color::Red); // Цвет относительно того, разрушена ли палуба
+		battleship.draw(rectangle);
+	}
+}
+
+
+
+
+bool Battlefield::isPlaceAvailable(Ship& const ship) const
+{
+	for (int i = 0; i < 3; i++) // Проверка полей вокруг начальных координат (включая координаты ship)
+		for (int j = 0; j < 3; j++) if (isBound[ship.x + (i - 1)][ship.y + (j - 1)]) return false;
+	
+	// ship.getSize() - 1 -- количество циклов доп. проверок (равно кол-ву доп. палуб)
+	for (int i = 0; i < ship.getSize() - 1; i++) // В случае корабля с 1 палубой, этот цикл будет пропущен
+		for (int j = 0; j < 3; j++)
+		{
+			// Условно проверяем по 3 дополнительных поля на каждую палубу
+			if (ship.isHorizontal()) if (isBound[ship.x + 2][ship.y + (j - 1)]) return false;
+			else if (isBound[ship.x + (j - 1)][ship.y - 2]) return false;
+		}
+	return true;
+}
+
+void Battlefield::boundPlace(Ship& const ship, bool** boundOnMap)
+{
+	for (int i = 0; i < 3; i++) 
+		for (int j = 0; j < 3; j++) boundOnMap[ship.x + (i - 1)][ship.y + (j - 1)] = true;
+
+	for (int i = 0; i < ship.getSize() - 1; i++) // В случае корабля с 1 палубой, этот цикл будет пропущен
+		for (int j = 0; j < 3; j++)
+		{
+			if (ship.isHorizontal()) boundOnMap[ship.x + 2][ship.y + (j - 1)] = true;
+			else boundOnMap[ship.x + (j - 1)][ship.y - 2] = true;
+		}
+}
+
+
+
+
+
+
+void Battlefield::addNewShip()
+{
+	char choice = '0';
+	while (choice != 'q')
+	{
+		switch (choice)
+		{
+		case '1':
+
+		default:
+			break;
+		}
+	}
 }
