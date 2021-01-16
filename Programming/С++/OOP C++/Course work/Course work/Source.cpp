@@ -173,6 +173,31 @@ void kuriBambuk(RenderWindow& battleship)
 
 }
 
+void kuriBambuk2(RenderWindow& battleship)
+{
+	vector<Ship*> fleet;
+
+	Ship* ship1 = new Ship(3, 5);
+	BigShip* ship2 = new BigShip(3, 7, 2, true);
+	BigShip* ship3 = new BigShip(10, 8, 3, false);
+	BigShip* ship4 = new BigShip(6, 1, 4, true);
+
+	fleet.push_back(ship1);
+	fleet.push_back(ship2);
+	fleet.push_back(ship3);
+	fleet.push_back(ship4);
+
+	//ship1.drawShip(battleship, startOne);
+	//ship2.drawShip(battleship, startOne);
+	//ship3.drawShip(battleship, startOne);
+	ship4->drawShip(battleship, startTwo);
+	ship4->showInfo();
+
+	fleet[3]->drawShip(battleship, startOne);
+	fleet[3]->showInfo();
+	//for (const auto& ship : fleet) ship.drawShip(battleship, startOne);
+}
+
 
 int main()
 {
@@ -185,7 +210,7 @@ int main()
 
 
 	Player human;
-	human.menu();
+	
 	
 		
 
@@ -202,24 +227,52 @@ int main()
 
 	
 
-	RenderWindow battleship(VideoMode((int)x, (int)y), "Battleship!");
+	
 
-	//human.drawFleet(battleship, startOne);
-	kuriBambuk(battleship);
 
-	drawNet(battleship, startOne, startOne, (int)step);
-	drawNet(battleship, startTwo, startOne, (int)step);
-
+	/*
 	battleship.display();
 	// Главный цикл приложения: выполняется, пока открыто окно
 	while (battleship.isOpen())
 	{
+		
 		Event e;
 		while (battleship.pollEvent(e))
 		{
 			if (e.type == Event::Closed)
 				battleship.close();
 		}
+	}*/
+
+	RenderWindow battleship(VideoMode((int)x, (int)y), "Battleship!");
+
+
+	// Главный цикл приложения: выполняется, пока открыто окно
+	while (battleship.isOpen())
+	{
+		// Обрабатываем события в цикле
+		Event event;
+		while (battleship.pollEvent(event))
+		{
+			
+			
+			// Пользователь нажал на «крестик» и хочет закрыть окно?
+			if (event.type == Event::Closed)
+				// тогда закрываем его
+				battleship.close();
+		}
+
+		// Установка цвета фона
+		battleship.clear(Color::Black);
+
+
+		human.menu();
+		drawNet(battleship, startOne, startOne, (int)step);
+		drawNet(battleship, startTwo, startOne, (int)step);
+		human.drawFleet(battleship, startOne);
+
+		// Отрисовка окна
+		battleship.display();
 	}
 
 	return 0;

@@ -69,7 +69,7 @@ void BigShip::showInfo() const
 void Ship::drawShip(RenderWindow& battleship, float teamStartPosition) const
 {
 	RectangleShape rectangle(Vector2f(step, step));
-	rectangle.move(teamStartPosition + (step * (x - 1)), startOne + (step * (y - 1))); 
+	rectangle.move(teamStartPosition + (step * (y - 1)), startOne + (step * (x - 1))); 
 	rectangle.setFillColor(isAlive ? Color::Green : Color::Red);
 	battleship.draw(rectangle); 
 }
@@ -80,8 +80,8 @@ void BigShip::drawShip(RenderWindow& battleship, float teamStartPosition) const
 		RectangleShape rectangle(Vector2f(step, step));
 		// Здесь задаём смещение относительно стартовой позиции (teamStartPosition) 
 		// И условно изображаем большой корабль относильно его направления (isHorizontal)
-		if (isHorizontal()) rectangle.move(teamStartPosition + (step * (x - 1)) + (step * i), startOne + (step * (y - 1))); // перемещаем
-		else rectangle.move(teamStartPosition + (step * (x - 1)), startOne + (step * (y - 1)) + (step * i)); // перемещаем
+		if (isHorizontal()) rectangle.move(teamStartPosition + (step * (y - 1)) + (step * i), startOne + (step * (x - 1))); // перемещаем
+		else rectangle.move(teamStartPosition + (step * (y - 1)), startOne + (step * (x - 1)) + (step * i)); // перемещаем
 		rectangle.setFillColor(deckIsOk[i] ? Color::Green : Color::Red); // Цвет относительно того, разрушена ли палуба
 		battleship.draw(rectangle);
 	}
@@ -105,19 +105,30 @@ bool Battlefield::isPlaceAvailable(Ship& ship) const
 		}
 	return true;
 }
-*/
-
 bool Battlefield::isPlaceAvailable(Ship& ship) const
 {
-	if (isBound[ship.x][ship.y]) return false;
+	if (isBound[ship.y][ship.x]) return false;
 
 	for (int i = 1; i < ship.getSize(); i++)
 		{
-			if (ship.isHorizontal()) if (isBound[ship.x + i][ship.y]) return false;
-			else if (isBound[ship.x][ship.y - i]) return false;
+			if (ship.isHorizontal()) if (isBound[ship.y][ship.x + i]) return false;
+			else if (isBound[ship.y + i][ship.x]) return false;
 		}
 	return true;
 }
+*/
+
+bool Battlefield::isPlaceAvailable(int letterVal, int numberVal, int size = 1, bool horiz = false)
+{
+	if (isBound[letterVal][numberVal] || letterVal < 1 || letterVal > 10 || numberVal < 1 || numberVal > 10) return false;
+	if (size > 1)
+	{
+		if (horiz) return isPlaceAvailable(letterVal, numberVal + 1, size - 1, horiz);
+		else return isPlaceAvailable(letterVal + 1, numberVal, size - 1, horiz);
+	}
+	return true;
+}
+
 void Battlefield::boundPlace(Ship& ship)
 {
 	for (int i = 0; i < 3; i++) 
@@ -126,8 +137,8 @@ void Battlefield::boundPlace(Ship& ship)
 	for (int i = 1; i < ship.getSize(); i++) // В случае корабля с 1 палубой, этот цикл будет пропущен
 		for (int j = 0; j < 3; j++)
 		{
-			if (ship.isHorizontal()) isBound[ship.x + (i + 1)][ship.y + (j - 1)] = true;
-			else isBound[ship.x + (j - 1)][ship.y - (i + 1)] = true;
+			if (ship.isHorizontal()) isBound[ship.x + (j - 1)][ship.y + (i + 1)] = true;
+			else isBound[ship.x + (i + 1)][ship.y + (j - 1)] = true;
 		}
 }
 
@@ -197,16 +208,24 @@ void Player::initializeFleet()
 		}
 	}
 }
-Ship Player::placeShip(string name, int size, int& lim)
+void Player::placeShip(string name, int size, int& lim)
 {
 	int x, y;
 
 	cout << "Размещаем " << name << "\n\n";
 	setCoords(x, y);
 
+	if (!isPlaceAvailable(x, y))
+	{
+		system("cls");
+		cout << "Невозможно разместить корабль здесь. Попробуйте снова\n\n";
+		__Test_checkIsBound(); // TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+		return placeShip(name, size, lim);
+	}
+
 	if (size > 1)
 	{
-		bool vh;
+		bool horiz;
 		char choice = '0';
 
 		cout << "\n1: Горизонтально\n2: Вертикально" << endl;
@@ -216,12 +235,10 @@ Ship Player::placeShip(string name, int size, int& lim)
 			switch (choice)
 			{
 			case '1':
-				vh = false;
-				cout << "Nen11111111" << endl;
+				horiz = true;
 				break;
 			case '2':
-				vh = true;
-				cout << "nen2" << endl;
+				horiz = false;
 				break;
 			default:
 				cout << "Ошибочка, ещё раз пробуйте" << endl;
@@ -229,40 +246,40 @@ Ship Player::placeShip(string name, int size, int& lim)
 			}
 			if (choice == '1' || choice == '2') break;
 		}
-		BigShip newShip(x, y, size, vh);
+		BigShip* newShip = new BigShip(x, y, size, horiz);
 
-		if (isPlaceAvailable(newShip)) // Если всё ок и корабль тут разместить можно
+		if (isPlaceAvailable(x, y, newShip->getSize(), newShip->isHorizontal())) // Если всё ок и корабль тут разместить можно
 		{
 			system("cls");
 			cout << "На поле (" << x << " : " << y;
-			if (vh) cout << ") горизонтально ";
+			if (horiz) cout << ") горизонтально ";
 			else cout << ") вертикально ";
 			cout << " размещён: " << name << "\n\n";
 
 			lim--;
 			fleet.push_back(newShip);
-			boundPlace(newShip);
+			boundPlace(*newShip);
 
 			__Test_checkIsBound(); // TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-			return newShip;
+			return;
 		}
 		system("cls");
 		cout << "Невозможно разместить корабль здесь. Попробуйте снова\n\n";
 		__Test_checkIsBound(); // TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
 		return placeShip(name, size, lim);
 	}
-	Ship newShip(x, y, size);
-	if (isPlaceAvailable(newShip)) // Если всё ок и корабль тут разместить можно
+	Ship* newShip = new Ship(x, y, size);
+	if (isPlaceAvailable(x, y, newShip->getSize(), newShip->isHorizontal())) // Если всё ок и корабль тут разместить можно
 	{
 		system("cls");
 		cout << "На поле (" << x << " : " << y << ") размещён: " << name << "\n\n";
 
 		lim--;
 		fleet.push_back(newShip);
-		boundPlace(newShip);
+		boundPlace(*newShip);
 
 		__Test_checkIsBound(); // TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-		return newShip;
+		return;
 	}
 	system("cls");
 	cout << "Невозможно разместить корабль здесь. Попробуйте снова\n\n";
@@ -277,8 +294,8 @@ void Player::setCoords(int& X, int& Y)
 	getline(cin >> ws, userInput); // Пользователь вводит строку
 	userInput.erase(std::remove(userInput.begin(), userInput.end(), ' '), userInput.end()); // Удаляем из неё пробелы
 
-	Y = (char)userInput[1] - '0'; // Рассматриваем первый ...
-	X = letterTointX((char)userInput[0]); // ... и второй символы, преобразуем их в int
+	X = (char)userInput[1] - '0'; // Рассматриваем первый ...
+	Y = letterTointY((char)userInput[0]); // ... и второй символы, преобразуем их в int
 
 	if (X > 0 && X < 11 && Y > 0 && Y < 11) { x = X; y = Y; } // Если результат в пределах диапозона, тогда всё ок
 	else
@@ -288,7 +305,7 @@ void Player::setCoords(int& X, int& Y)
 		setCoords(X, Y); // Рекурсивно исправляем ошибку, пока не будет введено корректное значение
 	}
 }
-int Player::letterTointX(char letter)
+int Player::letterTointY(char letter)
 {
 	// 'A' = 65  ...  'J' = 74
 	// 'a' = 97  ...  'j' = 106

@@ -97,7 +97,7 @@ protected:
 	string const names[4]{ "Тазик", "Плот", "Шлюпка", "Лодка" };
 
 	inline bool isOutOfLimit(int shipSize) { return limit[shipSize - 1] == 0 ? true : false; }
-	bool isPlaceAvailable(Ship& ship) const;
+	bool isPlaceAvailable(int letterVal, int numberVal, int size, bool horiz);
 	void boundPlace(Ship& ship);
 
 public:
@@ -108,9 +108,9 @@ public:
 // =====================================================================================================
 class Player : public Battlefield
 {
-	vector<Ship> fleet;
-	Ship placeShip(string name, int size, int& lim);
-	int letterTointX(char letter);
+	vector<Ship*> fleet;
+	void placeShip(string name, int size, int& lim);
+	int letterTointY(char letter);
 	void setCoords(int& X, int& Y);
 
 public:
@@ -130,8 +130,8 @@ public:
 
 	void drawFleet(RenderWindow& battleship, float teamStartPosition)
 	{
-		//for (const auto& ship : fleet) ship.drawShip(battleship, teamStartPosition); 
-		fleet[0].drawShip(battleship, teamStartPosition);
+		for (const auto& ship : fleet) ship->drawShip(battleship, teamStartPosition); 
+		//fleet[0].drawShip(battleship, teamStartPosition);
 	}
 
 	
