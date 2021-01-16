@@ -180,25 +180,35 @@ int main()
 	SetConsoleOutputCP(1251);
 	SetConsoleCP(1251);
 
+	
+
+
+
+	Player human;
+	human.menu();
+	
+		
+
+
+
+
+
+
+
+	
+
+
+
+
+	
+
 	RenderWindow battleship(VideoMode((int)x, (int)y), "Battleship!");
+
+	//human.drawFleet(battleship, startOne);
+	kuriBambuk(battleship);
 
 	drawNet(battleship, startOne, startOne, (int)step);
 	drawNet(battleship, startTwo, startOne, (int)step);
-
-
-	
-
-
-
-
-	kuriBambuk(battleship);
-
-
-
-
-	
-
-	
 
 	battleship.display();
 	// Главный цикл приложения: выполняется, пока открыто окно
