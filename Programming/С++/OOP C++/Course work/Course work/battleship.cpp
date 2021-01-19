@@ -67,13 +67,15 @@ void Ship::showInfo() const
 	string alive = isAlive ? "Да" : "Нет";
 	cout << "X: " << x << "\nY: " << y << "\nЕщё в строю: " << alive << " (прочность " << life << "/" << size << ")" << endl;
 }
-void BigShip::showInfo() const
+void Ship::showInfo() const
 {
+	bool isAlive = decksLN.size();
 	string alive = isAlive ? "Да" : "Нет";
-	cout << "X: " << x << "\nY: " << y << "\nЕщё в строю: " << alive << " (прочность " << life << "/" << size << ")" << endl;
 	string sailing = isHorizontal() ? "Вдоль горизонта" : "В горизонт";
+
+	cout << "L: " << x << "\nN: " << y << "\nЕщё в строю: " << alive << " (прочность " << decksLN.size() << ")" << endl;
 	if (isAlive) cout << "Плывёт: " << sailing << endl;
-	else cout << "Куда плыл пока не припыл: " << sailing << endl;
+	else cout << "Куда плыл, пока не припыл: " << sailing << endl;
 }
 void Ship::drawShip(RenderWindow& battleship, float teamStartPosition) const
 {
@@ -139,16 +141,10 @@ bool Battlefield::isPlaceAvailable(int letterVal, int numberVal, int size = 1, b
 }
 void Battlefield::boundPlace(Ship& ship)
 {
-	for (int i = 0; i < 3; i++)
-		for (int j = 0; j < 3; j++) isBound[ship.x + (i - 1)][ship.y + (j - 1)] = i == 1 && j == 1 ? ship.getSize() + 1 : true;
-			
-
-	for (int i = 0; i < ship.getSize(); i++) // В случае корабля с 1 палубой, этот цикл будет пропущен
-		for (int j = 0; j < 3; j++)
-		{
-			if (ship.isHorizontal()) isBound[ship.x + (j - 1)][ship.y + (i + 1)] = j == 1 && i + 1 != ship.getSize() ? ship.getSize() + 1 : true;
-			else isBound[ship.x + (i + 1)][ship.y + (j - 1)] = j == 1 && i + 1 != ship.getSize() ? ship.getSize() + 1 : true;
-		}
+	for (int i = -1; i < ship.getSize() + 1; i++)
+		for (int j = -1; j < 2; j++)
+			// Далее присваиваем полям рядом с кораблём значение 1, а полям корабля значение размера корабля + 1
+			isBound[ship.decksLN[i].L][ship.decksLN[i].N + j] = i >= 0 && i <= ship.getSize() && j == 0 ? ship.getSize() + 1 : true;
 }
 int Battlefield::takeShot(int letterVal, int numberVal)
 {
@@ -282,7 +278,7 @@ void Player::placeShip(string name, int size, int& lim)
 		{
 			
 			lim--;
-			fleet.push_back(BigShip{ x, y, size, horiz });
+			fleet.push_back(Ship{ x, y, size, horiz });
 			boundPlace(fleet[fleet.size() - 1]);
 
 			if (isHuman)

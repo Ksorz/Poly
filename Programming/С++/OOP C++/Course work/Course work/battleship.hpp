@@ -44,67 +44,39 @@ struct ShipID
 
 struct Coords
 {
-	int x;
-	int y;
+	int L, N;
 };
 
 
 
 // =====================================================================================================
-class Ship : public Coords
+class Ship
 {
 
-protected:
-
-	int size;
-	int life = size;
-	bool isAlive = true;
-
-public:
-
-	Ship(int xScale, int yScale, int size = 1) : size(size), Coords{ xScale, yScale } {}
-
-
-	inline int getSize() { return size; }
-	inline virtual bool isHorizontal() const { return true; }
-
-
-	virtual void showInfo() const;
-	virtual void drawShip(RenderWindow& battleship, float teamStartPosition) const;
-};
-// =====================================================================================================
-class BigShip : public Ship
-{
-
-	bool* deckIsOk = new bool[size];
-	
 protected:
 
 	bool horizontal;
-	
-public:
-	
-	BigShip(int xScale, int yScale, int size, bool horiz) : horizontal(horiz), Ship(xScale, yScale, size)
-	{ 
-		for (int i = 0; i < size; i++) deckIsOk[i] = true;
-	}
-	BigShip(const BigShip& other) : horizontal(other.isHorizontal()), Ship(other.x, other.y, other.size) // Конструктор копирования
-	{
-		for (int i = 0; i < other.size; i++) deckIsOk[i] = other.deckIsOk[i];
-	}
-	~BigShip() { delete deckIsOk; }
+	bool isAlive = true;
 
+public:
+	vector<Coords> decksLN;
+
+	Ship(int LScale, int NScale, int size = 1, bool horiz = true) : horizontal(horiz)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			if (horiz) decksLN.push_back(Coords{ LScale, NScale + i });
+			else decksLN.push_back(Coords{ LScale + i, NScale });
+		}
+	}
+	
+
+	inline int getSize() { return decksLN.size(); }
 
 	inline virtual bool isHorizontal() const { return horizontal; }
-
-
 	virtual void showInfo() const;
 	virtual void drawShip(RenderWindow& battleship, float teamStartPosition) const;
 };
-// =====================================================================================================
-
-
-
 // =====================================================================================================
 class Battlefield
 {
