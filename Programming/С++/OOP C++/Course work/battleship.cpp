@@ -91,7 +91,7 @@ void BigShip::drawShip(RenderWindow& battleship, float teamStartPosition) const
 		// И условно изображаем большой корабль относильно его направления (isHorizontal)
 		if (isHorizontal()) rectangle.move(teamStartPosition + (step * (y - 1)) + (step * i), startOne + (step * (x - 1))); // перемещаем
 		else rectangle.move(teamStartPosition + (step * (y - 1)), startOne + (step * (x - 1)) + (step * i)); // перемещаем
-		rectangle.setFillColor(deckIsOk[i] ? Color::Green : Color::Red); // Цвет относительно того, разрушена ли палуба
+		//rectangle.setFillColor(deckIsOk[i] ? Color::Green : Color::Red); // Цвет относительно того, разрушена ли палуба
 		battleship.draw(rectangle);
 	}
 }
@@ -139,17 +139,84 @@ bool Battlefield::isPlaceAvailable(int letterVal, int numberVal, int size = 1, b
 }
 void Battlefield::boundPlace(Ship& ship)
 {
-	for (int i = 0; i < 3; i++)
-		for (int j = 0; j < 3; j++) isBound[ship.x + (i - 1)][ship.y + (j - 1)] = i == 1 && j == 1 ? ship.getSize() + 1 : true;
-			
-
-	for (int i = 0; i < ship.getSize(); i++) // В случае корабля с 1 палубой, этот цикл будет пропущен
-		for (int j = 0; j < 3; j++)
-		{
-			if (ship.isHorizontal()) isBound[ship.x + (j - 1)][ship.y + (i + 1)] = j == 1 && i + 1 != ship.getSize() ? ship.getSize() + 1 : true;
-			else isBound[ship.x + (i + 1)][ship.y + (j - 1)] = j == 1 && i + 1 != ship.getSize() ? ship.getSize() + 1 : true;
-		}
+	for (const auto& deck : ship.decksLN)
+	{
+		for (int i = -1; i < 2; i++)
+			for (int j = -1; j < 2; j++)
+			{
+				if (i == 0 && j == 0) isBound[deck.L + i][deck.N + j] = ship.getSize() + 1;
+				else if (isBound[deck.L + i][deck.N + j] == 0) isBound[deck.L + i][deck.N + j]++;
+			}
+	}
 }
+
+
+void Player::updateShipData(const Coords LN)
+{
+	bool trigg = false;
+	for (auto& ship : fleet)
+	{
+		for (auto& deck : ship->decksLN)
+		{
+			if (deck.L == LN.L && deck.N == LN.N)
+			{
+				//removeShipDeck(ship, LN);
+				trigg = true;
+				break;
+			}
+		}
+		if (trigg) break;
+	}
+
+}
+void Player::removeShipDeck(Ship& ship, const Coords LN)
+{	
+	for (auto it = ship.decksLN.begin(); it != ship.decksLN.end(); ++it) // Идем по палубам корабля
+	{
+		isBound[it._Ptr->L][it._Ptr->N]--; // В этот корабль точно попали, поэтому меняем значения всех палуб
+		if (it._Ptr->L == LN.L && it._Ptr->N == LN.N)
+		{
+			ship.decksLN.erase(it);
+			it--;
+		}
+	}
+	/*for (auto itf = fleet.begin(); itf != fleet.end(); ++itf) // Идём по кораблям флота ...
+	{
+		for (auto itd = itf._Ptr->decksLN.begin(); itd != itf._Ptr->decksLN.end(); ++itd) // Идем по палубам корабля
+		{
+			isBound[itd._Ptr->L][itd._Ptr->N]--; // В этот корабль точно попали, поэтому меняем значения всех палуб
+			if (itd._Ptr->L == LN.L && itd._Ptr->N == LN.N)
+			{
+				ship.decksLN.erase(itd);
+				itd--;
+			}
+		}
+		if (itf._Ptr->decksLN.size() == 0)
+		{
+
+		}
+	}*/
+}
+void Player::removeShipIfDead()
+{
+	for(Ship* ship : fleet)
+		if (ship->decksLN.size() == 0)
+		{
+
+		}
+
+
+	for (auto it = fleet.begin(); it != fleet.end(); ++it)
+	{
+		if (true)
+		{
+			fleet.erase(it);
+			break;
+		}
+	}
+}
+
+
 int Battlefield::takeShot(int letterVal, int numberVal)
 {
 	int result = 0;
@@ -254,7 +321,7 @@ void Player::placeShip(string name, int size, int& lim)
 		setCoords(x, y);
 	}
 	else { x = getRandTen(); y = getRandTen(); } // комп пытается задать координаты
-	
+
 	if (!isPlaceAvailable(x, y))
 	{
 		if (isHuman)
@@ -280,16 +347,16 @@ void Player::placeShip(string name, int size, int& lim)
 
 		if (isPlaceAvailable(x, y, size, horiz)) // Если всё ок и корабль тут разместить можно
 		{
-			
+			BigShip* newShip = new BigShip(x, y, size, horiz);
 			lim--;
-			fleet.push_back(BigShip{ x, y, size, horiz });
-			boundPlace(fleet[fleet.size() - 1]);
+			fleet.push_back(newShip);
+			boundPlace(*newShip);
 
 			if (isHuman)
 			{
-				system("cls"); showSimpleBoundMap(); 
+				system("cls"); showSimpleBoundMap();
 				cout << "На полях (" << (char)(64 + y) << x;
-				for (int i = 1; i < fleet[fleet.size() - 1].getSize(); i++)
+				for (int i = 1; i < newShip->getSize(); i++)
 				{
 					cout << ", ";
 					if (horiz) cout << (char)(64 + y + i) << x;
@@ -309,9 +376,10 @@ void Player::placeShip(string name, int size, int& lim)
 	}
 	if (isPlaceAvailable(x, y, size, true)) // Если всё ок и корабль тут разместить можно
 	{
+		Ship* newShip = new Ship(x, y, size);
 		lim--;
-		fleet.push_back(Ship{ x, y, size });
-		boundPlace(fleet[fleet.size() - 1]);
+		fleet.push_back(newShip);
+		boundPlace(*newShip);
 
 		if (isHuman)
 		{

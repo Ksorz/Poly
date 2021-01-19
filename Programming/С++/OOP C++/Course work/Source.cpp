@@ -217,12 +217,14 @@ int main()
 
 
 
-	Player* human = new Player(true);
+	Player* human = new Player(false);
 	Player* computer = new Player(false);
+	//human->menu();
 
 	computer->InitializeRandomFleet();
-	srand(static_cast<unsigned int>(time(0)));
-	//human->InitializeRandomFleet();
+	//srand(static_cast<unsigned int>(time(0)));
+	human->InitializeRandomFleet();
+
 	//human->showSimpleBoundMap();
 	//human->menu();
 
@@ -254,16 +256,7 @@ int main()
 				else if (event.key.code == Keyboard::Right && ptrPosL < 9) ptrPosL++;
 				else if (event.key.code == Keyboard::Up && ptrPosN > 0) ptrPosN--;
 				else if (event.key.code == Keyboard::Down && ptrPosN < 9) ptrPosN++;
-				else if (event.key.code == Keyboard::Enter)
-				{
-					computer->takeShot(ptrPosL + 1, ptrPosN + 1);
-					
-					
-					for (const auto& ship : computer->fleet) ship.showInfo();
-					computer->showSimpleBoundMap();
-					computer->drawFleet(battleship, startTwo);
-				}
-
+				else if (event.key.code == Keyboard::Enter) computer->takeShot(ptrPosL + 1, ptrPosN + 1);
 		}
 
 		// Установка цвета фона
@@ -273,6 +266,7 @@ int main()
 		
 		drawNet(battleship, startOne, startOne, (int)step);
 		drawNet(battleship, startTwo, startOne, (int)step);
+
 		human->drawFleet(battleship, startOne);
 		computer->drawFleet(battleship, startTwo);
 

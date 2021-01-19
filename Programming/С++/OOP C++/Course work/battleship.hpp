@@ -44,8 +44,7 @@ struct ShipID
 
 struct Coords
 {
-	int x;
-	int y;
+	int L, N;
 };
 
 
@@ -56,14 +55,16 @@ class Ship : public Coords
 
 protected:
 
+	
+
 	int size;
 	int life = size;
 	bool isAlive = true;
 
 public:
 
-	Ship(int xScale, int yScale, int size = 1) : size(size), Coords{ xScale, yScale } {}
-
+	Ship(int LScale, int NScale, int size = 1) : size(size) { decksLN.push_back(Coords{ LScale, NScale }); }
+	vector<Coords> decksLN;
 
 	inline int getSize() { return size; }
 	inline virtual bool isHorizontal() const { return true; }
@@ -76,7 +77,7 @@ public:
 class BigShip : public Ship
 {
 
-	bool* deckIsOk = new bool[size];
+	//bool* deckIsOk = new bool[size];
 	
 protected:
 
@@ -84,15 +85,18 @@ protected:
 	
 public:
 	
-	BigShip(int xScale, int yScale, int size, bool horiz) : horizontal(horiz), Ship(xScale, yScale, size)
+	BigShip(int LScale, int NScale, int size, bool horiz) : horizontal(horiz), Ship(LScale, NScale, size)
 	{ 
-		for (int i = 0; i < size; i++) deckIsOk[i] = true;
+		//for (int i = 0; i < size; i++) deckIsOk[i] = true; // Удалить
+
+		if (horiz) for (int i = 1; i < size; i++) decksLN.push_back(Coords{ LScale + i, NScale });
+		else for (int i = 1; i < size; i++) decksLN.push_back(Coords{ LScale, NScale + i });
 	}
-	BigShip(const BigShip& other) : horizontal(other.isHorizontal()), Ship(other.x, other.y, other.size) // Конструктор копирования
+	/*BigShip(const BigShip& other) : horizontal(other.isHorizontal()), Ship(other.x, other.y, other.size) // Конструктор копирования
 	{
 		for (int i = 0; i < other.size; i++) deckIsOk[i] = other.deckIsOk[i];
 	}
-	~BigShip() { delete deckIsOk; }
+	//~BigShip() { delete deckIsOk; }*/
 
 
 	inline virtual bool isHorizontal() const { return horizontal; }
@@ -119,10 +123,10 @@ protected:
 	inline bool isOutOfLimit(int shipSize) { return limit[shipSize - 1] == 0 ? true : false; }
 	bool isPlaceAvailable(int letterVal, int numberVal, int size, bool horiz);
 	void boundPlace(Ship& ship);
-	
+	void showSimpleBoundMap() const;
 
 public:
-	void showSimpleBoundMap() const;
+
 	Battlefield() { for (int i = 0; i < 12; i++) for (int j = 0; j < 12; j++) isBound[i][j] = 0; }
 
 
@@ -134,7 +138,7 @@ class Player : public Battlefield
 {
 	const bool isHuman;
 
-	
+	vector<Ship*> fleet;
 	void placeShip(string name, int size, int& lim);
 	int letterTointY(char letter);
 	void setCoords(int& X, int& Y);
@@ -146,16 +150,18 @@ class Player : public Battlefield
 public:
 
 	Player(bool hum) : isHuman(hum) {}
-	~Player() {} // СДЕЛАТЬ ДЕСТРУКТОР!
 
-	vector<Ship> fleet;
 	void menu();
 	void initializeFleet(); // Выбор кораблей
 
 	void InitializeRandomFleet(); // 4 COMP
 
 	
-	void drawFleet(RenderWindow& battleship, float teamStartPosition) { for (const auto& ship : fleet) ship.drawShip(battleship, teamStartPosition); }
+	void updateShipData(Coords LN);
+	void removeShipDeck(Ship& ship, const Coords LN);
+	void removeShipIfDead();
+	
+	void drawFleet(RenderWindow& battleship, float teamStartPosition) { for (const auto& ship : fleet) ship->drawShip(battleship, teamStartPosition ); }
 
 
 	
