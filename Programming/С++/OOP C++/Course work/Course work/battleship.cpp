@@ -10,9 +10,6 @@
 
 #include "battleship.hpp"
 
-using namespace std;
-using namespace sf;
-
 void setColor(ConsoleColor text, ConsoleColor background)
 {
 	HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -58,80 +55,40 @@ void drawNet(RenderWindow& battleship, float first, float second, int step)
 
 
 
-
-
-
-
 void Ship::showInfo() const
 {
-	string alive = isAlive ? "Да" : "Нет";
-	cout << "X: " << x << "\nY: " << y << "\nЕщё в строю: " << alive << " (прочность " << life << "/" << size << ")" << endl;
-}
-void Ship::showInfo() const
-{
-	bool isAlive = decksLN.size();
+	bool isAlive = decksPos.size();
 	string alive = isAlive ? "Да" : "Нет";
 	string sailing = isHorizontal() ? "Вдоль горизонта" : "В горизонт";
 
-	cout << "L: " << x << "\nN: " << y << "\nЕщё в строю: " << alive << " (прочность " << decksLN.size() << ")" << endl;
+	cout << name << " (";
+	for (int i = 0; i < getSize(); i++)
+	{
+		cout << (char)(64 + decksPos[i].N) << decksPos[i].L;
+		if(i + 1 != getSize()) cout << ", ";
+	}
+	cout << ") Ещё в строю: " << alive << " (прочность " << decksPos.size() << ")" << endl;
+
 	if (isAlive) cout << "Плывёт: " << sailing << endl;
 	else cout << "Куда плыл, пока не припыл: " << sailing << endl;
 }
 void Ship::drawShip(RenderWindow& battleship, float teamStartPosition) const
 {
-	RectangleShape rectangle(Vector2f(step, step));
-	rectangle.move(teamStartPosition + (step * (y - 1)), startOne + (step * (x - 1))); 
-	rectangle.setFillColor(isAlive ? Color::Green : Color::Red);
-	battleship.draw(rectangle); 
-}
-void BigShip::drawShip(RenderWindow& battleship, float teamStartPosition) const
-{
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < decksPos.size(); i++)
 	{
 		RectangleShape rectangle(Vector2f(step, step));
-		// Здесь задаём смещение относительно стартовой позиции (teamStartPosition) 
-		// И условно изображаем большой корабль относильно его направления (isHorizontal)
-		if (isHorizontal()) rectangle.move(teamStartPosition + (step * (y - 1)) + (step * i), startOne + (step * (x - 1))); // перемещаем
-		else rectangle.move(teamStartPosition + (step * (y - 1)), startOne + (step * (x - 1)) + (step * i)); // перемещаем
-		rectangle.setFillColor(deckIsOk[i] ? Color::Green : Color::Red); // Цвет относительно того, разрушена ли палуба
+		rectangle.move(teamStartPosition + (step * (decksPos[i].N - 1)), startOne + (step * (decksPos[i].L - 1))); // перемещаем
+		rectangle.setFillColor(Color::Green);
 		battleship.draw(rectangle);
 	}
 }
 
 
 
-/*
-bool Battlefield::isPlaceAvailable(Ship& ship) const
-{
-	for (int i = 0; i < 3; i++) // Проверка полей вокруг начальных координат (включая координаты ship)
-		for (int j = 0; j < 3; j++) if (isBound[ship.x + (i - 1)][ship.y + (j - 1)]) return false;
-	
-	// ship.getSize() - 1 -- количество циклов доп. проверок (равно кол-ву доп. палуб)
-	for (int i = 0; i < ship.getSize() - 1; i++) // В случае корабля с 1 палубой, этот цикл будет пропущен
-		for (int j = 0; j < 3; j++)
-		{
-			// Условно проверяем по 3 дополнительных поля на каждую палубу
-			if (ship.isHorizontal()) if (isBound[ship.x + 2][ship.y + (j - 1)]) return false;
-			else if (isBound[ship.x + (j - 1)][ship.y - 2]) return false;
-		}
-	return true;
-}
-bool Battlefield::isPlaceAvailable(Ship& ship) const
-{
-	if (isBound[ship.y][ship.x]) return false;
 
-	for (int i = 1; i < ship.getSize(); i++)
-		{
-			if (ship.isHorizontal()) if (isBound[ship.y][ship.x + i]) return false;
-			else if (isBound[ship.y + i][ship.x]) return false;
-		}
-	return true;
-}
-*/
-
-bool Battlefield::isPlaceAvailable(int letterVal, int numberVal, int size = 1, bool horiz = false)
+bool Battlefield::isPlaceAvailable(int letterVal, int numberVal, int size, bool horiz)
 {
-	if (isBound[letterVal][numberVal] || letterVal < 1 || letterVal > 10 || numberVal < 1 || numberVal > 10) return false;
+	if (map[letterVal][numberVal] || letterVal < 1 || letterVal > 10 || numberVal < 1 || numberVal > 10) return false;
 	if (size > 1)
 	{
 		if (horiz) return isPlaceAvailable(letterVal, numberVal + 1, size - 1, horiz);
@@ -141,33 +98,63 @@ bool Battlefield::isPlaceAvailable(int letterVal, int numberVal, int size = 1, b
 }
 void Battlefield::boundPlace(Ship& ship)
 {
-	for (int i = -1; i < ship.getSize() + 1; i++)
+	int L, N;
+	for (int i = 0; i < ship.getSize(); i++)
+	{
+		L = ship.getDecks()[i].L;
+		N = ship.getDecks()[i].N;
+
+		map[L][N] = ship.getSize() + 1;
 		for (int j = -1; j < 2; j++)
-			// Далее присваиваем полям рядом с кораблём значение 1, а полям корабля значение размера корабля + 1
-			isBound[ship.decksLN[i].L][ship.decksLN[i].N + j] = i >= 0 && i <= ship.getSize() && j == 0 ? ship.getSize() + 1 : true;
+		{
+			if (map[L + 1][N + j] < 1) map[L + 1][N + j] = 1;
+			if (map[L + 0][N + j] < 1) map[L + 0][N + j] = 1;
+			if (map[L - 1][N + j] < 1) map[L - 1][N + j] = 1;
+		}			
+	}
 }
-int Battlefield::takeShot(int letterVal, int numberVal)
+int Battlefield::takeShot(Coords LN) // Возвращает: 0 - (не попал) 1 - (подбил) 2 - (уничтожил) 3 - (ошибочный выстрел в уже уничтоженную клетку)
 {
 	int result = 0;
-	if (isBound[numberVal][letterVal] > 1)
+	if (map[LN.N][LN.L] > 1 && map[LN.N][LN.L] < 6) // Диапозод значаний кораблей
 	{
-		result = 1;
-		isBound[numberVal][letterVal]--;
-
-		if (isBound[numberVal][letterVal] == 1) return 2; // Уничтожен
-		else if (isBound[numberVal][letterVal] == 2);
-
+		result = 1; // подбито
+		if (map[LN.N][LN.L] == 2) result = 2; // уничтожено
 	}
-
-
-
-
-
-
-	//isBound[numberVal][letterVal] = 9;
+	else if (map[LN.N][LN.L] < 2) map[LN.N][LN.L] = 9; // промах
+	else if (map[LN.N][LN.L] > 5) result = 3; // уже стреляли сюда зачем еще стрелять то?
 	return result;
 }
+void Battlefield::showSimpleBoundMap() const
+{
+	setColor(Red, LightCyan);
 
+	cout << "     ";
+	for (int i = 0; i < 10; i++) cout << (char)('A' + i) << "  ";
+	cout << "\n" << setfill(' ') << setw(36) << "\n";
+
+	for (int i = 1; i < 11; i++)
+	{
+		setColor(Red, LightCyan);
+		cout << setfill(' ') << setw(2 - (int)(i / 10)) << i << "   ";
+		setColor(Black, LightCyan);
+		for (int j = 1; j < 11; j++)
+		{
+			if (map[i][j])
+			{
+				if (map[i][j] > 1) setColor(Blue, LightCyan);
+				else setColor(White, LightCyan);
+				cout << map[i][j] - 1 << "  ";
+				setColor(Black, LightCyan);
+			}
+			else cout << map[i][j] << "  ";
+		}
+		if (i != 10) cout << endl;
+	}
+	cout << "\n" << setfill(' ') << setw(36) << "\n";
+	setColor(White, Black);
+	cout << "\n";
+}
 
 
 
@@ -197,7 +184,6 @@ void Player::menu()
 		}
 	}
 }
-// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 void Player::initializeFleet()
 {
 	char choice = '0';
@@ -239,7 +225,22 @@ void Player::initializeFleet()
 		}
 	}
 }
-// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+void Player::InitializeRandomFleet()
+{
+	int size, lim;
+
+	for (int i = 0; i < 4; i++)
+	{
+		size = i + 1;
+		lim = limit[i];
+
+		for (int j = 0; j < lim; j++)
+		{
+			srand(static_cast<unsigned int>(time(0)));
+			placeShip(names[i], size, limit[i]);
+		}
+	}
+}
 void Player::placeShip(string name, int size, int& lim)
 {
 	int x, y;
@@ -324,7 +325,6 @@ void Player::placeShip(string name, int size, int& lim)
 	}
 	return placeShip(name, size, lim);
 }
-// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 void Player::setCoords(int& X, int& Y)
 {
 	string userInput;
@@ -345,66 +345,97 @@ void Player::setCoords(int& X, int& Y)
 		setCoords(X, Y); // Рекурсивно исправляем ошибку, пока не будет введено корректное значение
 	}
 }
-// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 int Player::letterTointY(char letter)
 {
 	return (int)letter - 96 > 0 ? (int)letter - 96 : (int)letter - 64;
 }
-
-
-void Battlefield::showSimpleBoundMap() const
-{
-	setColor(Red, LightCyan);
-
-	cout << "     ";
-	for (int i = 0; i < 10; i++) cout << (char)('A' + i) << "  ";
-	cout << "\n" << setfill(' ') << setw(36) << "\n";
-
-	for (int i = 1; i < 11; i++)
-	{
-		setColor(Red, LightCyan);
-		cout << setfill(' ') << setw(2 - (int)(i / 10)) << i << "   ";
-		setColor(Black, LightCyan);
-		for (int j = 1; j < 11; j++)
-		{
-			if (isBound[i][j])
-			{
-				if(isBound[i][j] > 1) setColor(Blue, LightCyan);
-				else setColor(White, LightCyan);
-				cout << isBound[i][j] - 1 << "  ";
-				setColor(Black, LightCyan);
-			}
-			else cout << isBound[i][j] << "  ";
-		}
-		if (i != 10) cout << endl;
-	}
-	cout << "\n" << setfill(' ') << setw(36) << "\n";
-	setColor(White, Black);
-	cout << "\n";
-}
-
-void Player::InitializeRandomFleet()
-{
-	int size, lim;
-
-	for (int i = 0; i < 4; i++)
-	{
-		size = i + 1;
-		lim = limit[i];
-
-		for (int j = 0; j < lim; j++)
-		{
-			srand(static_cast<unsigned int>(time(0)));
-			placeShip(names[i], size, limit[i]);
-		}
-	}
-}
-
 int Player::getRandTen(int min, int max) const
 {
 	static const double fraction = 1.0 / (static_cast<double>(RAND_MAX) + 1.0);
 	return static_cast<int>(rand() * fraction * (max - min + 1) + min);
 }
+void Player::updateShipData(const Coords LN) // Функцию нужно (и имеет смысл) вызывать только если было попадание в корабль
+{
+	for (auto itShip = getMyFleet().begin(); itShip != getMyFleet().end(); ++itShip) // Перемещаемся по вектору кораблей
+	{
+		for (auto itDeck = itShip->getDecks().begin(); itDeck != itShip->getDecks().end(); ++itDeck) // В каждом корабле по палубам
+		{
+			if (itDeck->L == LN.N && itDeck->N == LN.L) // Если нашли палубу в которую было попадание...
+			{
+				removeShipDeck(*itShip, itDeck, LN); // ... Удаляем её из корабля
+				removeShipIfDead(itShip); // Если это была последняя палуба на корабле, удаляем корабль
+				return; // Функция выполнила свою цель, возвращаемся
+			}
+		}
+	}
+}
+void Player::removeShipDeck(Ship& ship, vector<Coords>::iterator& iterator, const Coords LN)
+{// эта хрень должна работать...
+	getMap()[iterator->L][iterator->N] = 7; // Указываем в ячеёке карты значение подбитой палубы корабля
+	ship.getDamagedDecks().push_back(*iterator);
+	ship.getDecks().erase(iterator); // Удаляем палубу
+	for (auto& deck : ship.getDecks()) getMap()[deck.L][deck.N]--; // Изменяем на карте значения палуб данного корабля (т.к. он стал меньше на 1)
+}
+void Player::removeShipIfDead(vector<Ship>::iterator& iterator)
+{
+	if (iterator->getSize() == 0)
+	{
+		for (auto& deadDeck : iterator->getDamagedDecks())
+		{
+			getMap()[deadDeck.L][deadDeck.N] = 8;
+		}
+		getMyFleet().erase(iterator);
+	}
+
+}
+
+
+
+
+
+void Player::showInfo()
+{
+	cout << "Кораблей: " << getMyFleet().size() << "\n\n";
+
+	for (auto& ship : getMyFleet())
+	{
+		cout << ship.getName() << ". Палуб живо: -" << ship.getSize() << "- ";
+		cout << " (";
+		for (int i = 0; i < ship.getSize(); i++)
+		{
+			cout << (char)(64 + ship.getDecks()[i].N) << ship.getDecks()[i].L;
+			if (i + 1 != ship.getSize()) cout << ", ";
+		}
+		cout << ")\n";
+	}
+}
+
+
+
+
+void Battlefield::drawBattlefield(RenderWindow& battleship, float teamStartPosition) const
+{
+	for (int i = 1; i < 11; i++)
+		for (int j = 1; j < 11; j++)
+		{
+			if (map[i][j] == 7) drawSquare(battleship, teamStartPosition, i, j, Color::Yellow);
+			else if (map[i][j] == 8) drawSquare(battleship, teamStartPosition, i, j, Color::Red);
+			else if (map[i][j] == 9) drawSquare(battleship, teamStartPosition, i, j, Color::Cyan);
+		}
+}
+
+void Battlefield::drawSquare(RenderWindow& battleship, float teamStartPosition, int L, int N, Color color) const
+{
+	RectangleShape rectangle(Vector2f(step, step));
+	rectangle.move(teamStartPosition + step * (N - 1), startOne + step * (L - 1));
+	rectangle.setFillColor(color);
+	battleship.draw(rectangle);
+}
+
+
+
+
+
 
 
 

@@ -7,11 +7,6 @@
 
 #include "battleship.hpp"
 
-using namespace std;
-using namespace sf; 
-
-
-
 void thisIsForExample_SFML()
 {
 	// Устанавливаем 8-й уровень сглаживания
@@ -139,13 +134,13 @@ y = 750; // Масштаб
 	step = y / 15.0f;
 	startOne = step * 3;
 	startTwo = step * 15;
-*/
+
 void kuriBambuk(RenderWindow& battleship)
 {
 	Ship ship1 (3, 5);
-	BigShip ship2 (3, 7, 2, true);
-	BigShip ship3 (10, 8, 3, false);
-	BigShip ship4 (6, 1, 4, true);
+	Ship ship2 (3, 7, 2, true);
+	Ship ship3 (10, 8, 3, false);
+	Ship ship4 (6, 1, 4, true);
 
 	cout << "step == " << step << endl;
 
@@ -176,9 +171,9 @@ void kuriBambuk2(RenderWindow& battleship)
 	vector<Ship*> fleet;
 
 	Ship* ship1 = new Ship(3, 5);
-	BigShip* ship2 = new BigShip(3, 7, 2, true);
-	BigShip* ship3 = new BigShip(10, 8, 3, false);
-	BigShip* ship4 = new BigShip(6, 1, 4, true);
+	Ship* ship2 = new Ship(3, 7, 2, true);
+	Ship* ship3 = new Ship(10, 8, 3, false);
+	Ship* ship4 = new Ship(6, 1, 4, true);
 
 	fleet.push_back(ship1);
 	fleet.push_back(ship2);
@@ -195,15 +190,34 @@ void kuriBambuk2(RenderWindow& battleship)
 	fleet[3]->showInfo();
 	//for (const auto& ship : fleet) ship.drawShip(battleship, startOne);
 }
-
+*/
 
 void bfPtr(RenderWindow& battleship, int stepL, int stepN)
 {
+	int shift = 4;
 
-	RectangleShape bdPointer(Vector2f(step, step));
-	bdPointer.move(startTwo + (step * stepL), startOne + (step * stepN));
-	bdPointer.setFillColor(Color::Yellow);
-	battleship.draw(bdPointer);
+
+	float N = 0.1666666;
+	float n = 0.0666666;
+	float slip = shift > 2 ? N + n * (shift - 3) : 0;
+
+	float aimSlip = step * slip;
+	float aimRadius = step / shift;
+	// step = 100
+	// aimRad 2  3          4          5
+	// aimSli 0  0.1666666  0.2333333  0.29999999
+	CircleShape aim(aimRadius);
+	//aim.setOutlineColor(Color::White);
+	//aim.setOutlineThickness(1);
+
+	aim.move(startTwo + (step * (stepL - 1)) + aimSlip, startOne + (step * (stepN - 1)) + aimSlip);
+	aim.setFillColor(Color::White);
+
+
+	//RectangleShape bdPointer(Vector2f(step, step));
+	//bdPointer.move(startTwo + (step * (stepL - 1)), startOne + (step * (stepN - 1)));
+	//bdPointer.setFillColor(Color::Yellow);
+	battleship.draw(aim);
 }
 
 
@@ -233,7 +247,11 @@ int main()
 	RenderWindow battleship(VideoMode((int)x, (int)y), "Battleship!");
 	
 	int ptrPosL = 0, ptrPosN = 0;
+	Coords aim{ 1, 1 };
+	int shotResult = 0;
 
+	computer->showSimpleBoundMap();
+	computer->showInfo();
 	// Главный цикл приложения: выполняется, пока открыто окно
 	while (battleship.isOpen())
 	{
@@ -250,18 +268,34 @@ int main()
 				// Эта кнопка – стрелка вверх?
 				// if (event.key.code == Keyboard::Up) rotate = true;
 				// Или может стрелка влево?
-				if (event.key.code == Keyboard::Left && ptrPosL > 0) ptrPosL--;
-				else if (event.key.code == Keyboard::Right && ptrPosL < 9) ptrPosL++;
-				else if (event.key.code == Keyboard::Up && ptrPosN > 0) ptrPosN--;
-				else if (event.key.code == Keyboard::Down && ptrPosN < 9) ptrPosN++;
+				if (event.key.code == Keyboard::Left && aim.L > 1) aim.L--;
+				else if (event.key.code == Keyboard::Right && aim.L < 10) aim.L++;
+				else if (event.key.code == Keyboard::Up && aim.N > 1) aim.N--;
+				else if (event.key.code == Keyboard::Down && aim.N < 10) aim.N++;
 				else if (event.key.code == Keyboard::Enter)
 				{
-					computer->takeShot(ptrPosL + 1, ptrPosN + 1);
+					shotResult = computer->takeShot(aim); // 0 - (не попал) 1 - (подбил) 2 - (уничтожил) 3 - (ошибочный выстрел в уже уничтоженную клетку)
+					if (shotResult == 1 || shotResult == 2)
+					{
+						system("cls");
+						computer->updateShipData(aim);
+						computer->showSimpleBoundMap();
+						computer->showInfo();
+					}
+
+					else
+					{
+						system("cls");
+						computer->showSimpleBoundMap();
+						computer->showInfo();
+					}
 					
-					
-					for (const auto& ship : computer->fleet) ship.showInfo();
-					computer->showSimpleBoundMap();
-					computer->drawFleet(battleship, startTwo);
+				}
+				else if (event.key.code == Keyboard::BackSpace)
+				{
+					system("cls");
+					computer->showSimpleBoundMap(); // Почему рисует криво а ?
+					computer->showInfo();
 				}
 
 		}
@@ -269,14 +303,14 @@ int main()
 		// Установка цвета фона
 		battleship.clear(Color::Black);
 
-		bfPtr(battleship, ptrPosL, ptrPosN);
 		
 		drawNet(battleship, startOne, startOne, (int)step);
 		drawNet(battleship, startTwo, startOne, (int)step);
 		human->drawFleet(battleship, startOne);
-		computer->drawFleet(battleship, startTwo);
+		//computer->drawFleet(battleship, startTwo);
+		computer->drawBattlefield(battleship, startTwo);
 
-		bfPtr(battleship, ptrPosL, ptrPosN);
+		bfPtr(battleship, aim.L, aim.N);
 		
 
 		// Отрисовка окна
