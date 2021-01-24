@@ -2,11 +2,13 @@
 using namespace std;
 using namespace sf;
 
-static float y = 450; // Масштаб
+static float y = 750; // Масштаб
 static float x = y * 1.8f;
 static float step = y / 15.0f;
 static float startOne = step * 3;
 static float startTwo = step * 15;
+
+
 //static RenderWindow battleship(VideoMode((int)x, (int)y), "Battleship!");
 
 /*
@@ -16,11 +18,9 @@ static float startTwo = step * 15;
 1) Имеет ли смысл так часто как я использовать inline в классах?
 2) Можно ли сделать так, чтобы Player и Ship (не связанные родственными связями) наследовали один и тот же экземпляр класса Battlefield
 3) Удаление экземпляров класса, имеющих поля const, из вектора приводит к ошибке. Почему? 
+4) Можно ли определить методы класса в файле не приписывая к каждому "ClassName::..."?
 
 */
-
-
-
 
 
 
@@ -44,28 +44,49 @@ enum ConsoleColor
 	Yellow = 14,
 	White = 15
 };
+void setByDefault();
+void menu();
+
+void fastSaveGame();
+void fastLoadGame();
+void theGame();
+
+void bfAim(RenderWindow& battleship, float teamStartPosition, int stepL, int stepN, Texture texture);
+
+void showGameInfo();
+
 void setColor(ConsoleColor text, ConsoleColor background);
 void drawNet(RenderWindow& battleship, float first, float second, int step);
+int rnd(int min = 1, int max = 10); // Возвращает случайное число (по-умолчанию от 1 до 10)
 
 
-
-struct ShipID
-{
-	string name;
-	int number;
-	const int size = 5 - number;
-};
+//
+//struct ShipID
+//{
+//	string name;
+//	int number;
+//	const int size = 5 - number;
+//};
 
 
 
 struct Coords
 {
-	int L, N; // Letter, Number
+	int L = 0;
+	int N = 0; // Letter, Number
+
+	friend ostream& operator<< (ostream& os, const Coords& c)
+	{
+		os << c.L << " " << c.N << "\n";
+		return os;
+	}
+	friend istream& operator>> (istream& is, Coords& c)
+	{
+		is >> c.L >> c.N;
+		return is;
+	}
 };
 
-
-
-// =====================================================================================================
 class Ship
 {
 	string name = "Ведро"; // const string name = "Ведро";
@@ -76,18 +97,16 @@ class Ship
 
 public:
 
-	Ship(int LScale, int NScale, int size = 1, bool horiz = true) : horizontal(horiz)
-	{
-		for (int i = 0; i < size; i++)
-		{
-			if (horiz) decksPos.push_back(Coords{ LScale, NScale + i });
-			else decksPos.push_back(Coords{ LScale + i, NScale });
-		}
-	}
+	Ship() {}
+	Ship(int LScale, int NScale, string name, int size = 1, bool horiz = true);
 	
+	friend ostream& operator<< (ostream& os, const Ship& s);
+	friend istream& operator>> (istream& is, Ship& s);
+
 	inline vector<Coords>& getDecks() { return decksPos; }
 	inline vector<Coords>& getDamagedDecks() { return damaged; }
 	inline int getSize() const { return decksPos.size(); }
+	inline int getDamagedSize() const { return damaged.size(); }
 	inline bool isHorizontal() const { return horizontal; }
 	inline string getName() const { return name; }
 
@@ -100,10 +119,11 @@ public:
 
 class Battlefield
 {
-	int map[12][12]; // заграничные [0] и [11] поля все false (0), к тому же индексы игровых полей удачно 1-10
+	
 
 protected:
 		
+	int map[12][12]; // заграничные [0] и [11] поля все убиты по-умолчанию (9), к тому же индексы игровых полей удачно 1-10
 	int limit[4]{ 4, 3, 2, 1 }; // У каждого игрока свой лимит кораблей
 	string const names[4]{ "Тазик", "Бревно", "Плот", "Шлюпка" }; // Как корабль назовёшь...
 
@@ -113,49 +133,73 @@ protected:
 
 public:
 
-	Battlefield() { for (int i = 0; i < 12; i++) for (int j = 0; j < 12; j++) map[i][j] = 0; }
+	Battlefield();
 
-	inline auto getMap() { return map; } // Да ладно... это работает?
+	friend ostream& operator<< (ostream& os, const Battlefield& bf);
+	friend istream& operator>> (istream& is, Battlefield& bf);
+
+	inline auto& getMap() { return map; }
 	void showSimpleBoundMap() const; // Отобразить консольную карту с размещёнными кораблями
 	int takeShot(Coords LN); // Реакция на выстрел по определённым координатам на карте
 	void drawBattlefield(RenderWindow& battleship, float teamStartPosition) const;
 	void drawSquare(RenderWindow& battleship, float teamStartPosition, int L, int N, Color color) const;
-
 };
-// =====================================================================================================
+
 class Player : public Battlefield
 {
-	const bool isHuman; // Является ли игрок человеком?
+	bool isHuman; // Является ли игрок человеком?
 	vector<Ship> fleet;
+	vector<Coords> aiEvilMemory;
 	
+	
+
 	void placeShip(string name, int size, int& lim); // Разместить корабль
 	int letterTointY(char letter); // Преобразование буквы в численную координату
-	int getRandTen(int min = 1, int max = 10) const; // Возвращает случайное число (по-умолчанию от 1 до 10)
-
+	
 	void setCoords(int& X, int& Y); // Взаимодействие с игроком: задаём координаты
 	void removeShipDeck(Ship& ship, vector<Coords>::iterator& iterator, const Coords LN);
 	void removeShipIfDead(vector<Ship>::iterator& iterator);
+	void aiBoundAroundWhenHit(int map[12][12], Coords shotHere);
+	void aiBoundAroundWhenKill(int map[12][12], Coords shotHere);
+
+	inline int getFleetSize() const { return fleet.size(); }
+	inline int aiMemorySize() const { return aiEvilMemory.size(); }
+
+	Coords aiEvilPlan(int map[12][12]);
 
 public:
 
+	Player() {}
 	Player(bool hum) : isHuman(hum) {}
 
 	inline vector<Ship>& getMyFleet() { return fleet; }
+	inline vector<Coords>& getAiEvilMemory() { return aiEvilMemory; }
 
-	void menu();
+
+
+	friend ostream& operator<< (ostream& os, const Player& p);
+	friend istream& operator>> (istream& is, Player& p);
+
+	
+
+
 	void initializeFleet(); // Выбор кораблей
 	void InitializeRandomFleet(); // 4 COMP
-
-	void updateShipData(const Coords LN);
 	
-	void removeShipIfDead();
+	void updateShipData(const Coords LN);
 
 	void drawFleet(RenderWindow& battleship, float teamStartPosition) { for (const auto& ship : fleet) ship.drawShip(battleship, teamStartPosition); }
 
-	void showInfo();
+	void showInfo(bool hideLocations = false);
+
 	
+	Coords aiAim(int map[12][12]);
 
 	
 };
 // =====================================================================================================
+
+
+
+
 

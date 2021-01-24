@@ -5,7 +5,46 @@
 #include <string>
 #include <Windows.h>
 
+#include <fstream>
+
 #include "battleship.hpp"
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	SetConsoleOutputCP(1251);
+	SetConsoleCP(1251);
+
+	menu();
+	
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void thisIsForExample_SFML()
 {
@@ -96,226 +135,4 @@ void thisIsForExample_SFML()
 		// Отрисовка окна
 		window.display();
 	}
-}
-/*
-void garbage(RenderWindow battleship)
-{
-	// Ширина клетки
-	int w = 32;
-	int gridLogic[10][10];
-	int gridView[10][10];
-	// Загрузка текстуры и создание спрайта
-	Texture t;
-	t.loadFromFile("images/texture.jpg");
-	Sprite s(t);
-
-	for (int i = 1; i <= 10; i++)
-		for (int j = 1; j <= 10; j++)
-		{
-			gridView[i][j] = 10;
-		}
-
-	// Устанавливаем белый фон
-	battleship.clear(Color::White);
-	for (int i = 1; i <= 10; i++)
-		for (int j = 1; j <= 10; j++)
-		{
-			// Вырезаем из спрайта нужный нам квадратик текстуры
-			s.setTextureRect(IntRect(gridView[i][j] * w, 0, w, w));
-			// Устанавливаем его в заданную позицию...
-			s.setPosition(i * w, j * w);
-			// ... и отрисовываем
-			battleship.draw(s);
-		}
-}
-y = 750; // Масштаб
-	x = y * 1.8f;
-
-	step = y / 15.0f;
-	startOne = step * 3;
-	startTwo = step * 15;
-
-void kuriBambuk(RenderWindow& battleship)
-{
-	Ship ship1 (3, 5);
-	Ship ship2 (3, 7, 2, true);
-	Ship ship3 (10, 8, 3, false);
-	Ship ship4 (6, 1, 4, true);
-
-	cout << "step == " << step << endl;
-
-	ship1.showInfo();
-	cout << endl;
-	ship2.showInfo();
-	cout << endl;
-	ship3.showInfo();
-	cout << endl;
-	ship4.showInfo();
-
-
-	ship1.drawShip(battleship, startOne);
-	ship1.drawShip(battleship, startTwo);
-
-	ship2.drawShip(battleship, startOne);
-	ship2.drawShip(battleship, startTwo);
-
-	ship3.drawShip(battleship, startOne);
-	ship3.drawShip(battleship, startTwo);
-
-	ship4.drawShip(battleship, startOne);
-	ship4.drawShip(battleship, startTwo);
-
-}
-void kuriBambuk2(RenderWindow& battleship)
-{
-	vector<Ship*> fleet;
-
-	Ship* ship1 = new Ship(3, 5);
-	Ship* ship2 = new Ship(3, 7, 2, true);
-	Ship* ship3 = new Ship(10, 8, 3, false);
-	Ship* ship4 = new Ship(6, 1, 4, true);
-
-	fleet.push_back(ship1);
-	fleet.push_back(ship2);
-	fleet.push_back(ship3);
-	fleet.push_back(ship4);
-
-	//ship1.drawShip(battleship, startOne);
-	//ship2.drawShip(battleship, startOne);
-	//ship3.drawShip(battleship, startOne);
-	ship4->drawShip(battleship, startTwo);
-	ship4->showInfo();
-
-	fleet[3]->drawShip(battleship, startOne);
-	fleet[3]->showInfo();
-	//for (const auto& ship : fleet) ship.drawShip(battleship, startOne);
-}
-*/
-
-void bfPtr(RenderWindow& battleship, int stepL, int stepN)
-{
-	int shift = 4;
-
-
-	float N = 0.1666666;
-	float n = 0.0666666;
-	float slip = shift > 2 ? N + n * (shift - 3) : 0;
-
-	float aimSlip = step * slip;
-	float aimRadius = step / shift;
-	// step = 100
-	// aimRad 2  3          4          5
-	// aimSli 0  0.1666666  0.2333333  0.29999999
-	CircleShape aim(aimRadius);
-	//aim.setOutlineColor(Color::White);
-	//aim.setOutlineThickness(1);
-
-	aim.move(startTwo + (step * (stepL - 1)) + aimSlip, startOne + (step * (stepN - 1)) + aimSlip);
-	aim.setFillColor(Color::White);
-
-
-	//RectangleShape bdPointer(Vector2f(step, step));
-	//bdPointer.move(startTwo + (step * (stepL - 1)), startOne + (step * (stepN - 1)));
-	//bdPointer.setFillColor(Color::Yellow);
-	battleship.draw(aim);
-}
-
-
-int main()
-{
-	setlocale(LC_ALL, "Russian");
-	SetConsoleOutputCP(1251);
-	SetConsoleCP(1251);
-
-	
-
-
-
-	Player* human = new Player(true);
-	Player* computer = new Player(false);
-
-	computer->InitializeRandomFleet();
-	srand(static_cast<unsigned int>(time(0)));
-	//human->InitializeRandomFleet();
-	//human->showSimpleBoundMap();
-	//human->menu();
-
-	
-
-
-
-	RenderWindow battleship(VideoMode((int)x, (int)y), "Battleship!");
-	
-	int ptrPosL = 0, ptrPosN = 0;
-	Coords aim{ 1, 1 };
-	int shotResult = 0;
-
-	computer->showSimpleBoundMap();
-	computer->showInfo();
-	// Главный цикл приложения: выполняется, пока открыто окно
-	while (battleship.isOpen())
-	{
-		// Обрабатываем события в цикле
-		Event event;
-		while (battleship.pollEvent(event))
-		{
-			if (event.type == Event::Closed)
-				battleship.close();
-
-			
-			// Была ли нажата клавиша на клавиатуре?
-			if (event.type == Event::KeyPressed)
-				// Эта кнопка – стрелка вверх?
-				// if (event.key.code == Keyboard::Up) rotate = true;
-				// Или может стрелка влево?
-				if (event.key.code == Keyboard::Left && aim.L > 1) aim.L--;
-				else if (event.key.code == Keyboard::Right && aim.L < 10) aim.L++;
-				else if (event.key.code == Keyboard::Up && aim.N > 1) aim.N--;
-				else if (event.key.code == Keyboard::Down && aim.N < 10) aim.N++;
-				else if (event.key.code == Keyboard::Enter)
-				{
-					shotResult = computer->takeShot(aim); // 0 - (не попал) 1 - (подбил) 2 - (уничтожил) 3 - (ошибочный выстрел в уже уничтоженную клетку)
-					if (shotResult == 1 || shotResult == 2)
-					{
-						system("cls");
-						computer->updateShipData(aim);
-						computer->showSimpleBoundMap();
-						computer->showInfo();
-					}
-
-					else
-					{
-						system("cls");
-						computer->showSimpleBoundMap();
-						computer->showInfo();
-					}
-					
-				}
-				else if (event.key.code == Keyboard::BackSpace)
-				{
-					system("cls");
-					computer->showSimpleBoundMap(); // Почему рисует криво а ?
-					computer->showInfo();
-				}
-
-		}
-
-		// Установка цвета фона
-		battleship.clear(Color::Black);
-
-		
-		drawNet(battleship, startOne, startOne, (int)step);
-		drawNet(battleship, startTwo, startOne, (int)step);
-		human->drawFleet(battleship, startOne);
-		//computer->drawFleet(battleship, startTwo);
-		computer->drawBattlefield(battleship, startTwo);
-
-		bfPtr(battleship, aim.L, aim.N);
-		
-
-		// Отрисовка окна
-		battleship.display();
-	}
-
-	return 0;
 }
