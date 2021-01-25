@@ -256,8 +256,10 @@ void theGame()
 				}
 				else if (event.key.code == Keyboard::Escape)
 				{
-					fastSaveGame();
+					system("cls");
+					fastSaveGame(); // Закрывая окно - происходит быстрое сохранение ткрущей игры
 					battleship.close();
+					return;
 				}
 		}
 		battleship.clear(Color::White);
@@ -413,11 +415,9 @@ void Ship::showInfo() const
 }
 void Ship::drawShip(RenderWindow& battleship, float teamStartPosition) const
 {
-	for (int i = 0; i < decksPos.size(); i++)
+	for (int i = 0; i < getSize(); i++)
 	{
 		bfAim(battleship, teamStartPosition, decksPos[i].N, decksPos[i].L, texture_ship);
-
-
 	}
 }
 
@@ -694,7 +694,7 @@ void Player::setCoords(int& X, int& Y)
 	else X = (char)userInput[1] - '0'; // Рассматриваем первый ...
 	Y = letterTointY((char)userInput[0]); // ... и второй символы, преобразуем их в int
 
-	if (X > 0 && X < 11 && Y > 0 && Y < 11) { x = X; y = Y; } // Если результат в пределах диапозона, тогда всё ок
+	if (X > 0 && X < 11 && Y > 0 && Y < 11) { x = (float)X; y = (float)Y; } // Если результат в пределах диапозона, тогда всё ок
 	else
 	{
 		system("cls"); showSimpleBoundMap();
